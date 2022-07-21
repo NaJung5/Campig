@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.camping.mapper.EquipMapper">
+	
+
+
+	<select id="getEquipCount" resultType="int"  parameterType="hashmap">
+			<![CDATA[
+		SELECT count(*) FROM 
+		 (SELECT equipments.*  FROM 
+  			(SELECT * FROM equipments ORDER BY num ASC) equipments ${category}
+  			  AND (${brand})
+  			  AND (${fil1})
+  			  AND (${fil2})
+  			  AND (${fil3})
+  			  AND (${fil4})
+  			  AND (${fil5})
+  			  AND (${fil6})
+  			  AND (${fil7})
+  			  AND (${fil8})
+  			  AND (${fil9})
+  			  AND (${fil10})
+  			  AND (${fil11})
+  			  AND (${fil12})
+  			  AND (${title})
+  			) 
+		]]>
+		
+	</select>
+	
+	
+	<select id="getEquipList" resultType="org.camping.model.EquipDTO" parameterType="hashmap">
+	
+		<![CDATA[
+		SELECT * FROM 
+		 (SELECT equipments.* , ROWNUM r FROM 
+  			(SELECT * FROM equipments ORDER BY num ASC) equipments ${category}
+  			  AND (${brand})
+  			  AND (${fil1})
+  			  AND (${fil2})
+  			  AND (${fil3})
+  			  AND (${fil4})
+  			  AND (${fil5})
+  			  AND (${fil6})
+  			  AND (${fil7})
+  			  AND (${fil8})
+  			  AND (${fil9})
+  			  AND (${fil10})
+  			  AND (${fil11})
+  			  AND (${fil12})
+  			  AND (${title})
+  			)  WHERE r >= #{startRow} AND r <= #{endRow}
+		]]>
+		
+	</select>
+	
+	
+	<select id="getEquipListCount" resultType="int" parameterType="hashmap">
+	
+		<![CDATA[
+		SELECT count(*) FROM 
+		 (SELECT equipments.* , ROWNUM r FROM 
+  			(SELECT * FROM equipments ORDER BY num ASC) equipments ${category}
+  			  AND (${brand})
+  			  AND (${fil1})
+  			  AND (${fil2})
+  			  AND (${fil3})
+  			  AND (${fil4})
+  			  AND (${fil5})
+  			  AND (${fil6})
+  			  AND (${fil7})
+  			  AND (${fil8})
+  			  AND (${fil9})
+  			  AND (${fil10})
+  			  AND (${fil11})
+  			  AND (${fil12})
+  			  AND (${title})
+  		)  
+  		WHERE r >= #{startRow} AND r <= #{endRow}
+		]]>
+		
+	</select>
+	
+	
+	
+	<insert id="equipInsert">
+		insert into equipments values (
+			equip_seq.nextval,
+			#{title},
+			#{price},
+			#{score},
+			#{review},
+			#{content},
+			#{image},
+			#{url_name},
+			#{manual},
+			#{category},
+			#{brand},
+			#{fil1},
+			#{fil2},
+			#{fil3},
+			#{fil4},
+			#{fil5},
+			#{fil6},
+			#{fil7},
+			#{fil8},
+			#{fil9},
+			#{fil10},
+			#{fil11},
+			#{fil12},
+			0,
+			sysdate
+		)
+	</insert>
+	
+	<insert id="equipFavoriteInsert"  parameterType="hashmap">
+			insert into favorite values(
+			#{id},
+			#{status},
+			#{num}
+			)
+		
+	</insert>
+	
+	<select id="equipFavoriteCount" resultType="int"  parameterType="hashmap">
+			<![CDATA[
+		SELECT count(*) FROM favorite where 
+		id=#{id} and status=#{status} and num=#{num}
+		]]>
+		
+	</select>
+	
+	<select id="equipFavoriteCnt" resultType="int"  parameterType="hashmap">
+			<![CDATA[
+		SELECT count(*)  FROM favorite where 
+		id=#{id} and status=0 and num=#{num2}
+		]]>
+		
+	</select>
+	
+	<delete id="equipFavoriteDelete"  parameterType="hashmap">
+			DELETE FROM favorite WHERE 
+			id=#{id} 
+			AND status=#{status} 
+			AND num=#{num}
+		
+	</delete>
+	
+	
+	
+</mapper>

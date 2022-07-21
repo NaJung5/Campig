@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.camping.mapper.ProdMapper">
+	<select id="checkFuel" resultType="Integer">
+		select count(*) from spot where name like '%'||#{spot}||'%' and cate like '%r%'
+	</select>
+	
+	<select id="getSearchKey" resultType="org.camping.model.SpotDTO">
+		select * from (select spot.*, rownum r from (select * from spot
+		<where>
+			name like '%'||#{spot}||'%' 
+		</where>
+		order by num) spot)
+		<![CDATA[where r>=#{startRow} and r<=#{endRow}]]>
+	</select>
+	<select id="getCountKey" resultType="Integer">
+		select count(*) from spot 
+		<where>
+			name like '%'||#{spot}||'%' 
+		</where>
+	</select>
+	
+	<select id="recommendFuel1" resultType="org.camping.model.EquipDTO" >
+		select * from equipments where num = 4277
+	</select>
+	<select id="recommendFuel2" resultType="org.camping.model.EquipDTO" >
+		select * from equipments where num = 4219
+	</select>
+	
+	<select id="recomTent1" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from(select * from equipments 
+		<![CDATA[where category = 1 and num <=450 and status =0 and score >= 4.5 and fil8>=1500 and price<=(#{price}*0.34) and (fil7 like '%2%' or fil7 like '%1%') order by score desc) 
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomTent2" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from(select * from equipments 
+		<![CDATA[where category = 1 and num <=450 and status =0 and score >= 4.5 and fil8>=1500 and price<=(#{price}*0.34) and (fil7 like '%3%' or fil7 like '%4%') order by score desc) 
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomTent3" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from(select * from equipments 
+		<![CDATA[where category = 1 and num <=450 and status =0 and score >= 4.5 and fil8>=1500 and price<=(#{price}*0.34) and (fil7 like '%5%' or fil7 like '%6%' or fil7 like '%7%' or fil7 like '%8%' or fil7 like '%9%') order by score desc) 
+		equipments)	where r<=3]]>
+	</select>
+	
+	<select id="recomTaf" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=2 and num<=900 and status=0 and score >=4.5 and price <=(#{price}*0.14) and fil8 >=1500 and fil2 is not null and fil1 like '%스킨%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	
+	<select id="recomSB1" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category = 4 and num<=1899 and status =0 and score >=4.5 and price <= (#{price}*0.1) and fil3 like '여름용' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomSB2" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category = 4 and num<=1899 and status =0 and score >=4.5 and price <= (#{price}*0.1) and fil3 like '겨울용' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomSB3" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category = 4 and num<=1899 and status =0 and score >=4.5 and price <= (#{price}*0.1) and fil3 like '봄/가을용' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomTB" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=5 and num <=2439 and status=0 and score>=4.5 and fil1 like '%테이블%' and price <= (#{price}*0.06) and content like '%롤%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomChair" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=5 and num <=2439 and status=0 and score>=4.5 and fil1 like '%의자%' and price <= (#{price}*0.06) and content like '%컵홀더%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomLight" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments
+		<![CDATA[where category=10 and num <=4869 and status=0 and score>=4.5 and price <= (#{price}*0.05) and fil10>=1500 order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomStove1" resultType="org.camping.model.EquipDTO" >
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=8 and num <=3969 and status=0 and score>=4.5 and price <=(#{price}*0.6) and fil2 = '1' and fil4 like '%유%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomStove2" resultType="org.camping.model.EquipDTO" >
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=8 and num <=3969 and status=0 and score>=4.5 and price <=(#{price}*0.6) and fil2 = '2' and fil4 like '%유%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomWJ1" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=6 and num <= 3069 and status=0 and score>=4.5 and price <=(#{price}*0.08) and fil1 like '아이스박스' and fil9<=15 and fil9>=10  order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomWJ2" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=6 and num <= 3069 and status=0 and score>=4.5 and price <=(#{price}*0.08) and fil1 like '아이스박스' and fil9<=40 and fil9>=15  order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomWJ3" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=6 and num <= 3069 and status=0 and score>=4.5 and price <=(#{price}*0.08) and fil1 like '아이스박스' and fil9<=80 and fil9>=40  order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	<select id="recomMat" resultType="org.camping.model.EquipDTO">
+		select * from (select equipments.*, rownum r from( select * from equipments 
+		<![CDATA[where category=3 and num <=1449 and status=0 and score >=4.5 and price<=(#{price}*0.11) and price>=(#{price}*0.07) and fil1 like '자충식매트' and fil7 = 1 and fil2 like '%텐트내부%' order by score desc)
+		equipments)	where r<=3]]>
+	</select>
+	
+	<select id="checkId" resultType="Integer">
+		select count(*) from checklist where id=#{id} and status !=0
+	</select>
+	<select id="checkStatus" resultType="Integer">
+		select count(*) from checklist where id=#{id} and status=#{status}
+	</select>
+	<insert id="saveChecklist">
+		insert into checklist values (#{id}, #{price}, #{person}, #{season}, #{site}, #{tent}, #{taf}, #{waterjug}, #{stove}, #{light}, #{mat}, #{sb}, #{chair}, #{desk}, #{gas}, #{status}, sysdate)
+	</insert>
+</mapper>

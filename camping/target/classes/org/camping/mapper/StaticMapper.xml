@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.camping.mapper.StaticMapper">
+	
+
+
+	
+	
+	
+	<insert id="pageStatic"  parameterType="hashmap">
+			insert into statics values(
+			#{id},
+			#{page},
+			#{inflow},
+			sysdate,
+			#{endtime},
+			#{device},
+			#{keyword},
+			#{filter}
+									)
+		
+	</insert>
+	
+		<select id="getStarttime" resultType="int"  parameterType="hashmap">
+			<![CDATA[
+		SELECT count(*) FROM STATICS 
+		WHERE STARTTIME = (SELECT STARTTIME FROM
+		(SELECT STARTTIME,endtime FROM STATICS WHERE id = #{id} ORDER BY STARTTIME DESC) 
+		WHERE ROWNUM = 1) 
+		AND STARTTIME > SYSDATE -0.25 
+		AND id = #{id} 
+		AND endtime IS null
+		]]>
+		
+	</select>
+	
+	<update id = "setEndtime"  parameterType="hashmap" >
+	   UPDATE STATICS SET ENDTIME = SYSDATE 
+	   WHERE STARTTIME = (SELECT STARTTIME FROM 
+	   (SELECT STARTTIME,endtime FROM STATICS WHERE id = #{id} ORDER BY STARTTIME DESC) 
+	   WHERE ROWNUM = 1) 
+	   AND STARTTIME > SYSDATE -0.25 
+	   AND id = #{id} 
+	   AND endtime IS null
+	</update>	
+
+	
+		 
+</mapper>
