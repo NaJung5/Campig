@@ -270,7 +270,7 @@ public class MemberController {
 			
 			model.addAttribute("st", service.chlist(id,status));
 			
-			System.out.println("1" + service.review(id, status));
+			
 		return "member/checklist";
 	}
 	@RequestMapping("deleteCh")

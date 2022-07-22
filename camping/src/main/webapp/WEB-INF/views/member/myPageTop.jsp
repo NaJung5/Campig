@@ -13,7 +13,7 @@
 	<div align = "center">
 		<input type="submit"  value="정보수정">
 		<input type="button"  value="작성글 목록" onclick="window.location='/member/myBoard?id=${memId }&writer=${memId}'">
-		<input type="button"  value="체크리스트" onclick="window.location='/member/checklist?id=${memId}'">
+		<input type="button"  value="체크리스트" onclick="window.location='/member/checklist?id=${memId}&status=1'">
 		<input type="button"  value="즐겨찾기" onclick="window.location='/member/favorite?id=${memId}'">
 		<input type="button" value="회원탈퇴" onclick="window.location='/member/deleteForm?id=${memId}'">
 		<input type="button" onclick="location.href='../home'" value="홈으로"/>
