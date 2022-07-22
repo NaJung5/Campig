@@ -11,6 +11,7 @@ import org.camping.model.EquipDTO;
 import org.camping.model.FavoriteDTO;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
+import org.camping.model.ReviewDTO;
 import org.camping.model.SpotCategoryDTO;
 import org.camping.model.SpotDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,8 +152,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public ChecklistDTO reviewEquip(String id, int status) {
-		return mapper.reviewEquip(id, status);
+	public ReviewDTO review(String id, int status) {
+		return mapper.review(id, status);
 	}
 	
 	@Override

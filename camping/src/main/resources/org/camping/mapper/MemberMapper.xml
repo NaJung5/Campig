@@ -17,7 +17,9 @@
 																										 #{ans}, 
 																										 #{car})
 	</insert>
-
+	<insert id = "review">
+		insert into review(id, category, num, score, content, reg) values(#{id}, #{category}, #{num}, #{score}, #{content}, sysdate)
+	</insert>
 	
 	
 	

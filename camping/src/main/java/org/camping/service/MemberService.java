@@ -10,6 +10,7 @@ import org.camping.model.EquipDTO;
 import org.camping.model.FavoriteDTO;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
+import org.camping.model.ReviewDTO;
 import org.camping.model.SpotCategoryDTO;
 import org.camping.model.SpotDTO;
 
@@ -54,7 +55,7 @@ public interface MemberService {
 	public EquipDTO clDesk(String id, int status);
 	public EquipDTO clGas(String id, int status);
 	
-	public ChecklistDTO reviewEquip(String id, int status);
+	public ReviewDTO review(String id, int status);
 
 
 	

@@ -270,7 +270,7 @@ public class MemberController {
 			
 			model.addAttribute("st", service.chlist(id,status));
 			
-			System.out.println("1" + service.reviewEquip(id, status));
+			System.out.println("1" + service.review(id, status));
 		return "member/checklist";
 	}
 	@RequestMapping("deleteCh")
@@ -296,9 +296,9 @@ public class MemberController {
 		model.addAttribute("desk", service.clDesk(id, status));
 		return "member/review";
 	}
-	@RequestMapping("reviewPro")
-	public String review(Model model, ChecklistDTO dto, String id, int status) {
-	
+	@RequestMapping("reviewEquip")
+	public String reviewEquip(Model model, String id, int status) {
+		
 		model.addAttribute("site", service.clSite(id, status));
 		model.addAttribute("tent", service.clTent(id, status));
 		model.addAttribute("taf", service.clTaf(id, status));
@@ -310,6 +310,23 @@ public class MemberController {
 		model.addAttribute("chair", service.clChair(id, status));
 		model.addAttribute("gas", service.clGas(id, status));
 		model.addAttribute("desk", service.clDesk(id, status));
+		return "member/reviewEquip";
+	}
+	@RequestMapping("reviewCamp")
+	public String reviewCamp(Model model, String id, int status) {
+		
+		model.addAttribute("site", service.clSite(id, status));
+
+		return "member/reviewCamp";
+	}
+	@RequestMapping("reviewPro")
+	public String review(Model model, ChecklistDTO dto, String id, int status) {
+	
+		System.out.println(service.review(id, status));
+		service.review(id, status);
+		
+		
+		
 		
 		return "member/reviewPro";
 	}

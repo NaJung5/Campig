@@ -20,7 +20,7 @@
 				<button value = "site">캠핑장 후기 작성</button>
 			</td>
 			<td>
-				<input type = "button" value = "텐트 리뷰" name = "${equip.tent}" />
+				<input type = "button" value = "텐트 리뷰" name = "${equip.tent}"  onclick = "member/reviewCamp"/>
 			</td>
 			<td>
 				<button value = "3">캠핑장 후기 작성</button>
