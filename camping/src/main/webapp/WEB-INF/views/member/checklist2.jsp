@@ -144,6 +144,12 @@
 		</tr>
 	</table>
 </c:if>
+<c:if test = "${st.status  != 2 }">
+	<script>
+		alert("추가 체크리스트 작성이 필요합니다")
+		window.location="/member/checklist?id=${memId}";
+	</script>
 
+</c:if>
 </body>
 </html>

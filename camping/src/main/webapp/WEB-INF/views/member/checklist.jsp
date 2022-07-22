@@ -144,6 +144,11 @@
 		</tr>
 	</table>
 </c:if>
+<c:if test = "${st.status  != 1 }">
+	<div align = "center">
+		<button onclick="window.open('/prod/check?id=${memId}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">추가</button>
+	</div>
+</c:if>
 
 </body>
 </html>

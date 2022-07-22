@@ -20,7 +20,7 @@
 
 	
 	
-
+	
 	<select id = "userCheck" resultType = "int">
 		select count(*) from ACCOUNT where id=#{id} and pw=#{pw} 
 	</select>
@@ -178,6 +178,7 @@
    			where id=#{id} and checklist.status=#{status}
 	</select>
 
+	
 	
 
 	

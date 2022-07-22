@@ -78,6 +78,8 @@ public interface MemberMapper {
 	public EquipDTO clDesk(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clGas(@Param("id")String id, @Param("status")int status);
 	
+	public ChecklistDTO reviewEquip(@Param("id")String id, @Param("status")int status);
+	
 	public int deleteCheck(ChecklistDTO dto);
 	
 	//체크리스트 등록,수정

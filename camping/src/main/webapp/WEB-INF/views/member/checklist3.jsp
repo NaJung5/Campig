@@ -147,8 +147,10 @@
 <c:if test = "${st.status  != 3 }">
 	<script>
 		alert("추가 설문조사 후 확인 가능합니다.");
-		history.go(-1);
+		window.location="/member/checklist?id=${memId}";
 	</script>
 </c:if>
+
+
 </body>
 </html>

@@ -151,6 +151,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public ChecklistDTO reviewEquip(String id, int status) {
+		return mapper.reviewEquip(id, status);
+	}
+	
+	@Override
 	public int deleteCheck(ChecklistDTO dto) {
 		return mapper.deleteCheck(dto);
 	}

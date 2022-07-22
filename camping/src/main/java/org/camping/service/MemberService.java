@@ -54,6 +54,7 @@ public interface MemberService {
 	public EquipDTO clDesk(String id, int status);
 	public EquipDTO clGas(String id, int status);
 	
+	public ChecklistDTO reviewEquip(String id, int status);
 
 
 	
