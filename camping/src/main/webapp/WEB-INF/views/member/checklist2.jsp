@@ -139,11 +139,17 @@
 			<td align = "center">
 				<button onclick="window.open('/prod/check?id=${memId}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">추가</button>
 				<button onclick="window.open('/member/chModify?id=${memId}&status=2', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">수정</button>
-				<button onclick="window.location='deleteCh?id=${memId}&status=2'">삭제</button>
+				<button onclick="window.location='deleteCh?id=${memId}&status=2'">123213삭제하기</button>
 			</td>
 		</tr>
 	</table>
 </c:if>
+<c:if test = "${st.status  != 2 }">
+	<script>
+		alert("추가 체크리스트 작성이 필요합니다")
+		window.location="/member/checklist?id=${memId}";
+	</script>
 
+</c:if>
 </body>
 </html>

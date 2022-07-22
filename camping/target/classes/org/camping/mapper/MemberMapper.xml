@@ -17,10 +17,12 @@
 																										 #{ans}, 
 																										 #{car})
 	</insert>
-
+	<insert id = "review">
+		insert into review(id, category, num, score, content, reg) values(#{id}, #{category}, #{num}, #{score}, #{content}, sysdate)
+	</insert>
 	
 	
-
+	
 	<select id = "userCheck" resultType = "int">
 		select count(*) from ACCOUNT where id=#{id} and pw=#{pw} 
 	</select>
@@ -178,6 +180,7 @@
    			where id=#{id} and checklist.status=#{status}
 	</select>
 
+	
 	
 
 	

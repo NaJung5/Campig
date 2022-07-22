@@ -39,7 +39,7 @@
 					<td align="center" width="300">캠핑장명</td>
 					<td align="center" width="800">주소</td>
 					<td align="center" width="50">별점</td>
-					<td align="center" width="50"><button onclick = "deleteFavo">삭제</button></td>
+					
 				</tr>
 				<c:forEach var = "camplist" items = "${campList}">
 					<tr>
@@ -89,17 +89,18 @@
 <c:if test = "${result == 0 }">
 	<p>좋아요를 표시한 게시글이 없습니다.</p>
 </c:if>	
-
-<c:if test="${count > 0}">
-	<c:if test="${startPage > 10}">
-		<a href="/member/favorite?pageNum=${startPage - 10}&id=${memId}">[이전]</a>
-	</c:if>
-	<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-		<a href="/member/favorite?pageNum=${i}&id=${memId}">[${i}]</a>
-	</c:forEach>
-	<c:if test="${endPage < pageCount}">
-		<a href="/member/favorite?pageNum=${startPage + 10}&id=${memId}">[다음]</a>
-	</c:if>
-</c:if>			
+<div align = "center">
+	<c:if test="${count > 0}">
+		<c:if test="${startPage > 10}">
+			<a href="/member/favorite?pageNum=${startPage - 10}&id=${memId}">[이전]</a>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<a href="/member/favorite?pageNum=${i}&id=${memId}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${endPage < pageCount}">
+			<a href="/member/favorite?pageNum=${startPage + 10}&id=${memId}">[다음]</a>
+		</c:if>
+	</c:if>			
+</div>
 </body>
 </html>

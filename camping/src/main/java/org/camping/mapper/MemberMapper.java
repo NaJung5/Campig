@@ -10,6 +10,7 @@ import org.camping.model.EquipDTO;
 import org.camping.model.FavoriteDTO;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
+import org.camping.model.ReviewDTO;
 import org.camping.model.SpotCategoryDTO;
 import org.camping.model.SpotDTO;
 
@@ -77,6 +78,8 @@ public interface MemberMapper {
 	public EquipDTO clChair(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clDesk(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clGas(@Param("id")String id, @Param("status")int status);
+	
+	public ReviewDTO review(@Param("id")String id, @Param("status")int status);
 	
 	public int deleteCheck(ChecklistDTO dto);
 	

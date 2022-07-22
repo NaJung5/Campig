@@ -269,12 +269,66 @@ public class MemberController {
 
 			
 			model.addAttribute("st", service.chlist(id,status));
+			
+			
 		return "member/checklist";
 	}
 	@RequestMapping("deleteCh")
-	public String deleteCh(ChecklistDTO dto) {
+	public String deleteCh(ChecklistDTO dto, Model model, String id, int status) {
+		model.addAttribute("st", service.chlist(id,status));
 		service.deleteCheck(dto);
 		return "member/deleteCh";
+	}
+
+	@RequestMapping("review")
+	public String review(Model model, String id, int status) {
+		
+		model.addAttribute("site", service.clSite(id, status));
+		model.addAttribute("tent", service.clTent(id, status));
+		model.addAttribute("taf", service.clTaf(id, status));
+		model.addAttribute("waterjug", service.clWaterjug(id, status));
+		model.addAttribute("stove", service.clStove(id, status));
+		model.addAttribute("light", service.clLight(id, status));
+		model.addAttribute("mat", service.clMat(id, status));
+		model.addAttribute("sb", service.clSb(id, status));
+		model.addAttribute("chair", service.clChair(id, status));
+		model.addAttribute("gas", service.clGas(id, status));
+		model.addAttribute("desk", service.clDesk(id, status));
+		return "member/review";
+	}
+	@RequestMapping("reviewEquip")
+	public String reviewEquip(Model model, String id, int status) {
+		
+		model.addAttribute("site", service.clSite(id, status));
+		model.addAttribute("tent", service.clTent(id, status));
+		model.addAttribute("taf", service.clTaf(id, status));
+		model.addAttribute("waterjug", service.clWaterjug(id, status));
+		model.addAttribute("stove", service.clStove(id, status));
+		model.addAttribute("light", service.clLight(id, status));
+		model.addAttribute("mat", service.clMat(id, status));
+		model.addAttribute("sb", service.clSb(id, status));
+		model.addAttribute("chair", service.clChair(id, status));
+		model.addAttribute("gas", service.clGas(id, status));
+		model.addAttribute("desk", service.clDesk(id, status));
+		return "member/reviewEquip";
+	}
+	@RequestMapping("reviewCamp")
+	public String reviewCamp(Model model, String id, int status) {
+		
+		model.addAttribute("site", service.clSite(id, status));
+
+		return "member/reviewCamp";
+	}
+	@RequestMapping("reviewPro")
+	public String review(Model model, ChecklistDTO dto, String id, int status) {
+	
+		System.out.println(service.review(id, status));
+		service.review(id, status);
+		
+		
+		
+		
+		return "member/reviewPro";
 	}
 	
 	@RequestMapping("checklist2")

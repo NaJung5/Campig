@@ -64,19 +64,20 @@
 		history.go(-1)
 	</script>
 </c:if>	
-
-<c:if test="${count > 0}">
-	<c:if test="${startPage > 10}">
-		<a href="/member/favorite?pageNum=${startPage - 10}&id=${memId}">[이전]</a>
-	</c:if>
-	
-	<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-		<a href="/member/favorite?pageNum=${i}&id=${memId}">[${i}]</a>
-	</c:forEach>
-	
-	<c:if test="${endPage < pageCount}">
-		<a href="/member/favorite?pageNum=${startPage + 10}&id=${memId}">[다음]</a>
-	</c:if>
-</c:if>			
+<div align = "center">
+	<c:if test="${count > 0}">
+		<c:if test="${startPage > 10}">
+			<a href="/member/favorite?pageNum=${startPage - 10}&id=${memId}">[이전]</a>
+		</c:if>
+		
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<a href="/member/favorite?pageNum=${i}&id=${memId}">[${i}]</a>
+		</c:forEach>
+		
+		<c:if test="${endPage < pageCount}">
+			<a href="/member/favorite?pageNum=${startPage + 10}&id=${memId}">[다음]</a>
+		</c:if>
+	</c:if>			
+</div>
 </body>
 </html>
