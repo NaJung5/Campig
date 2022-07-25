@@ -309,8 +309,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("reviewPro")
-	public String review(ReviewDTO dto,HttpSession session, String id, int num) {
-		
+	public String review(ReviewDTO dto,HttpSession session, String id, int num, int status, Model model) {
+		model.addAttribute("st", service.chlist(id,status));
 		service.review(dto);
 		service.reviewEquip(num);
 		return "member/reviewPro";

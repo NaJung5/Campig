@@ -8,10 +8,10 @@
 </head>
 
 <script>
-	
+	alert("리뷰를 작성해주세요");
 </script>
 <body>
-<form action = "reviewPro" method = "post">
+<form  method = "post">
 	<table>
 		<tr>
 			<td>
@@ -51,6 +51,11 @@
 			</td>
 			<td>
 				<a href = "/member/review2?id=${memId}&category=11&status=${st.status}">연료</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button onclick="window.location='/member/deleteCh?id=${memId}&status=${st.status}'">삭제</button>
 			</td>
 		</tr>
 	</table>

@@ -12,10 +12,6 @@
 <script>
 
 	alert("삭제되었습니다.");
-	
-	alert("리뷰를 작성해주세요");
-	window.open("/member/review?id=${memId}&status=${st.status}","review","toolbar=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=900, left=0, top=0" );
-	 
 	window.location="/member/myPage?id=${memId}";
 	
 </script>
