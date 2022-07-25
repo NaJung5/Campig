@@ -125,7 +125,7 @@
 		select count(*) from checklist where id=#{id} and status=#{status}
 	</select>
 	
-	<select id = "clSite" resultType = "org.camping.model.ChecklistDTO">
+	<select id = "clSite" resultType = "org.camping.model.SpotDTO">
 		select * from spot inner join checklist on spot.num = checklist.site
    			where id=#{id} and checklist.status=#{status}
 	</select>
@@ -180,8 +180,7 @@
    			where id=#{id} and checklist.status=#{status}
 	</select>
 
-	
-	
+
 
 	
 
@@ -231,6 +230,10 @@
 		
 	<update id = "deleteCheck">
 		update checklist set status='0' where id=#{id} and status=#{status} 
+	</update>
+	
+	<update id = "reviewEquip">
+		update equipments set review=review+1 where num=#{num} 
 	</update>
 	
 	<delete id="deleteFavo" >

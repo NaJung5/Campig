@@ -43,7 +43,7 @@ public interface MemberService {
 	public ChecklistDTO chlist(String id, int status);
 	public int chlist2(String id, int status);
 	
-	public ChecklistDTO clSite(String id, int status);
+	public SpotDTO clSite(String id, int status);
 	public EquipDTO clTent(String id, int status);
 	public EquipDTO clTaf(String id, int status);
 	public EquipDTO clWaterjug(String id, int status);
@@ -55,7 +55,8 @@ public interface MemberService {
 	public EquipDTO clDesk(String id, int status);
 	public EquipDTO clGas(String id, int status);
 	
-	public ReviewDTO review(String id, int status);
+	public void review(ReviewDTO dto);
+	public void reviewEquip(int num);
 
 
 	

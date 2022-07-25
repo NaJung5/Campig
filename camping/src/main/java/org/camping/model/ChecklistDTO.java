@@ -23,4 +23,5 @@ public class ChecklistDTO {
 	private int gas;		// 연료 번호
 	private int status;		// 체크리스트 상태
 	private Date reg;		// 작성일
+	private int category;
 }
