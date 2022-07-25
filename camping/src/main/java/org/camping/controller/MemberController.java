@@ -285,6 +285,20 @@ public class MemberController {
 	@RequestMapping("review")
 	public String review(Model model, String id, int status) {
 		int category = 0;
+		model.addAttribute("site", service.clSite(id, status));
+		model.addAttribute("site", service.clSite(id, status));
+		model.addAttribute("tent", service.clTent(id, status));
+		model.addAttribute("taf", service.clTaf(id, status));
+		model.addAttribute("waterjug", service.clWaterjug(id, status));
+		model.addAttribute("stove", service.clStove(id, status));
+		model.addAttribute("light", service.clLight(id, status));
+		model.addAttribute("mat", service.clMat(id, status));
+		model.addAttribute("sb", service.clSb(id, status));
+		model.addAttribute("chair", service.clChair(id, status));
+		model.addAttribute("gas", service.clGas(id, status));
+		model.addAttribute("desk", service.clDesk(id, status));
+		model.addAttribute("st", service.chlist(id,status));
+		model.addAttribute("category", category);
 		model.addAttribute("st", service.chlist(id,status));
 		return "member/review";
 	}
@@ -312,7 +326,15 @@ public class MemberController {
 	public String review(ReviewDTO dto,HttpSession session, String id, int num, int status, Model model) {
 		model.addAttribute("st", service.chlist(id,status));
 		service.review(dto);
-		service.reviewEquip(num);
+		int reCountEq = service.reCountEq(num);
+		int reCountCamp = service.reCountCamp(num);
+		if(reCountEq >= 1) {			
+			service.reviewEquip(reCountEq);
+		}
+		if(reCountCamp >= 1) {
+			service.reviewCamp(reCountCamp);
+		}
+		
 		return "member/reviewPro";
 	}
 	

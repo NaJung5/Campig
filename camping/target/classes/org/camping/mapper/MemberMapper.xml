@@ -179,7 +179,13 @@
 		select * from equipments inner join checklist  on equipments.num = checklist.gas
    			where id=#{id} and checklist.status=#{status}
 	</select>
-
+	<select id = "reCountEq">
+		select count(*) from review where num=#{num} and category='0'
+	</select>
+	<select id = "reCountCamp">
+		select count(*) from review where num=#{num} and category='1'
+	</select>
+	
 
 
 	
@@ -233,7 +239,10 @@
 	</update>
 	
 	<update id = "reviewEquip">
-		update equipments set review=review+1 where num=#{num} 
+		update equipments set review=#{reCountEq} where num=#{num} 
+	</update>
+	<update id = "reviewCamp">
+		update equipments set review=#{reCountCamp} where num=#{num} 
 	</update>
 	
 	<delete id="deleteFavo" >

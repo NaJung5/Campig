@@ -56,8 +56,10 @@ public interface MemberService {
 	public EquipDTO clGas(String id, int status);
 	
 	public void review(ReviewDTO dto);
-	public void reviewEquip(int num);
-
+	public int reCountEq(int num);
+	public int reCountCamp(int num);
+	public void reviewEquip(int reCountEq);
+	public void reviewCamp(int reCountCamp);
 
 	
 	
