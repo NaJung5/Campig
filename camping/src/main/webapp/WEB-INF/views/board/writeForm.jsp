@@ -7,10 +7,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>글쓰기</title>
+		
 		<script language="JavaScript" src="/resources/js/script.js" charset="UTF-8" ></script>
+	
 	</head>
+	
 	<body>
-		<center><b>글쓰기</b></center>
+		<center><b>글쓰기 </b></center>
 		<form name="writeform" action="/board/writePro" method="post" onsubmit="return writeSave()" enctype="multipart/form-data" >
 			<input type="hidden" name="boardnum" value="${ boardDTO.boardnum }">
 		
@@ -24,7 +27,8 @@
 							<option value="3">캠핑 요리</option>
 							<option value="4">질문</option>
 							<option value="5">팁</option>
-							<option value="6">건의사항</option>      
+							<option value="6">건의사항</option>
+							<option value="7">공지사항</option>       
 			         	</select>
 			         		<c:if test="${category == 1}">
 			         			캠핑장 후기
@@ -44,6 +48,9 @@
 			         		<c:if test="${category == 6}">
 			         			건의사항
 			         		</c:if>
+			         		<c:if test="${category == 7}">
+			         			공지사항
+			         		</c:if>
 			        </td>
 				</tr>
 		  		<tr>
@@ -55,8 +62,14 @@
 		  		<tr>
 					<td width="100" align="center">작성자</td>
 					<td>
-						${sessionScope.memId}
-						<input type="hidden" name="writer" value="${sessionScope.memId}">
+						<c:if test="${memId != null}">
+							${nick}
+						<input type="hidden" name="writer" value="${nick}">
+						</c:if>
+						<c:if test="${adId !=null}">
+							${sessionScope.adId}
+						<input type="hidden" name="writer" value="${sessionScope.adId}">
+						</c:if>
 					</td>
 				</tr>
 		  		<tr>
@@ -81,7 +94,6 @@
 		 			<td colspan=2 align="center"> 
 		  				<input type="submit" value="등록" >  
 		 				<input type="reset" value="다시 쓰기">
-		  				<input type="button" value="전체 글 목록 보기" onclick="window.location='/board/list'">
 					</td>
 				</tr>
 			</table>

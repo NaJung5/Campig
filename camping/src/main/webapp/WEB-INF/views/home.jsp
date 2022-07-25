@@ -61,7 +61,7 @@
              		<input type="submit"  value="로그아웃">
              		<input type="button" value="회원정보변경" onclick="window.location='/member/myPage?id=${memId}'">
              		<input type="button" value="장비홈" onclick="window.location='/equip/main?id=${memId}'">
-             		<input type="button" value="게시판 목록" onclick="window.location='/board/list?id=${memId}'">
+             		<input type="button" value="게시판 목록" onclick="window.location='/board/notice?category=7'">
              		<input type="button" value="캠핑장 찾기" onclick="window.location='/spot/info'">
              		<input type="button" value="체크리스트작성" onclick="window.location='/prod/check?id=${memId}'">
              	</form>

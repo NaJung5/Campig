@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script>
+	alert("리뷰 작성이 완료되었습니다.");
+	history.go(-2);
+</script>
 
 </body>
 </html>

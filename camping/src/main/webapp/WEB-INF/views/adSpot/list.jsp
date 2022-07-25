@@ -15,7 +15,6 @@
 				<th>이름</th>
 				<th>연락처</th>
 				<th>주소</th>	
-				<th>상태</th>
 				<th>등록일</th>
 				<th>수정</th>
 				<th>삭제</th>		
@@ -30,16 +29,17 @@
 						<td>${list.name}</td>
 						<td>${list.phone}</td>
 						<td>${list.addr}</td>
-						<td>${list.status}</td>
 						<td>${list.reg}</td>
 						<td><input type="button" value="수정" onclick="window.location='/adSpot/modify?num=${list.num}'" /></td>
 						<td>
-							<form action="/adSpot/delete" >
-								<select name="status">
-									<option value="0">활성</option>
-									<option value="1">비활성</option>
+							<form action="/adSpot/delete" method="post" >
+								<select name="status" >
+									<option value="0" <c:if test="${list.status==0}" >selected="selected"</c:if>>활성</option>
+									<option value="1" <c:if test="${list.status==1}" >selected="selected"</c:if>>비활성</option>
 								</select>
-								<input type="submit" value="적용"/>
+								<input type="hidden" name="num" value="${list.num}" />
+								<input type="hidden" name="pageNum" value="${pageNum}" />
+								<input type="submit" value="적용" />
 							</form>
 						</td>
 					</tr>	
@@ -61,5 +61,9 @@
 		</c:if>
 		<!-- 캠핑장 등록 이동 -->
 		<input type="button" value="캠핑장등록" onclick="window.location='/adSpot/insert'" />
+		<!-- 미디어 등록 이동 -->
+		<input type="button" value="미디어등록" onclick="window.location='/adSpot/insertMedia'" />
+		<!-- 미디어 등록 이동 -->
+		<input type="button" value="미디어관리" onclick="window.open('/adSpot/mediaList', '/adSpot/mediaList', 'width=400, height=300')" />
 	</body>
 </html>

@@ -884,7 +884,42 @@ public class SpotController {
 	}
 	// 미디어 나온 리스트
 	@RequestMapping("media")
-	public String Media() {
+	public String Media(Model model, String pageNum) {
+		// 한 화면에 나타날 캠핑장 수 
+		if(pageNum == null) pageNum = "1";
+		int pageSize = 4;
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize+1 ;
+		int endRow = (currentPage) * pageSize ;
+		int count = 0;
+		count = service.getMediaCount();
+		// 페이징 처리를 위한 변수들
+		List<SpotDTO> list = null;
+		int pageCount = 0;
+		int pageBlock = 10;
+		int startPage = 0;
+		int endPage = 0;
+		if(count >0) {
+			list = service.getMedia(startRow, endRow);
+			pageCount = count / pageSize + (count%pageSize ==0 ? 0 : 1);
+			startPage = (int)((currentPage / pageBlock)*pageBlock +1);
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount) {
+				endPage = pageCount;
+			}
+		}
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		model.addAttribute("count", count);
+		model.addAttribute("list", list);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("pageBlock", pageBlock);
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("endPage",endPage);
+		
 		return "spot/media";
 	}
 	//캠핑장 정보

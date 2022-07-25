@@ -5,7 +5,7 @@
     
 <html>
 	<body>
-		<center><b>캠핑장 게시판(전체 글:${count})</b></center>
+		<center><b>캠핑장 후기 (전체 글:${count})</b></center>
 		
 			<c:if test="${count == 0}">
 				<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
@@ -33,9 +33,24 @@
 							<td align="center">
 								${board.boardnum}
 							</td>
-				    		<td align="center" width="80">
-				    			${board.category}
-				    		</td>
+							<c:if test="${board.category == 1}">
+								<td align="center" width="80">캠핑장 후기</td>			         			
+				         	</c:if>
+				         	<c:if test="${board.category == 2}">
+				         		<td align="center" width="80">장비 후기</td>
+				         	</c:if>
+				         	<c:if test="${board.category == 3}">
+				         		<td align="center" width="80">캠핑 요리</td>
+				         	</c:if>
+				         	<c:if test="${board.category == 4}">
+				         		<td align="center" width="80">질문</td>
+				         	</c:if>
+				         	<c:if test="${board.category == 5}">
+				         		<td align="center" width="80">팁</td>
+				         	</c:if>
+				         	<c:if test="${board.category == 6}">
+				         		<td align="center" width="80">건의사항</td>
+				         	</c:if>
 				    		<td align="center" width="250" >  	    
 				      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}">
 				           			${board.title}

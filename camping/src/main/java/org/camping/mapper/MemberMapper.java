@@ -67,7 +67,7 @@ public interface MemberMapper {
 	public ChecklistDTO chlist(@Param("id")String id, @Param("status")int status);
 	public int chlist2(@Param("id")String id, @Param("status")int status);
 	
-	public ChecklistDTO clSite(@Param("id")String id, @Param("status")int status);
+	public SpotDTO clSite(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clTent(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clTaf(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clWaterjug(@Param("id")String id, @Param("status")int status);
@@ -79,7 +79,8 @@ public interface MemberMapper {
 	public EquipDTO clDesk(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clGas(@Param("id")String id, @Param("status")int status);
 	
-	public ReviewDTO review(@Param("id")String id, @Param("status")int status);
+	public void review(ReviewDTO dto);
+	public void reviewEquip(@Param("num")int num);
 	
 	public int deleteCheck(ChecklistDTO dto);
 	

@@ -107,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	@Override
-	public ChecklistDTO clSite(String id, int status) {
+	public SpotDTO clSite(String id, int status) {
 		return mapper.clSite(id, status);
 	}
 	@Override
@@ -152,8 +152,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public ReviewDTO review(String id, int status) {
-		return mapper.review(id, status);
+	public void review(ReviewDTO dto) {
+		 mapper.review(dto);
+	}
+	
+	@Override
+	public void reviewEquip(int num) {
+		mapper.reviewEquip(num);
 	}
 	
 	@Override

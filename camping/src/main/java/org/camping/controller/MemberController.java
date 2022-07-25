@@ -15,6 +15,7 @@ import org.camping.model.EquipDTO;
 import org.camping.model.FavoriteDTO;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
+import org.camping.model.ReviewDTO;
 import org.camping.model.SpotCategoryDTO;
 import org.camping.model.SpotDTO;
 import org.camping.service.MemberService;
@@ -255,6 +256,7 @@ public class MemberController {
 		
 		int status = 1;
 			System.out.println(service.clTent(id, status));
+			System.out.println(service.clSite(id, status));
 			model.addAttribute("site", service.clSite(id, status));
 			model.addAttribute("tent", service.clTent(id, status));
 			model.addAttribute("taf", service.clTaf(id, status));
@@ -282,23 +284,13 @@ public class MemberController {
 
 	@RequestMapping("review")
 	public String review(Model model, String id, int status) {
-		
-		model.addAttribute("site", service.clSite(id, status));
-		model.addAttribute("tent", service.clTent(id, status));
-		model.addAttribute("taf", service.clTaf(id, status));
-		model.addAttribute("waterjug", service.clWaterjug(id, status));
-		model.addAttribute("stove", service.clStove(id, status));
-		model.addAttribute("light", service.clLight(id, status));
-		model.addAttribute("mat", service.clMat(id, status));
-		model.addAttribute("sb", service.clSb(id, status));
-		model.addAttribute("chair", service.clChair(id, status));
-		model.addAttribute("gas", service.clGas(id, status));
-		model.addAttribute("desk", service.clDesk(id, status));
+		int category = 0;
+		model.addAttribute("st", service.chlist(id,status));
 		return "member/review";
 	}
-	@RequestMapping("reviewEquip")
-	public String reviewEquip(Model model, String id, int status) {
-		
+	@RequestMapping("review2")
+	public String reviewEquip(Model model, String id, int status, int category) {
+		model.addAttribute("site", service.clSite(id, status));
 		model.addAttribute("site", service.clSite(id, status));
 		model.addAttribute("tent", service.clTent(id, status));
 		model.addAttribute("taf", service.clTaf(id, status));
@@ -310,24 +302,17 @@ public class MemberController {
 		model.addAttribute("chair", service.clChair(id, status));
 		model.addAttribute("gas", service.clGas(id, status));
 		model.addAttribute("desk", service.clDesk(id, status));
-		return "member/reviewEquip";
+		model.addAttribute("st", service.chlist(id,status));
+		model.addAttribute("category", category);
+		System.out.println(service.clTent(id, status));
+		return "member/review2";
 	}
-	@RequestMapping("reviewCamp")
-	public String reviewCamp(Model model, String id, int status) {
-		
-		model.addAttribute("site", service.clSite(id, status));
 
-		return "member/reviewCamp";
-	}
 	@RequestMapping("reviewPro")
-	public String review(Model model, ChecklistDTO dto, String id, int status) {
-	
-		System.out.println(service.review(id, status));
-		service.review(id, status);
-		
-		
-		
-		
+	public String review(ReviewDTO dto,HttpSession session, String id, int num, int status, Model model) {
+		model.addAttribute("st", service.chlist(id,status));
+		service.review(dto);
+		service.reviewEquip(num);
 		return "member/reviewPro";
 	}
 	

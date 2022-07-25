@@ -3,6 +3,7 @@ package org.camping.controller;
 import java.util.List;
 
 import org.camping.model.SpotDTO;
+import org.camping.model.SpotMediaDTO;
 import org.camping.service.AdSpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,8 +80,23 @@ public class AdSpotController {
 	}
 	
 	@RequestMapping("delete")
-	public String DeletePro() {
+	public String DeletePro(Model model, int num, int status, int pageNum) {
+		service.deletSpot(status, num);
+		model.addAttribute("pageNum", pageNum);
 		return "adSpot/deletePro";
 	}
 	
+	@RequestMapping("insertMedia")
+	public String insertMedia() {
+		return "adSpot/mediaInsertForm";
+	}
+	@RequestMapping("mediaPro")
+	public String mediaPro(SpotMediaDTO dto) {
+		service.addMedia(dto);
+		return "adSpot/mediaInsertPro";
+	}
+	@RequestMapping("mediaList")
+	public String mediaList() {
+		return "adSpot/medialist";
+	}
 }

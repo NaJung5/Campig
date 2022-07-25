@@ -48,4 +48,9 @@ public interface ProdMapper {
 	public int checkId(String id);
 	// 체크리스트 등록
 	public int saveChecklist(ChecklistDTO dto);
+	
+	// 개인 설문 답 생성
+	public String getAns3(String id);
+	public String getAns4(String id);
+	public String getAns5(String id);
 }
