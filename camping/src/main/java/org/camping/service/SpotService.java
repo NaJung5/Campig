@@ -47,6 +47,10 @@ public interface SpotService {
 	public List<SpotDTO> getRiverList(int startRow, int endRow);
 	// 강 카운트
 	public int getRiverCount();
+	// 미디어 리스트
+	public List<SpotDTO> getMedia(int startRow, int endRow); 
+	// 미디어 카운트
+	public int getMediaCount();
 	
 	// 캠핑장 정보 출력
 	public SpotDTO getContent(int num);

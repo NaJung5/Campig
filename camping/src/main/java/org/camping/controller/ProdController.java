@@ -22,6 +22,15 @@ public class ProdController {
 	public String Check(String id, Model model) {
 		int result = 0;
 		result = service.checkId(id);
+		String season = service.getAns3(id);
+		String person = service.getAns4(id);
+		String equip = service.getAns5(id);
+		String[] equipments = equip.split(",");
+		
+		model.addAttribute("season", season);
+		model.addAttribute("person", person);
+		model.addAttribute("equipments", equip);
+		
 		model.addAttribute("result", result);
 		return "prod/check1";
 	}

@@ -45,6 +45,11 @@
 	</insert>
 	
 	
+	<select id="findNickname" resultType="String" >
+		select nickname from account where id=#{id}
+	</select>
+	
+	
 	<select id="categoryCheck" resultType="org.camping.model.BoardDTO">
 		<![CDATA[
 			SELECT * FROM 
@@ -79,15 +84,16 @@
 	</update>
 	
 	
-	
-	
-	
 	<update id="updateBoard">
 		update board set category=#{category}, title=#{title}, content=#{content}, image=#{image}, password=#{password} where boardnum=#{boardnum}
 	</update>
 	
+	<update id="deleteStatus">
+		update board set status='1' where writer=#{writer} and boardnum=#{boardnum} 
+	</update>
 	
-	<delete id="deleteBoard" >
+	
+	<delete id="deleteBoard">
 		delete from board where boardnum=#{boardnum} and writer=#{writer}
 	</delete>
 	
@@ -97,12 +103,12 @@
 	</select>
 	
 	
-	<delete id="sgdeleteBoard" >
+	<delete id="sgDeleteBoard" >
 		delete from board where boardnum=#{boardnum} and password=#{password}
 	</delete>
 	
 		
-	<select id="sgdelete" resultType="int">
+	<select id="sgDelete" resultType="int">
 		select count(*) from board where boardnum=#{boardnum} and password=#{password}
 	</select>
 	

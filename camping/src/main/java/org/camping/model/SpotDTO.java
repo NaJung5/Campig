@@ -29,4 +29,5 @@ public class SpotDTO {
 	public void setCates(String[] cates) {
 		this.cate = String.join(",", cates);
 	}	
+	private String content; // 미디어에 나온 캠핑장 호출
 }

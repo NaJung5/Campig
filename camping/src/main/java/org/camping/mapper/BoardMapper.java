@@ -3,6 +3,7 @@ package org.camping.mapper;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.camping.model.BoardDTO;
+import org.camping.model.MemberDTO;
 
 public interface BoardMapper {
 	
@@ -18,6 +19,8 @@ public interface BoardMapper {
 	
 	public BoardDTO getBoard(int boardnum);
 	
+	public String findNickname(String id);
+	
 	public int insertBoard(BoardDTO dto);
 	
 	public int insertSGBoard(BoardDTO dto);
@@ -25,6 +28,8 @@ public interface BoardMapper {
 	public void readCountUp(int boardnum);
 	
 	public int updateBoard(BoardDTO dto);
+	
+	public int deleteStatus(BoardDTO dto);
 
 	public void deleteBoard(BoardDTO dto);
 	

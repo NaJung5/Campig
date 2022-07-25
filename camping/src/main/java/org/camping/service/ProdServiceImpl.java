@@ -111,4 +111,16 @@ public class ProdServiceImpl implements ProdService {
 	public int saveChecklist(ChecklistDTO dto) {
 		return mapper.saveChecklist(dto);
 	}
+	@Override
+	public String getAns3(String id) {
+		return mapper.getAns3(id);
+	}
+	@Override
+	public String getAns4(String id) {
+		return mapper.getAns4(id);
+	}
+	@Override
+	public String getAns5(String id) {
+		return mapper.getAns5(id);
+	}
 }

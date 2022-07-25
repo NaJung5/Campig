@@ -34,6 +34,11 @@ public class BoardServiceIpml implements BoardService {
 	}
 	
 	@Override
+	public String findNickname(String id) {
+		return mapper.findNickname(id);
+	}
+	
+	@Override
 	public int categoryCheckCount(int category) {
 		return mapper.categoryCheckCount(category);
 	}
@@ -53,6 +58,11 @@ public class BoardServiceIpml implements BoardService {
 	@Override
 	public int updateBoard(BoardDTO dto) {
 		return mapper.updateBoard(dto);
+	}
+	
+	@Override
+	public int deleteStatus(BoardDTO dto) {
+		return mapper.deleteStatus(dto);
 	}
 	
 	@Override

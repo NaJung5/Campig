@@ -568,38 +568,40 @@ function changeFil3_10(){
 	}else{
 		document.getElementById('fil3direct_txt_10').style.display="none";
 	}
-	
+}	
 	
 function favorite(){
 
 	alert("aa")
-	}
+}
 	
-	function writeSave(){
-	
+function writeSave(){
 	if(document.writeform.title.value=="") {
-	  alert("Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+	  alert("ì œëª©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 	  document.writeform.title.focus();
 	  return false;
 	}
 	
 	if(document.writeform.content.value=="") {
-	  alert("³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+	  alert("ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 	  document.writeform.content.focus();
 	  return false;
 	}
- } 
+	
+	if((document.writeform.category.value=='6') && (document.writeform.password.value=="")) {
+		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥ ì‹œ ì‘ì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.");
+		document.writeform.password.focus();
+		return false;
+	}
+} 
     
 function writeCheck(){
 	
 	if(document.writeform.content.value=="") {
-	  alert("³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+	  alert("ë‚´ìš©ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 	  document.writeform.content.focus();
 	  return false;
 	}
- }
-	
-	
 }	
 
 

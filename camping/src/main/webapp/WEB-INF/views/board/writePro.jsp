@@ -4,10 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<head>
-<meta charset="UTF-8">
-<title>글쓰기 Pro</title>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>글쓰기 Pro</title>
+	</head>
+	
 	<body>
 		<c:redirect url="/board/list"></c:redirect>
 	</body>

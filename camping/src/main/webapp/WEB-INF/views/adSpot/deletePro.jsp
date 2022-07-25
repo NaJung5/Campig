@@ -8,6 +8,6 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	
+		<c:redirect url="/adSpot/list?pageNum=${pageNum}"></c:redirect>
 	</body>
 </html>

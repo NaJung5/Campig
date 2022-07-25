@@ -91,6 +91,14 @@ public class SpotServiceImpl implements SpotService{
 	public int getRiverCount() {
 		return mapper.getRiverCount();
 	}
+	@Override
+	public List<SpotDTO> getMedia(int startRow, int endRow){
+		return mapper.getMedia(startRow, endRow);
+	}
+	@Override
+	public int getMediaCount() {
+		return mapper.getMediaCount();
+	}
 	
 	@Override
 	public SpotDTO getContent(int num) {

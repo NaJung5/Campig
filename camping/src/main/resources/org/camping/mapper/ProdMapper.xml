@@ -121,4 +121,14 @@
 	<insert id="saveChecklist">
 		insert into checklist values (#{id}, #{price}, #{person}, #{season}, #{site}, #{tent}, #{taf}, #{waterjug}, #{stove}, #{light}, #{mat}, #{sb}, #{chair}, #{desk}, #{gas}, #{status}, sysdate)
 	</insert>
+	
+	<select id="getAns3" resultType="String">
+		select ans3 from account where id = #{id}
+	</select>
+	<select id="getAns4" resultType="String">
+		select ans4 from account where id = #{id}
+	</select>
+	<select id="getAns5" resultType="String">
+		select ans5 from account where id = #{id}
+	</select>
 </mapper>

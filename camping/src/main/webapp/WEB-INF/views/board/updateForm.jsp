@@ -24,8 +24,30 @@
 							<option value="3">캠핑 요리</option>
 							<option value="4">질문</option>
 							<option value="5">팁</option>
-							<option value="6">건의사항</option>      
-					    </select>
+							<option value="6">건의사항</option>
+							<option value="7">공지사항</option>       
+			         	</select>
+			         		<c:if test="${category == 1}">
+			         			캠핑장 후기
+			         		</c:if>
+			         		<c:if test="${category == 2}">
+			         			장비 후기
+			         		</c:if>
+			         		<c:if test="${category == 3}">
+			         			캠핑 요리
+			         		</c:if>
+			         		<c:if test="${category == 4}">
+			         			질문
+			         		</c:if>
+			         		<c:if test="${category == 5}">
+			         			팁
+			         		</c:if>
+			         		<c:if test="${category == 6}">
+			         			건의사항
+			         		</c:if>
+			         		<c:if test="${category == 7}">
+			         			공지사항
+			         		</c:if>
 					</td>
 				</tr>
 			 	<tr>
@@ -36,7 +58,7 @@
 			 	<tr>
 					<td width="100" align="center">작성자</td>
 					<td>
-						${sessionScope.memId}
+						${board.writer}
 						<input type="hidden" name="writer" value="${sessionScope.memId}">
 						<input type="hidden" name="boardnum" value="${board.boardnum}">
 					</td>

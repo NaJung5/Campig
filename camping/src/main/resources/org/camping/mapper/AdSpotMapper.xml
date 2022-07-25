@@ -14,4 +14,11 @@
 		insert into spot(num, status, name, read, score, phone, addr, lng, lat, image, page, cate, tag, reg)
 				 values(998, 0, #{name}, 0, 0, #{phone}, #{addr}, #{lng}, #{lat}, #{image}, #{page}, #{cate}, #{tag}, sysdate)
 	</insert>
+	<update id="deletSpot">
+		update spot set status = #{status} where num = #{num}
+	</update>
+	
+	<insert id="addMedia">
+		insert into spotmedia values (#{sitenum}, #{sitename}, #{content}, sysdate)
+	</insert>
 </mapper>
