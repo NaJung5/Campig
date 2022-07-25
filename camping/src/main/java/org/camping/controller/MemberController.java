@@ -315,10 +315,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("reviewPro")
-	public String review(ReviewDTO dto,String id, int num, int status, Model model) {
+	public String reviewPro(ReviewDTO dto,String id, int num, int status,int reCountCamp, Model model) {
+		System.out.println("11");
+		System.out.println("123123" + service.reCountCamp(num));
 		model.addAttribute("st", service.chlist(id,status));
 		service.review(dto);
-		service.reviewCamp(num);
+		reCountCamp = service.reCountCamp(num);
+		service.reviewCamp(num,reCountCamp);
 		
 		return "member/reviewPro";
 	}

@@ -58,7 +58,8 @@ public interface MemberService {
 	public void review(ReviewDTO dto);
 	
 	public void reviewEquip(int num);
-	public void reviewCamp(int num);
+	public void reviewCamp(int num, int reCountCamp);
+	public int reCountCamp(int num);
 
 	
 	
