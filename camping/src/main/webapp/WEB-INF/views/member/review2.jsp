@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<h1>${memId}1</h1>
+
 	<%--캠핑장 리뷰 --%>
 	<c:if test="${category == 1 }">
 		<form action="reviewPro">

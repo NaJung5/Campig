@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,22 +8,24 @@
 <title>리뷰</title>
 </head>
 
-<script>
-	alert("리뷰를 작성해주세요");
-</script>
 <body>
+
 <form  method = "post">
 	<table>
 		<tr>
+			<h1>리뷰를 작성해주세요</h1>
 			<td>
 				<button value = "site">캠핑장 후기 작성</button>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a href = "/member/review2?id=${memId}&category=1&status=${st.status}">캠핑장</a>
+				<c:if test = "${tent.num != null }">
+					<a href = "/member/review2?id=${memId}&category=1&status=${st.status}">캠핑장</a>
+				</c:if>	
 			</td>
 			<td>
+			<c:if test "${ }
 				<a href = "/member/review2?id=${memId}&category=2&status=${st.status}">텐트</a>
 			</td>
 			<td>
@@ -55,7 +58,7 @@
 		</tr>
 		<tr>
 			<td>
-				<button onclick="window.location='/member/deleteCh?id=${memId}&status=${st.status}'">삭제</button>
+				<a href = "/member/deleteCh?id=${memId}&status=${st.status}" >삭제</a>
 			</td>
 		</tr>
 	</table>
