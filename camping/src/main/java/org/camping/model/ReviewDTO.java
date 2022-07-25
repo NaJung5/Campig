@@ -10,8 +10,7 @@ public class ReviewDTO {
 	private int score;//별정
 	private String content;//리뷰내용
 	private int status;//체크리스트의 status
-	private int reCountEq;//장비리뷰수
-	private int reCountCamp;//캠핑장리뷰수
+	private int review;
 	
 	
 }

@@ -80,14 +80,12 @@ public interface MemberMapper {
 	public EquipDTO clGas(@Param("id")String id, @Param("status")int status);
 	//리뷰 등록
 	public void review(ReviewDTO dto);
-	//리뷰 카운트 (리뷰 숫자 파악)
-	public int reCountEq(int num);
-	public int reCountCamp(int num);
+
 	//장비의 리뷰수 증가
-	public void reviewEquip(int reCountEq);
+	public void reviewEquip(int num);
+	public void reviewCamp(int num); 
 	
 	public int deleteCheck(ChecklistDTO dto);
-	
 	//체크리스트 등록,수정
 	public void chModify(ChecklistDTO dto);
 
