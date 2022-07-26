@@ -249,6 +249,12 @@ public class MemberController {
 		return "member/chModifyPro2";
 
 	}
+	@RequestMapping("deleteCh")
+	public String deleteCh(ChecklistDTO dto, Model model, String id, int status) {
+		model.addAttribute("st", service.chlist(id,status));
+		service.deleteCheck(dto);
+		return "member/deleteCh";
+	}
 	//체크리스트 
 	@RequestMapping("checklist")
 	public String checklist(String id, Model model, HttpSession session) {		
@@ -267,11 +273,47 @@ public class MemberController {
 			model.addAttribute("st", service.chlist(id,status));
 		return "member/checklist";
 	}
-	@RequestMapping("deleteCh")
-	public String deleteCh(ChecklistDTO dto, Model model, String id, int status) {
+
+
+	@RequestMapping("checklist2")
+	public String checklist2(String id,int status, Model model, HttpSession session) {		
+		String memId = (String)session.getAttribute("memId");
+		if(service.chlist2(id, status) == 1) {
+			model.addAttribute("site", service.clSite(id, status));
+			model.addAttribute("tent", service.clTent(id, status));
+			model.addAttribute("taf", service.clTaf(id, status));
+			model.addAttribute("waterjug", service.clWaterjug(id, status));
+			model.addAttribute("stove", service.clStove(id, status));
+			model.addAttribute("light", service.clLight(id, status));
+			model.addAttribute("mat", service.clMat(id, status));
+			model.addAttribute("sb", service.clSb(id, status));
+			model.addAttribute("chair", service.clChair(id, status));
+			model.addAttribute("gas", service.clGas(id, status));
+			model.addAttribute("desk", service.clDesk(id, status));
+		}
 		model.addAttribute("st", service.chlist(id,status));
-		service.deleteCheck(dto);
-		return "member/deleteCh";
+		return "member/checklist2";
+	}
+	
+	@RequestMapping("checklist3")
+	public String checklist3(String id,int status,  Model model, HttpSession session) {		
+		String memId = (String)session.getAttribute("memId");
+		if(service.chlist2(id, status) == 1) {
+			model.addAttribute("site", service.clSite(id, status));
+			model.addAttribute("tent", service.clTent(id, status));
+			model.addAttribute("taf", service.clTaf(id, status));
+			model.addAttribute("waterjug", service.clWaterjug(id, status));
+			model.addAttribute("stove", service.clStove(id, status));
+			model.addAttribute("light", service.clLight(id, status));
+			model.addAttribute("mat", service.clMat(id, status));
+			model.addAttribute("sb", service.clSb(id, status));
+			model.addAttribute("chair", service.clChair(id, status));
+			model.addAttribute("gas", service.clGas(id, status));
+			model.addAttribute("desk", service.clDesk(id, status));
+		}
+		model.addAttribute("st", service.chlist(id,status));
+		
+		return "member/checklist3";
 	}
 
 	@RequestMapping("review")
@@ -315,58 +357,14 @@ public class MemberController {
 	}
 
 	@RequestMapping("reviewPro")
-	public String reviewPro(ReviewDTO dto,String id, int num, int status,int reCountCamp, Model model) {
-		System.out.println("11");
-		System.out.println("123123" + service.reCountCamp(num));
+	public String reviewPro(ReviewDTO dto,String id, int num, int status, Model model) {
+
 		model.addAttribute("st", service.chlist(id,status));
-		service.review(dto);
-		reCountCamp = service.reCountCamp(num);
-		service.reviewCamp(num,reCountCamp);
+		service.reviewEquip(num);
+		service.reviewCamp(num);
 		
 		return "member/reviewPro";
 	}
-	
-	@RequestMapping("checklist2")
-	public String checklist2(String id,int status, Model model, HttpSession session) {		
-		String memId = (String)session.getAttribute("memId");
-		if(service.chlist2(id, status) == 1) {
-			model.addAttribute("site", service.clSite(id, status));
-			model.addAttribute("tent", service.clTent(id, status));
-			model.addAttribute("taf", service.clTaf(id, status));
-			model.addAttribute("waterjug", service.clWaterjug(id, status));
-			model.addAttribute("stove", service.clStove(id, status));
-			model.addAttribute("light", service.clLight(id, status));
-			model.addAttribute("mat", service.clMat(id, status));
-			model.addAttribute("sb", service.clSb(id, status));
-			model.addAttribute("chair", service.clChair(id, status));
-			model.addAttribute("gas", service.clGas(id, status));
-			model.addAttribute("desk", service.clDesk(id, status));
-		}
-		model.addAttribute("st", service.chlist(id,status));
-		return "member/checklist2";
-	}
-	
-	@RequestMapping("checklist3")
-	public String checklist3(String id,int status,  Model model, HttpSession session) {		
-		String memId = (String)session.getAttribute("memId");
-		if(service.chlist2(id, status) == 1) {
-			model.addAttribute("site", service.clSite(id, status));
-			model.addAttribute("tent", service.clTent(id, status));
-			model.addAttribute("taf", service.clTaf(id, status));
-			model.addAttribute("waterjug", service.clWaterjug(id, status));
-			model.addAttribute("stove", service.clStove(id, status));
-			model.addAttribute("light", service.clLight(id, status));
-			model.addAttribute("mat", service.clMat(id, status));
-			model.addAttribute("sb", service.clSb(id, status));
-			model.addAttribute("chair", service.clChair(id, status));
-			model.addAttribute("gas", service.clGas(id, status));
-			model.addAttribute("desk", service.clDesk(id, status));
-		}
-		model.addAttribute("st", service.chlist(id,status));
-		
-		return "member/checklist3";
-	}
-
 	// 즐겨찾기 & 종아요 해둔 게시글을 불러옴.
 	@RequestMapping("favorite")
 	public String favorite(String id, Model model, HttpSession session, String pageNum) {

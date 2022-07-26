@@ -237,7 +237,7 @@
 		update equipments set review=review+1 where num=#{num} 
 	</update>
 	<update id = "reviewCamp">
-		update spot set review=#{reCountCamp}  where num=#{num} 
+		update spot set review=review+1  where num=#{num} 
 	</update>
 	
 	<delete id="deleteFavo" >

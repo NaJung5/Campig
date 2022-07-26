@@ -10,10 +10,6 @@
 
 <body>
 <h1>
-1:${site.num}
-2:${tent.num }
-3:${site}
-4:${waterjug }
 
 </h1>
 <form  method = "post">
@@ -25,11 +21,11 @@
 			</td>
 		</tr>
 		<tr>
-		
+			<c:if test = "${site.num != null }">
 				<td>
 					<a href = "/member/review2?id=${memId}&category=1&status=${st.status}&reCountCamp=1">캠핑장</a>
 				</td>
-		
+			</c:if>
 			<c:if test = "${tent.num != null }">
 				<td>
 					<a href = "/member/review2?id=${memId}&category=2&status=${st.status}">텐트</a>
