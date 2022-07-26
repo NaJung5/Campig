@@ -66,7 +66,7 @@ public interface MemberMapper {
 	//체크리스트 확인 
 	public ChecklistDTO chlist(@Param("id")String id, @Param("status")int status);
 	public int chlist2(@Param("id")String id, @Param("status")int status);
-	
+	//각각 장비번호를 통해 해당 테이블과 조인후 정보 출력
 	public SpotDTO clSite(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clTent(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clTaf(@Param("id")String id, @Param("status")int status);
@@ -78,12 +78,14 @@ public interface MemberMapper {
 	public EquipDTO clChair(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clDesk(@Param("id")String id, @Param("status")int status);
 	public EquipDTO clGas(@Param("id")String id, @Param("status")int status);
-	
+	//리뷰 등록
 	public void review(ReviewDTO dto);
-	public void reviewEquip(@Param("num")int num);
+	public int reCountCamp(int num);
+	//장비의 리뷰수 증가
+	public void reviewEquip(int num);
+	public void reviewCamp(int num, int reCountCamp); 
 	
 	public int deleteCheck(ChecklistDTO dto);
-	
 	//체크리스트 등록,수정
 	public void chModify(ChecklistDTO dto);
 

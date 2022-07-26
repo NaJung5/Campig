@@ -155,10 +155,17 @@ public class MemberServiceImpl implements MemberService {
 	public void review(ReviewDTO dto) {
 		 mapper.review(dto);
 	}
-	
+	@Override
+	public int reCountCamp(int num) {
+		return mapper.reCountCamp(num);
+	}
 	@Override
 	public void reviewEquip(int num) {
 		mapper.reviewEquip(num);
+	}
+	@Override
+	public void reviewCamp(int num, int reCountCamp) {
+		mapper.reviewCamp(num, reCountCamp);
 	}
 	
 	@Override

@@ -139,12 +139,12 @@
 			<td align = "center">
 				<button onclick="window.open('/prod/check?id=${memId}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">추가</button>
 				<button onclick="window.open('/member/chModify?id=${memId}&status=1', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">수정</button>
-				<button onclick="window.location='review?id=${memId}&status=1'">삭제</button>
+				<button onclick="window.location='review?id=${memId}&status=${st.status}'">삭제</button>
 			</td>
 		</tr>
 	</table>
 </c:if>
-<c:if test = "${st.status  != 1 }">
+<c:if test = "${st.status != 1}">
 	<div align = "center">
 		<button onclick="window.open('/prod/check?id=${memId}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">추가</button>
 	</div>
