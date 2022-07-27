@@ -146,7 +146,7 @@ public class Admincontroller {
 	@RequestMapping("list")
 	public String list(String pageNum, Model model) {
 		if(pageNum == null) pageNum = "1";
-		int pageSize = 30;
+		int pageSize = 10;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize+1 ;
 		int endRow = (currentPage) * pageSize ;

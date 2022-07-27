@@ -14,6 +14,7 @@
 		</script>
 	</head>
 	<body>
+		<%@include file="../headNavBar.jsp"%>
 		<c:if test="${result==3}">
 			<script>
 				alert("체크리스트 저장공간이 없습니다");
