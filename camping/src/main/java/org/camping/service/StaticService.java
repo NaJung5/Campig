@@ -64,5 +64,42 @@ public interface StaticService {
 	public void setPageTime22();
 	public void setPageTime23();
 	public void setPageTime24();
-
+	public List<StaticDTO> getPageTime();
+	
+	public void setNewBoard0();
+	public void setNewBoard1();
+	public void setNewBoard2();
+	public void setNewBoard3();
+	public void setNewBoard4();
+	public void setNewBoard5();
+	public void setNewBoard6();
+	public void setNewBoard7();
+	public int getNewBoard0();
+	public int getNewBoard1();
+	public int getNewBoard2();
+	public int getNewBoard3();
+	public int getNewBoard4();
+	public int getNewBoard5();
+	public int getNewBoard6();
+	public int getNewBoard7();
+	public void setPageDay0();
+	public void setPageDay1();
+	public void setPageDay2();
+	public void setPageDay3();
+	public void setPageDay4();
+	public void setPageDay5();
+	public void setPageDay6();
+	public void setPageDay7();
+	public int getPageDay0();
+	public int getPageDay1();
+	public int getPageDay2();
+	public int getPageDay3();
+	public int getPageDay4();
+	public int getPageDay5();
+	public int getPageDay6();
+	public int getPageDay7();
+	
+	// 회원 가입 통계
+	public int getTodaySignIn();
+	public int getYesterdaySignIn();
 }

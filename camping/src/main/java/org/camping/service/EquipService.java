@@ -14,4 +14,6 @@ public interface EquipService {
 	public int equipFavoriteCount(HashMap<String,Object> equipFavorite);
 	public int equipFavoriteDelete(HashMap<String,Object> equipFavorite);
 	public int equipFavoriteCnt(HashMap<String,Object> map);
+	public List<EquipDTO> getEqAllList(int startRow,int endRow);
+	public int getEqAllCount();
 }

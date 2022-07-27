@@ -59,8 +59,8 @@
 					<td width="100" align="center">작성자</td>
 					<td>
 						${board.writer}
-						<input type="hidden" name="writer" value="${sessionScope.memId}">
 						<input type="hidden" name="boardnum" value="${board.boardnum}">
+						<input type="hidden" name="writer" value="${nick}" >
 					</td>
 				</tr>
 			 	<tr>
@@ -72,7 +72,7 @@
 			 	<tr>
 					<td width="100" align="center">첨부파일</td>
 					<td>
-						<input type="file" name="img" value="${board.image}"></td>
+						<input type="file" name="img"></td>
 			  	</tr>
 			  	<tr>
 		    		<td width="100" align="center" >비밀번호</td>

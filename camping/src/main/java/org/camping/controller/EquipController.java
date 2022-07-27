@@ -1798,6 +1798,38 @@ public class EquipController {
 		
 		
 	}
+	@RequestMapping("adEquipList")
+	public String adEquipList(HttpServletRequest request, String pageNum, HttpSession session,Model model) {
+		
+		//리스트 메인주소 처리 및 페이징처리를 위한 선언 
+				if (pageNum == null)
+					pageNum = "1";
+				int pageSize = 30;
+				int currentPage = Integer.parseInt(pageNum);
+				int startRow = (currentPage - 1) * pageSize + 1;
+				int endRow = currentPage * pageSize;
+				int count = 0;
+				
+				count = service.getEqAllCount();
+		List<EquipDTO> EquipAllList = service.getEqAllList(startRow,endRow);
+		
+		System.out.println(EquipAllList.get(0));
+		System.out.println(EquipAllList.get(1));
+		System.out.println(EquipAllList.get(2));
+		System.out.println(EquipAllList.size());
+		
+		model.addAttribute("EquipAllList", EquipAllList);
+		model.addAttribute("count", count);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("startRow", startRow);
+		model.addAttribute("endRow", endRow);
+		return "equip/adEquipList";	
+
+		
+	}
+	
 	
 	
 	@RequestMapping("test")

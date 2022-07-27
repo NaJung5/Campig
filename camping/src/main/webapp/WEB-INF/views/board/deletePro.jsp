@@ -14,13 +14,13 @@
 			<c:if test="${result == 1}">
 				<script>
 					alert("삭제가 완료되었습니다.");
-					window.location = "/board/list";	
+					window.location = "/board/notice?category=7";	
 				</script>
 			</c:if>
 			<c:if test="${result == 0}">
 				<script>
 					alert("작성자만 삭제 가능 합니다.");
-					history.go(-1);	
+					history.go(-2);	
 				</script>
 			</c:if>
 	</body>

@@ -884,7 +884,54 @@ public class SpotController {
 	}
 	// 미디어 나온 리스트
 	@RequestMapping("media")
-	public String Media(Model model, String pageNum) {
+	public String Media(Model model, String pageNum,HttpServletRequest request,HttpSession session)throws UnsupportedEncodingException {
+		//통계
+				String memId = (String)session.getAttribute("memId");
+				//통계데이터 수집 및 전달 
+				HashMap<String, Object> statics = new HashMap<String, Object>();
+				//로그인된 아이디,비로그인시 guest
+				if(session.getAttribute("memId") != null) {
+					statics.put("id",(String)session.getAttribute("memId"));
+					if(staticService.getStarttime(statics) == 1){
+						staticService.setEndtime(statics);
+					}
+				}else {
+					statics.put("id","guest");	
+				}
+						statics.put("endtime","");
+				//현재 접속된 페이지
+				String page = request.getRequestURI() + "?" + request.getQueryString();
+				String decodedPage  = URLDecoder.decode(page, "UTF-8");         
+				statics.put("page",decodedPage);
+				//전 페이지
+				String inflow = (String)request.getHeader("Referer");
+				if(inflow != null) {
+				String decodedInflow  = URLDecoder.decode(inflow, "UTF-8");        
+				statics.put("inflow",decodedInflow);
+				}else {
+					statics.put("inflow","");	
+				}		
+				//접속디바이스
+				String device = null;
+				String agent = request.getHeader("USER-AGENT");
+				if(agent.contains("iPhone")){
+				device = "iPhone";
+				}
+				else if(agent.contains("Android")) {
+					device = "Android";
+				}else {
+					device = "Windows";
+				}
+				statics.put("device",device);
+				
+				//검색어
+					statics.put("keyword","");
+				//필터체크시 
+				String fil = "";
+				statics.put("filter",fil);
+				//통계정보전달 
+				staticService.pageStatic(statics);
+		
 		// 한 화면에 나타날 캠핑장 수 
 		if(pageNum == null) pageNum = "1";
 		int pageSize = 4;

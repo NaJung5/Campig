@@ -5,6 +5,8 @@
     
 <html>
 	<body>
+		<%@include file="../headNavBar.jsp"%>
+		<%@include file="boardCategory.jsp"%>
 		<center><b>캠핑 요리 (전체 글:${count})</b></center>
 		
 			<c:if test="${count == 0}">
@@ -52,7 +54,7 @@
 				         		<td align="center" width="80">건의사항</td>
 				         	</c:if>
 				    		<td align="center" width="250" >  	    
-				      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}">
+				      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}&category=3">
 				           			${board.title}
 					  			</a> 
 				          	</td>
@@ -74,8 +76,13 @@
 			<table width="700" align="center">
 				<tr>
 				    <td align="right">
-				    	<input type="button" value="글쓰기" onclick="document.location.href='/board/writeForm'" />
-				    </td>
+				    <c:if test="${memId != null}">
+				    	<input type="button" value="글쓰기" onclick="document.location.href='/board/writeForm?id=${memId}'" />
+				    	<input type="hidden" name = "id" value="${memId}" />
+				    </c:if>
+				    <c:if test="${adId != null}">
+				    	<input type="button" value="관리자글쓰기" onclick="document.location.href='/board/writeForm?id=${adId}'" />
+				    </c:if>
 				</tr>
 				<tr>
 					<td align="center">
@@ -90,15 +97,15 @@
 						</c:if>
 						
 						<c:if test="${startPage > 10}">
-							<a href="/board/list?pageNum=${startPage - 10}">[이전]</a>
+							<a href="/board/recipe?id=${memId}&category=3&pageNum=${startPage - 10}">[이전]</a>
 						</c:if>
 						
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="/board/list?pageNum=${i}">[${i}]</a>
+							<a href="/board/recipe?id=${memId}&category=3&pageNum=${i}">[${i}]</a>
 						</c:forEach>
 						
 						<c:if test="${endPage < pageCount}">
-							<a href="/board/list?pageNum=${startPage + 10}">[다음]</a>
+							<a href="/board/recipe?id=${memId}&category=3&pageNum=${startPage + 10}">[다음]</a>
 						</c:if>
 						</c:if>
 					</td>

@@ -83,7 +83,7 @@
             <td> 	
              	<form  method="post" action="/member/adLogout">  
              		<input type="submit"  value="로그아웃">
-             		<input type="button" value="관리자 메뉴" onclick="window.location='/adMain/main?id=${adId}'">
+             		<input type="button" value="관리자 메뉴" onclick="window.location='/adMain/main'">
              	</form>
          	</td>
 		</tr>

@@ -79,6 +79,17 @@ public class EquipServiceImpl implements EquipService{
 	
 	}
 	
+	@Override
+	public List<EquipDTO> getEqAllList(int startRow,int endRow){
+		
+		return mapper.getEqAllList(startRow, endRow);
+	}
+	@Override
+	public int getEqAllCount() {
+
+		return mapper.getEqAllCount();
+	
+	}
 	
 }
 

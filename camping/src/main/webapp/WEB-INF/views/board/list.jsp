@@ -5,21 +5,11 @@
     
 <html>
 	<body>
+		<%@include file="../headNavBar.jsp"%>
+		<%@include file="boardCategory.jsp"%>
 		<center><b>글목록 (전체 글:${count}) </b></center>
-			<table width="700" cellpadding="0" cellspacing="0" align="center">
-				<tr>
-					<td align="left"> 카테고리별 보기 : 
-						<input type="button" value="캠핑장 후기" onclick="document.location.href='/board/campspot?category=1'"/>
-						<input type="button" value="장비 후기" onclick="document.location.href='/board/equipment?category=2'"/>
-						<input type="button" value="캠핑 요리" onclick="document.location.href='/board/recipe?category=3'"/>
-						<input type="button" value="질문" onclick="document.location.href='/board/question?category=4'"/>
-						<input type="button" value="팁" onclick="document.location.href='/board/tip?category=5'"/>
-						<input type="button" value="건의사항" onclick="document.location.href='/board/suggestion?category=6'"/>
-						<input type="button" value="공지사항" onclick="document.location.href='/board/notice?category=7'"/>
-					</td>
-				</tr>
-			</table>
-				<c:if test="${count == 0}">
+			
+			<c:if test="${count == 0}">
 					<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 						<tr>
 						    <td align="center">
@@ -68,7 +58,7 @@
 				         					<td align="center" width="80">공지사항</td>
 				         				</c:if>
 						    		<td align="center" width="250" >  	    
-						      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}">
+						      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}&category=${category}">
 						           			${board.title}
 							  			</a> 
 						          	</td>
@@ -90,11 +80,14 @@
 				<table width="700" align="center">
 					<tr>
 					    <td align="right">
-				    		<input type="button" value="글쓰기" onclick="document.location.href='/board/writeForm'" />
-				    		<c:if test="${adId != null}">
-				    			<input type="button" value="관리자글쓰기" onclick="document.location.href='/board/writeForm'" />
-				    		</c:if>
-				    	</td>
+					    <c:if test="${memId != null}">
+					    	<input type="button" value="글쓰기" onclick="document.location.href='/board/writeForm?id=${memId}'" />
+				    		<input type="hidden" name = "id" value="${memId}" />
+					    </c:if>
+					    <c:if test="${adId != null}">
+					    	<input type="button" value="관리자글쓰기" onclick="document.location.href='/board/writeForm?id=${adId}'" />
+					    </c:if>
+					    </td>
 					</tr>
 					<tr>
 						<td align="center">

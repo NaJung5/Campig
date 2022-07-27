@@ -10,6 +10,6 @@
 	</head>
 	
 	<body>
-		<c:redirect url="/board/list"></c:redirect>
+		<c:redirect url="/board/notice?category=7"></c:redirect>
 	</body>
 </html>

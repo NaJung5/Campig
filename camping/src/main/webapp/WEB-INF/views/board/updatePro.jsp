@@ -11,14 +11,6 @@
 
 	<body>
 		<center><b>글수정</b></center>
-		<c:if test="${result != 0}">
-		<c:redirect url="/board/list?pageNum=${pageNum}"></c:redirect>
-		</c:if>
-		<c:if test="${result == 0}">
-	    	<script language="JavaScript">     
-	        	alert("비밀번호가 맞지 않습니다");
-	        	history.go(-1);
-	     	</script>
-		</c:if>
+		<c:redirect url="/board/notice?category=7"></c:redirect>
 	</body>
 </html>

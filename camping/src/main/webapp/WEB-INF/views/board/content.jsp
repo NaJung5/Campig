@@ -10,6 +10,7 @@
 	</head>
 
 	<body>
+	<%@include file="../headNavBar.jsp"%>
 		<center><b>글내용</b></center>
 			<table width="500" border="1" cellspacing="0" cellpadding="0" align="center" colspan="6" rowspan=""5>
 				<tr>
@@ -32,6 +33,9 @@
 		         		<c:if test="${board.category == 6}">
 		         			<td colspan="4">건의사항</td>
 		         		</c:if>
+		         		<c:if test="${board.category == 7}">
+		         			<td colspan="4">공지사항</td>
+		         		</c:if>
 				<tr/>
 				<tr>
 					<td width="50" align="center" >글번호</td>
@@ -43,24 +47,35 @@
 				</tr>
 				<tr>
 		    		<td width="50" align="center" >작성자</td>
-		    		<td width="50" >${board.writer}</td>
-		    		<td width="150" align="center" >작성일시</td>
-		    		<td width="150" align="center">
+		    		<c:choose>
+		    			<c:when test = "${category != 6}">
+		    				<td width="50" >${board.writer}</td>
+		    			</c:when>
+		    			<c:when test ="${(category == 6) == (board.writer == nick)}">
+		    				<td width="50" >${board.writer}</td>
+		    			</c:when>
+		    			<c:when test ="${(category == 6) != (board.writer == nick)}">
+		    				<td width="50" >익명</td>
+		    			</c:when>
+		    		</c:choose>
+		    		
+		    		<td width="50" align="center" >작성일시</td>
+		    		<td width="50" align="center">
 		    			<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${board.reg}" /></td>
 		  		</tr>
 		  		<tr>
 					<td width="100" align="center">제목</td>
-					<td colspan="4">${ board.title }</td>
+					<td colspan="4">${board.title}</td>
 				</tr>
 				<tr>
 					<td width="100" align="center">글내용</td>
-					<td colspan="4">${ board.content }</td>
+					<td colspan="4">${board.content}</td>
 				</tr>
 				<tr>
 					<c:if test="${board.image != NULL}">
 						<td width="100" align="center">첨부파일</td>
 						<td>	
-			     			<img src="/resources/img/${board.image}" width="200" />
+			     			<img src="/resources/img/${board.image}" width="300" />
 			     		</td>
 		     		</c:if>
 					<c:if test="${board.image == NULL}">
@@ -76,12 +91,17 @@
 				</tr>
 				<tr>
 					<td colspan="6" align="center">
+					<c:if test="${board.writer == nick }">
 						<input type="button" value="글수정"
 						onclick="document.location.href='/board/updateForm?boardnum=${board.boardnum}&pageNum=${pageNum}'" />
+				
 						<input type="button" value="글삭제"
 						onclick="document.location.href='/board/deleteForm?boardnum=${board.boardnum}&pageNum=${pageNum}'" />
+					</c:if>
+					<c:if test="${ nick != null }">
 						<input type="button" value="댓글쓰기"
 						onclick="document.location.href='/commentboard/writeForm?boardnum=${board.boardnum}'" />
+					</c:if>
 					</td>
 				</tr>
 			</table>

@@ -13,10 +13,11 @@
 	</head>
 	
 	<body>
+	<%@include file="../headNavBar.jsp"%>
 		<center><b>글쓰기 </b></center>
 		<form name="writeform" action="/board/writePro" method="post" onsubmit="return writeSave()" enctype="multipart/form-data" >
 			<input type="hidden" name="boardnum" value="${ boardDTO.boardnum }">
-		
+			
 			<table width="500" border="1" cellspacing="0" cellpadding="0" align="center">
 				<tr>
 					<td width="100" align="center">카테고리</td>
@@ -66,7 +67,7 @@
 							${nick}
 						<input type="hidden" name="writer" value="${nick}">
 						</c:if>
-						<c:if test="${adId !=null}">
+						<c:if test="${adId != null}">
 							${sessionScope.adId}
 						<input type="hidden" name="writer" value="${sessionScope.adId}">
 						</c:if>
@@ -75,7 +76,7 @@
 		  		<tr>
 		    		<td width="100" align="center" >내용</td>
 		    		<td>
-		     			<textarea name="content" rows="50" cols="50" ></textarea> 
+		     			<textarea name="content" rows="15" cols="15" ></textarea> 
 		     		</td>
 		  		</tr>
 		  		<tr>
@@ -84,12 +85,6 @@
 		     			<input type="file" name="img" >
 		     		</td>
 		  		</tr>  					
-		  		<tr>
-		    		<td width="400" align="center" >비밀번호</td>
-		    		<td>
-		    			<input type="password" name="password" placeholder="건의사항 선택 시 입력"> 
-			 		</td>
-		  		</tr>
 		  		<tr>      
 		 			<td colspan=2 align="center"> 
 		  				<input type="submit" value="등록" >  

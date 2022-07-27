@@ -5,20 +5,10 @@
     
 <html>
 	<body>
+		<%@include file="../headNavBar.jsp"%>
+		<%@include file="boardCategory.jsp"%>
 		<center><b>공지사항 (전체 글:${count})</b></center>
-			<table width="700" cellpadding="0" cellspacing="0" align="center">
-				<tr>
-					<td align="left"> 카테고리별 보기 : 
-						<input type="button" value="캠핑장 후기" onclick="document.location.href='/board/campspot?category=1'"/>
-						<input type="button" value="장비 후기" onclick="document.location.href='/board/equipment?category=2'"/>
-						<input type="button" value="캠핑 요리" onclick="document.location.href='/board/recipe?category=3'"/>
-						<input type="button" value="질문" onclick="document.location.href='/board/question?category=4'"/>
-						<input type="button" value="팁" onclick="document.location.href='/board/tip?category=5'"/>
-						<input type="button" value="건의사항" onclick="document.location.href='/board/suggestion?category=6'"/>
-						<input type="button" value="전체 글 목록" onclick="document.location.href='/board/list'"/>
-					</td>
-				</tr>
-			</table>
+
 			<c:if test="${count == 0}">
 				<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
 					<tr>
@@ -41,46 +31,48 @@
 				    </tr>
 					
 					<c:forEach var="board" items="${boardList}">
-						<tr height="30">
-							<td align="center">
-								${board.boardnum}
-							</td>
-							<c:if test="${board.category == 1}">
-								<td align="center" width="80">캠핑장 후기</td>			         			
-				         	</c:if>
-				         	<c:if test="${board.category == 2}">
-				         		<td align="center" width="80">장비 후기</td>
-				         	</c:if>
-				         	<c:if test="${board.category == 3}">
-				         		<td align="center" width="80">캠핑 요리</td>
-				         	</c:if>
-				         	<c:if test="${board.category == 4}">
-				         		<td align="center" width="80">질문</td>
-				         	</c:if>
-				         	<c:if test="${board.category == 5}">
-				         		<td align="center" width="80">팁</td>
-				         	</c:if>
-				         	<c:if test="${board.category == 6}">
-				         		<td align="center" width="80">건의사항</td>
-				         	</c:if>
-				         	<c:if test="${board.category == 7}">
-				         		<td align="center" width="80">공지사항</td>
-				         	</c:if>
-				    		<td align="center" width="250" >  	    
-				      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}">
-				           			${board.title}
-					  			</a> 
-				          	</td>
-				          	<td align="center" width="100">
-				          		${board.writer}
-							</td>
-				          	<td align="center" width="80">
-				          		${board.readcount}
-				          	</td>
-				          	<td align="center" width="150">
-				    			<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${board.reg}" />
-				    		</td>
-				  		</tr>
+						<c:if test = "${board.status != 1 }">
+							<tr height="30">
+								<td align="center">
+									${board.boardnum}
+								</td>
+								<c:if test="${board.category == 1}">
+									<td align="center" width="80">캠핑장 후기</td>			         			
+					         	</c:if>
+					         	<c:if test="${board.category == 2}">
+					         		<td align="center" width="80">장비 후기</td>
+					         	</c:if>
+					         	<c:if test="${board.category == 3}">
+					         		<td align="center" width="80">캠핑 요리</td>
+					         	</c:if>
+					         	<c:if test="${board.category == 4}">
+					         		<td align="center" width="80">질문</td>
+					         	</c:if>
+					         	<c:if test="${board.category == 5}">
+					         		<td align="center" width="80">팁</td>
+					         	</c:if>
+					         	<c:if test="${board.category == 6}">
+					         		<td align="center" width="80">건의사항</td>
+					         	</c:if>
+					         	<c:if test="${board.category == 7}">
+					         		<td align="center" width="80">공지사항</td>
+					         	</c:if>
+					    		<td align="center" width="250" >  	    
+					      			<a href="/board/content?boardnum=${board.boardnum}&pageNum=${currentPage}&category=7">
+					           			${board.title}
+						  			</a> 
+					          	</td>
+					          	<td align="center" width="100">
+					          		${board.writer}
+								</td>
+					          	<td align="center" width="80">
+					          		${board.readcount}
+					          	</td>
+					          	<td align="center" width="150">
+					    			<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${board.reg}" />
+					    		</td>
+					  		</tr>
+				  		</c:if>
 			  		</c:forEach>
 				</table>
 			</c:if>
@@ -88,10 +80,13 @@
 			<table width="700" align="center">
 				<tr>
 				    <td align="right">
+				    <c:if test="${memId != null}">
 				    	<input type="button" value="글쓰기" onclick="document.location.href='/board/writeForm?id=${memId}'" />
-				    	<c:if test="${adId != null}">
-				    		<input type="button" value="관리자글쓰기" onclick="document.location.href='/board/writeForm?id=${adId}'" />
-				    	</c:if>
+				    	<input type="hidden" name = "id" value="${memId}" />
+				    </c:if>
+				    <c:if test="${adId != null}">
+				    	<input type="button" value="관리자글쓰기" onclick="document.location.href='/board/writeForm?id=${adId}'" />
+				    </c:if>
 				    </td>
 				</tr>
 				<tr>
@@ -107,15 +102,15 @@
 						</c:if>
 						
 						<c:if test="${startPage > 10}">
-							<a href="/board/list?pageNum=${startPage - 10}">[이전]</a>
+							<a href="/board/notice?id=${memId}&category=7&pageNum=${startPage - 10}">[이전]</a>
 						</c:if>
 						
 						<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-							<a href="/board/list?pageNum=${i}">[${i}]</a>
+							<a href="/board/notice?id=${memId}&category=7&pageNum=${i}">[${i}]</a>
 						</c:forEach>
 						
 						<c:if test="${endPage < pageCount}">
-							<a href="/board/list?pageNum=${startPage + 10}">[다음]</a>
+							<a href="/board/notice?id=${memId}&category=7&pageNum=${startPage + 10}">[다음]</a>
 						</c:if>
 						</c:if>
 					</td>

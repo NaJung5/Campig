@@ -304,4 +304,176 @@ public class StaticServiceImpl implements StaticService {
 		mapper.setPageTime24();
 	}
 
+	@Override
+	public List<StaticDTO> getPageTime() {
+		return mapper.getPageTime();
+	}
+
+	@Override
+	public void setNewBoard0() {
+		mapper.setNewBoard0();
+	}
+
+	@Override
+	public void setNewBoard1() {
+		mapper.setNewBoard1();
+	}
+
+	@Override
+	public void setNewBoard2() {
+		mapper.setNewBoard2();
+	}
+
+	@Override
+	public void setNewBoard3() {
+		mapper.setNewBoard3();
+	}
+
+	@Override
+	public void setNewBoard4() {
+		mapper.setNewBoard4();
+	}
+
+	@Override
+	public void setNewBoard5() {
+		mapper.setNewBoard5();
+	}
+
+	@Override
+	public void setNewBoard6() {
+		mapper.setNewBoard6();
+	}
+
+	@Override
+	public void setNewBoard7() {
+		mapper.setNewBoard7();
+	}
+
+	@Override
+	public int getNewBoard0() {
+		return mapper.getNewBoard0();
+	}
+
+	@Override
+	public int getNewBoard1() {
+		return mapper.getNewBoard1();
+	}
+
+	@Override
+	public int getNewBoard2() {
+		return mapper.getNewBoard2();
+	}
+
+	@Override
+	public int getNewBoard3() {
+		return mapper.getNewBoard3();
+	}
+
+	@Override
+	public int getNewBoard4() {
+		return mapper.getNewBoard4();
+	}
+
+	@Override
+	public int getNewBoard5() {
+		return mapper.getNewBoard5();
+	}
+
+	@Override
+	public int getNewBoard6() {
+		return mapper.getNewBoard6();
+	}
+
+	@Override
+	public int getNewBoard7() {
+		return mapper.getNewBoard7();
+	}
+
+	@Override
+	public void setPageDay0() {
+		mapper.setPageDay0();
+	}
+
+	@Override
+	public void setPageDay1() {
+		mapper.setPageDay1();
+	}
+
+	@Override
+	public void setPageDay2() {
+		mapper.setPageDay2();
+	}
+
+	@Override
+	public void setPageDay3() {
+		mapper.setPageDay3();
+	}
+
+	@Override
+	public void setPageDay4() {
+		mapper.setPageDay4();
+	}
+
+	@Override
+	public void setPageDay5() {
+		mapper.setPageDay5();
+	}
+
+	@Override
+	public void setPageDay6() {
+		mapper.setPageDay6();
+	}
+
+	@Override
+	public void setPageDay7() {
+		mapper.setPageDay7();
+	}
+
+	@Override
+	public int getPageDay0() {
+		return mapper.getPageDay0();
+	}
+
+	@Override
+	public int getPageDay1() {
+		return mapper.getPageDay1();
+	}
+
+	@Override
+	public int getPageDay2() {
+		return mapper.getPageDay2();
+	}
+
+	@Override
+	public int getPageDay3() {
+		return mapper.getPageDay3();
+	}
+
+	@Override
+	public int getPageDay4() {
+		return mapper.getPageDay4();
+	}
+
+	@Override
+	public int getPageDay5() {
+		return mapper.getPageDay5();
+	}
+
+	@Override
+	public int getPageDay6() {
+		return mapper.getPageDay6();
+	}
+
+	@Override
+	public int getPageDay7() {
+		return mapper.getPageDay7();
+	}
+	@Override
+	public int getTodaySignIn() {
+		return mapper.getTodaySignIn();
+ 	}
+	@Override
+	public int getYesterdaySignIn() {
+		return mapper.getYesterdaySignIn();
+	}
 }

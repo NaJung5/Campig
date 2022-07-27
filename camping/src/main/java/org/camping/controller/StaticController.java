@@ -114,6 +114,7 @@ public class StaticController {
 		
 		
 		//11번통계 : 시간별 전체접속순위
+		staticnum = 11;
 		service.setPageTime01();
 		service.setPageTime02();
 		service.setPageTime03();
@@ -139,6 +140,8 @@ public class StaticController {
 		service.setPageTime23();
 		service.setPageTime24();
 		
+		List<StaticDTO> PageTimeStatic = service.getPageTime();
+		model.addAttribute("PageTimeStatic", PageTimeStatic);
 		
 		//12번통계 : 지난 일주일 간 회원가입 수
 		int signUp1Week = service.getSignUp1Week();
@@ -188,8 +191,63 @@ public class StaticController {
 		//15번통계 : 게시판 조회수 순위
 		List<StaticDTO> BoardStatic = service.getBoardStatic();
 		model.addAttribute("BoardStatic", BoardStatic);
-		return "static/staticList";
 		
+		
+		//16번통계 : 지난7일간 새글 작성 수 
+		service.setNewBoard0();
+		service.setNewBoard1();
+		service.setNewBoard2();
+		service.setNewBoard3();
+		service.setNewBoard4();
+		service.setNewBoard5();
+		service.setNewBoard6();
+		service.setNewBoard7();
+		int newboard0 = service.getNewBoard0();
+		int newboard1 = service.getNewBoard1();
+		int newboard2 = service.getNewBoard2();
+		int newboard3 = service.getNewBoard3();
+		int newboard4 = service.getNewBoard4();
+		int newboard5 = service.getNewBoard5();
+		int newboard6 = service.getNewBoard6();
+		int newboard7 = service.getNewBoard7();
+		
+		model.addAttribute("newboard0",newboard0);
+		model.addAttribute("newboard1",newboard1);
+		model.addAttribute("newboard2",newboard2);
+		model.addAttribute("newboard3",newboard3);
+		model.addAttribute("newboard4",newboard4);
+		model.addAttribute("newboard5",newboard5);
+		model.addAttribute("newboard6",newboard6);
+		model.addAttribute("newboard7",newboard7);
+		
+		//17번통계 일별 홈 접속자수
+		service.setPageDay0();
+		service.setPageDay1();
+		service.setPageDay2();
+		service.setPageDay3();
+		service.setPageDay4();
+		service.setPageDay5();
+		service.setPageDay6();
+		service.setPageDay7();
+		int pageday0 = service.getPageDay0();
+		int pageday1 = service.getPageDay1();
+		int pageday2 = service.getPageDay2();
+		int pageday3 = service.getPageDay3();
+		int pageday4 = service.getPageDay4();
+		int pageday5 = service.getPageDay5();                                      
+		int pageday6 = service.getPageDay6();
+		int pageday7 = service.getPageDay7();
+		model.addAttribute("pageday0",pageday0);
+		model.addAttribute("pageday1",pageday1);
+		model.addAttribute("pageday2",pageday2);
+		model.addAttribute("pageday3",pageday3);
+		model.addAttribute("pageday4",pageday4);
+		model.addAttribute("pageday5",pageday5);
+		model.addAttribute("pageday6",pageday6);
+		model.addAttribute("pageday7",pageday7);
+		
+		
+		return "static/staticList";
 		
 	}
 }

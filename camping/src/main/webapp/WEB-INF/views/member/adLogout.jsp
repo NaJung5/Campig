@@ -10,6 +10,6 @@
 </head>
 <body>
 <c:remove var="adId" scope="session" />
-<c:redirect url="/main" />
+<c:redirect url="/home" />
 </body>
 </html>

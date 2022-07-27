@@ -10,7 +10,7 @@
 	
 		<script>
 		function deletecheck() {
-			if(document.deleteForm.writer.value == "") {
+			if(document.deleteForm.writer.value == nick) {
 				return false;
 			}
 		}
@@ -22,7 +22,13 @@
 			   	<table border="1" align="center" cellspacing="0" cellpadding="0" width="360"> 
 					<tr height="50">
 						<td align="center">
-							<input type="hidden" name="writer" value="${memId}" >
+							<c:if test="${memId != null}">
+								<input type="hidden" name="writer" value="${nick}">
+							</c:if>
+							<c:if test="${adId != null}">
+								${sessionScope.adId}
+								<input type="hidden" name="writer" value="${sessionScope.adId}">
+							</c:if>
 							<input type="submit" value="삭제하기">
 							<input type="button" value="글목록"
 							onclick="document.location.href='/board/list?pageNum=${pageNum}'">

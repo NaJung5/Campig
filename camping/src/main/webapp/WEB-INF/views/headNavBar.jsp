@@ -27,7 +27,7 @@
 					<ul id="main_menu">
 						<li><a href="../spot/info" data-toggle="dropdown">Camp</a></li>
 						<li><a href="../equip/list">Equip</a></li>
-						<li><a href="../board/list">Board</a></li>					
+						<li><a href="../board/notice?category=7">Board</a></li>					
 						<li><a href="/member/loginForm">Login</a></li>					
 					</ul>
 				</nav>
@@ -38,7 +38,7 @@
 					<ul id="main_menu">
 						<li><a href="../spot/info" data-toggle="dropdown">Camp</a></li>
 						<li><a href="../equip/list?id=${memId }">Equip</a></li>
-						<li><a href="../board/list?id=${memId }">Board</a></li>	
+						<li><a href="../board/notice?category=7">Board</a></li>	
 						<li><a href="/member/myPage?id=${memId }">myPage</a></li>					
 						<li><a href="../member/logoutForm">Logout</a></li>				
 					</ul>

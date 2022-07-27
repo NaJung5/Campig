@@ -4,9 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.camping.mapper.StaticMapper">
 	
-	
 	<insert id="pageStatic"  parameterType="hashmap">
-			insert into statics values(
+		insert into statics values(
 			#{id},
 			#{page},
 			#{inflow},
@@ -15,12 +14,11 @@
 			#{device},
 			#{keyword},
 			#{filter}
-									)
-		
+		)
 	</insert>
-	
-		<select id="getStarttime" resultType="int"  parameterType="hashmap">
-			<![CDATA[
+
+	<select id="getStarttime" resultType="int"  parameterType="hashmap">
+		<![CDATA[
 			SELECT count(*) FROM STATICS 
 			WHERE STARTTIME = (SELECT STARTTIME FROM
 			(SELECT STARTTIME,endtime FROM STATICS WHERE id = #{id} ORDER BY STARTTIME DESC) 
@@ -29,112 +27,97 @@
 			AND id = #{id} 
 			AND endtime IS null
 		]]>
-		
 	</select>
 	
 	<update id = "setEndtime"  parameterType="hashmap" >
-		   UPDATE STATICS SET ENDTIME = SYSDATE 
-		   WHERE STARTTIME = (SELECT STARTTIME FROM 
-		   (SELECT STARTTIME,endtime FROM STATICS WHERE id = #{id} ORDER BY STARTTIME DESC) 
-		   WHERE ROWNUM = 1) 
-		   AND STARTTIME > SYSDATE -0.25 
-		   AND id = #{id} 
-		   AND endtime IS null
+	   UPDATE STATICS SET ENDTIME = SYSDATE 
+	   WHERE STARTTIME = (SELECT STARTTIME FROM 
+	   (SELECT STARTTIME,endtime FROM STATICS WHERE id = #{id} ORDER BY STARTTIME DESC) 
+	   WHERE ROWNUM = 1) 
+	   AND STARTTIME > SYSDATE -0.25 
+	   AND id = #{id} 
+	   AND endtime IS null
 	</update>	
-
 
 	<update id = "setCategoryStatic" parameterType="int" >
-	  		 UPDATE STATICDATA SET staticvalue = (SELECT COUNT(*) cat${cat} FROM statics WHERE page LIKE '%cat=${cat}')
-	  		 WHERE staticname like 'cat${cat}'
+  		 UPDATE STATICDATA SET staticvalue = (SELECT COUNT(*) cat${cat} FROM statics WHERE page LIKE '%cat=${cat}')
+  		 WHERE staticname like 'cat${cat}'
 	</update>	
 	
-	
-		
-	
 	<select id="getFilName" resultType="org.camping.model.StaticDTO" parameterType="int"  >
-			select staticname fil FROM staticdata WHERE STATICNUM =${staticnum}
-		
+		select staticname fil FROM staticdata WHERE STATICNUM =${staticnum}
 	</select>
                                                                                
 	<update id = "setFilStatic"  >
-	   		UPDATE staticdata SET STATICVALUE = ( SELECT COUNT (*) FROM statics WHERE filter LIKE '%${fil}%') WHERE STATICNAME LIKE '${fil}'
+   		UPDATE staticdata SET STATICVALUE = ( SELECT COUNT (*) FROM statics WHERE filter LIKE '%${fil}%') WHERE STATICNAME LIKE '${fil}'
 	</update>	
-		
 	
 	<select id="getStaticValue" resultType="org.camping.model.StaticDTO" parameterType="int">
-			<![CDATA[
+		<![CDATA[
 		    SELECT * FROM 
     		(SELECT ROWNUM r , a.* FROM 
     		(select staticname,staticvalue from staticdata 
     		where staticnum = ${staticnum} order by staticvalue desc) a)
     		WHERE ROWNUM < 6
 		]]>
-		
 	</select>
-	
 	
 	<select id="getCatName" resultType="String" parameterType="String">
-			SELECT EXP FROM EQCATEGORY WHERE cate LIKE '${staticName}'
-		
+		SELECT EXP FROM EQCATEGORY WHERE cate LIKE '${staticName}'
 	</select>
 	
-	
 	<select id="getEqFavStatic" resultType="org.camping.model.StaticDTO" >
-			<![CDATA[
+		<![CDATA[
 			SELECT title staticname , COUNT staticvalue  FROM (SELECT ROWNUM r , a.num,b.title,a.COUNT FROM
 			(SELECT num,COUNT(*) COUNT FROM FAVORITE WHERE status = 0 GROUP BY num  ORDER BY COUNT desc) a , equipments b WHERE a.num =b.NUM)
 			WHERE r < 6 
-			]]>
-		
+		]]>
 	</select>
 	
 	<select id="getSpFavStatic" resultType="org.camping.model.StaticDTO" >
-			<![CDATA[
+		<![CDATA[
 			SELECT name staticname , COUNT staticvalue  FROM (SELECT ROWNUM r , a.num,b.name,a.COUNT FROM
 			(SELECT num,COUNT(*) COUNT FROM FAVORITE WHERE status = 1 GROUP BY num  ORDER BY COUNT desc) a , spot b WHERE a.num =b.NUM)
 			WHERE r < 6 
-			]]>
-		
+		]]>
 	</select>
 	
 	<select id="getSpReadStatic" resultType="org.camping.model.StaticDTO" >
-			<![CDATA[
+		<![CDATA[
 			SELECT NAME staticname , READ staticvalue FROM 
 			(SELECT ROWNUM r , s.* FROM 
 			(SELECT NAME,read FROM spot  WHERE status = 0 ORDER BY READ desc) s) 
 			WHERE r <6
-			]]>
-		
+		]]>
 	</select>
 	
 	<select id="getPageStatic" resultType="org.camping.model.StaticDTO" >
-			<![CDATA[
+		<![CDATA[
 			SELECT page staticname , COUNT staticvalue FROM
 		    (SELECT ROWNUM r, a.* FROM
 		    (SELECT page,COUNT(*) COUNT FROM statics GROUP BY page ORDER BY COUNT desc) a)
 		    WHERE ROWNUM < 6
-			]]>
-		
+		]]>
 	</select>
 	
 	<update id = "setGenderAll" >
-			UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1) WHERE STATICNAME LIKE 'ALL'
+		UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1) WHERE STATICNAME LIKE 'ALL'
 	</update>
 	<update id = "setGenderMen" >
-			UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1 AND gender = 0) WHERE STATICNAME LIKE 'MEN'
+		UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1 AND gender = 0) WHERE STATICNAME LIKE 'MEN'
 	</update>
 	<update id = "setGenderWomen" >
-			UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1 AND gender = 1) WHERE STATICNAME LIKE 'women'
+		UPDATE STATICDATA SET STATICVALUE =  (SELECT COUNT(*) FROM ACCOUNT WHERE STATUS = 1 AND gender = 1) WHERE STATICNAME LIKE 'women'
 	</update>
 	
 	<select id = "getGenderAll" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'ALL'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'ALL'
 	</select>
 	<select id = "getGenderMen" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'MEN'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'MEN'
 	</select>
 	<select id = "getGenderWomen" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'women'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE 'women'
 	</select>
 	
 	
@@ -143,115 +126,280 @@
 	</select>
 	
 	<update id = "setAge10s" >
-			UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 7299 AND SYSDATE -3650) WHERE STATICNAME LIKE '10s'
+		UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 7299 AND SYSDATE -3650) WHERE STATICNAME LIKE '10s'
 	</update>
 	
 	<update id = "setAge20s" >
-			UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 10949 AND SYSDATE -7230) WHERE STATICNAME LIKE '20s'	
+		UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 10949 AND SYSDATE -7230) WHERE STATICNAME LIKE '20s'	
 	</update>
 	<update id = "setAge30s" >
-			UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 14599 AND SYSDATE -10950) WHERE STATICNAME LIKE '30s'	
+		UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 14599 AND SYSDATE -10950) WHERE STATICNAME LIKE '30s'	
 	</update>
 	<update id = "setAge40s" >
-			UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 18249 AND SYSDATE -14600) WHERE STATICNAME LIKE '40s'	
+		UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 18249 AND SYSDATE -14600) WHERE STATICNAME LIKE '40s'	
 	</update>
 	<update id = "setAge50s" >
-			UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 21900 AND SYSDATE -18250) WHERE STATICNAME LIKE '50s'	
+		UPDATE STATICDATA SET STATICVALUE = (SELECT COUNT(*) FROM ACCOUNT WHERE BIRTH between  SYSDATE - 21900 AND SYSDATE -18250) WHERE STATICNAME LIKE '50s'	
 	</update>
 	<select id = "getAge10s" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '10s'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '10s'
 	</select>
 	<select id = "getAge20s" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '20s'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '20s'
 	</select>
 	<select id = "getAge30s" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '30s'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '30s'
 	</select>
 	<select id = "getAge40s" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '40s'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '40s'
 	</select>
 	<select id = "getAge50s" resultType="int">
-			SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '50s'
+		SELECT staticvalue FROM staticdata WHERE STATICNAME LIKE '50s'
 	</select>
 	
 	<select id = "getBoardStatic" resultType="org.camping.model.StaticDTO">
-			<![CDATA[
+		<![CDATA[
 			SELECT title staticname , readcount staticvalue FROM (SELECT ROWNUM r , b.* FROM (SELECT title,READCOUNT FROM BOARD  WHERE status = 0 ORDER BY READCOUNT desc) b) WHERE r <6
-			]]>
+		]]>
 	</select>
 	
 	<update id = "setPageTime01" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from (SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '00:00:00' and '01:00:00') WHERE STATICNAME LIKE '01'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from (SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '00:00:00' and '01:00:00') WHERE STATICNAME LIKE '01'
 	</update>
 	<update id = "setPageTime02" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '01:00:00' and '02:00:00') WHERE STATICNAME LIKE '02'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '01:00:00' and '02:00:00') WHERE STATICNAME LIKE '02'
 	</update>
 	<update id = "setPageTime03" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '02:00:00' and '03:00:00') WHERE STATICNAME LIKE '03'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '02:00:00' and '03:00:00') WHERE STATICNAME LIKE '03'
 	</update>
 	<update id = "setPageTime04" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '03:00:00' and '04:00:00') WHERE STATICNAME LIKE '04'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '03:00:00' and '04:00:00') WHERE STATICNAME LIKE '04'
 	</update>
 	<update id = "setPageTime05" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '04:00:00' and '05:00:00') WHERE STATICNAME LIKE '05'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '04:00:00' and '05:00:00') WHERE STATICNAME LIKE '05'
 	</update>
 	<update id = "setPageTime06" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '05:00:00' and '06:00:00') WHERE STATICNAME LIKE '06'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '05:00:00' and '06:00:00') WHERE STATICNAME LIKE '06'
 	</update>
 	<update id = "setPageTime07" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '06:00:00' and '07:00:00') WHERE STATICNAME LIKE '07'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '06:00:00' and '07:00:00') WHERE STATICNAME LIKE '07'
 	</update>
 	<update id = "setPageTime08" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '07:00:00' and '08:00:00') WHERE STATICNAME LIKE '08'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '07:00:00' and '08:00:00') WHERE STATICNAME LIKE '08'
 	</update>
 	<update id = "setPageTime09" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '08:00:00' and '09:00:00') WHERE STATICNAME LIKE '09'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '08:00:00' and '09:00:00') WHERE STATICNAME LIKE '09'
 	</update>
 	<update id = "setPageTime10" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '09:00:00' and '10:00:00') WHERE STATICNAME LIKE '10'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '09:00:00' and '10:00:00') WHERE STATICNAME LIKE '10'
 	</update>
 	<update id = "setPageTime11" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '10:00:00' and '11:00:00') WHERE STATICNAME LIKE '11'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '10:00:00' and '11:00:00') WHERE STATICNAME LIKE '11'
 	</update>
 	<update id = "setPageTime12" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '11:00:00' and '12:00:00') WHERE STATICNAME LIKE '12'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '11:00:00' and '12:00:00') WHERE STATICNAME LIKE '12'
 	</update>
 	<update id = "setPageTime13" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '12:00:00' and '13:00:00') WHERE STATICNAME LIKE '13'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '12:00:00' and '13:00:00') WHERE STATICNAME LIKE '13'
 	</update>
 	<update id = "setPageTime14" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '13:00:00' and '14:00:00') WHERE STATICNAME LIKE '14'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '13:00:00' and '14:00:00') WHERE STATICNAME LIKE '14'
 	</update>
 	<update id = "setPageTime15" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '14:00:00' and '15:00:00') WHERE STATICNAME LIKE '15'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '14:00:00' and '15:00:00') WHERE STATICNAME LIKE '15'
 	</update>
 	<update id = "setPageTime16" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '15:00:00' and '16:00:00') WHERE STATICNAME LIKE '16'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '15:00:00' and '16:00:00') WHERE STATICNAME LIKE '16'
 	</update>
 	<update id = "setPageTime17" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '16:00:00' and '17:00:00') WHERE STATICNAME LIKE '17'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '16:00:00' and '17:00:00') WHERE STATICNAME LIKE '17'
 	</update>
 	<update id = "setPageTime18" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '17:00:00' and '18:00:00') WHERE STATICNAME LIKE '18'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '17:00:00' and '18:00:00') WHERE STATICNAME LIKE '18'
 	</update>
 	<update id = "setPageTime19" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '18:00:00' and '19:00:00') WHERE STATICNAME LIKE '19'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '18:00:00' and '19:00:00') WHERE STATICNAME LIKE '19'
 	</update>
 	<update id = "setPageTime20" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '19:00:00' and '20:00:00') WHERE STATICNAME LIKE '20'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '19:00:00' and '20:00:00') WHERE STATICNAME LIKE '20'
 	</update>
 	<update id = "setPageTime21" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '20:00:00' and '21:00:00') WHERE STATICNAME LIKE '21'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '20:00:00' and '21:00:00') WHERE STATICNAME LIKE '21'
 	</update>
 	<update id = "setPageTime22" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '21:00:00' and '22:00:00') WHERE STATICNAME LIKE '22'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '21:00:00' and '22:00:00') WHERE STATICNAME LIKE '22'
 	</update>
 	<update id = "setPageTime23" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '22:00:00' and '23:00:00') WHERE STATICNAME LIKE '23'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '22:00:00' and '23:00:00') WHERE STATICNAME LIKE '23'
 	</update>
 	<update id = "setPageTime24" >
-			UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '23:00:00' and '24:00:00') WHERE STATICNAME LIKE '24'
+		UPDATE STATICDATA SET STATICVALUE = (select count(*) from(SELECT to_char(starttime,'HH24:MI:SS') t, a.* FROM statics a where page like '%home%') statics where t between '23:00:00' and '24:00:00') WHERE STATICNAME LIKE '24'
 	</update>
 	
+	<select id = "getPageTime" resultType="org.camping.model.StaticDTO">
+		SELECT * FROM STATICDATA WHERE STATICNUM = 11
+	</select>
+	
+	<update id = "setNewBoard0">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE  AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '0'
+	</update>
+	
+	<update id = "setNewBoard1">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -1 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-1'
+	</update>
+	
+	<update id = "setNewBoard2">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -2 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-2'
+	</update>
+	
+	<update id = "setNewBoard3">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -3 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-3'
+	</update>
+	
+	<update id = "setNewBoard4">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -4 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-4'
+	</update>
+	
+	<update id = "setNewBoard5">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -5 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-5'
+	</update>
+	
+	<update id = "setNewBoard6">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -6 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-6'
+	</update>
+	
+	<update id = "setNewBoard7">
+		UPDATE STATICDATA SET STATICVALUE =
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -7 AND  page LIKE '%writePro%' AND INFLOW LIKE '%writeForm%') 
+		WHERE STATICNAME LIKE '-7'
+	</update>
+	
+	<select id="getNewBoard0" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '0'
+	</select>
+	<select id="getNewBoard1" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-1'
+	</select>
+	<select id="getNewBoard2" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-2'
+	</select>
+	<select id="getNewBoard3" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-3'
+	</select>
+	<select id="getNewBoard4" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-4'
+	</select>
+	<select id="getNewBoard5" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-5'
+	</select>
+	<select id="getNewBoard6" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-6'
+	</select>
+	<select id="getNewBoard7" resultType="int">
+		select staticvalue FROM STATICDATA WHERE STATICNUM = 16 AND STATICNAME LIKE '-7'
+	</select>
+	
+	<update id = "setPageDay0">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE  AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home0'
+	</update>
+	<update id = "setPageDay1">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -1 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home1'
+	</update>
+	<update id = "setPageDay2">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -2 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home2'
+	</update>
+	<update id = "setPageDay3">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -3 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home3'
+	</update>
+	<update id = "setPageDay4">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -4 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home4'
+	</update>
+	<update id = "setPageDay5">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -5 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home5'
+	</update>
+	<update id = "setPageDay6">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -6 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home6'
+	</update>
+	<update id = "setPageDay7">
+		UPDATE staticdata SET STATICVALUE = 
+		(SELECT COUNT(TO_CHAR(starttime, 'YYYY-MM-DD')) FROM statics 
+		WHERE STARTTIME LIKE SYSDATE -7 AND  page LIKE '%home%')
+       	WHERE staticnum = 17 AND staticname LIKE 'home7'
+	</update>
 		 
+	<select id = "getPageDay0" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home0'
+	</select>
+	<select id = "getPageDay1" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home1'
+	</select>
+	<select id = "getPageDay2" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home2'
+	</select>
+	<select id = "getPageDay3" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home3'
+	</select>
+	<select id = "getPageDay4" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home4'
+	</select>
+	<select id = "getPageDay5" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home5'
+	</select>
+	<select id = "getPageDay6" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home6'
+	</select>
+	<select id = "getPageDay7" resultType="int">
+		SELECT staticvalue FROM STATICDATA WHERE staticnum = 17 AND staticname LIKE 'home7'
+	</select>
+	
+	<select id="getTodaySignIn" resultType="Integer">
+		select count(*) from account where to_char(reg, 'yyyy-MM-dd') = to_char(sysdate, 'yyyy-MM-dd')
+	</select>
+	<select id="getYesterdaySignIn" resultType="Integer">
+		select count(*) from account where to_char(reg, 'yyyy-MM-dd') = to_char(sysdate-1, 'yyyy-MM-dd')
+	</select>
+	
 </mapper>

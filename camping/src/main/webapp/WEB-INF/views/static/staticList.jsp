@@ -85,6 +85,38 @@ ${BoardStatic.staticName} : ${BoardStatic.staticValue} <br/>
 </c:forEach>
 
 
+<br/>시간대별 홈 접속현황 <br/>
+<c:forEach var="PageTimeStatic" items="${PageTimeStatic}">
+${PageTimeStatic.staticName} : ${PageTimeStatic.staticValue} <br/>
+</c:forEach>
+
+<br/>게시판 새글 작성 수  <br/>
+오늘  :  ${newboard0} 
+-1일 :  ${newboard1}
+-2일 : 	${newboard2}
+-3일 :	${newboard3}
+-4일 :	${newboard4}
+-5일 :	${newboard5}
+-6일 :	${newboard6}
+-7일 :	${newboard7}
+
+<br/>홈체이지 일별 방문자수 <br/>
+오늘  :  ${pageday0 } 
+-1일 :  ${pageday1  }
+-2일 : 	${pageday2 }
+-3일 :	${pageday3 }
+-4일 :	${pageday4 }
+-5일 :	${pageday5 }
+-6일 :	${pageday6 }
+-7일 :	${pageday7 }
+
+
+
+
+
+
+
+
 
 
 

@@ -148,6 +148,23 @@
 		
 	</delete>
 	
+	<select id="getEqAllList" resultType="org.camping.model.EquipDTO" parameterType="int">
+	
+			<![CDATA[
+			SELECT * FROM (SELECT ROWNUM r,a.* FROM EQUIPMENTS a ORDER BY num asc) 
+		 	WHERE r >= #{startRow} AND r <= #{endRow}
+			]]>
+	
+	</select>
+	<select id="getEqAllCount" resultType="int" >
+	
+			<![CDATA[
+			SELECT count(*) FROM EQUIPMENTS
+		 	
+			]]>
+	
+	</select>
+	
 	
 	
 </mapper>

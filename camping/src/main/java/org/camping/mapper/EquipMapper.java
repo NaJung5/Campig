@@ -3,7 +3,7 @@ package org.camping.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Param;
 import org.camping.model.EquipDTO;
 
 
@@ -21,6 +21,7 @@ public interface EquipMapper {
 	
 	public int equipFavoriteCnt (HashMap<String,Object> map);
 	
-	
+	public List<EquipDTO> getEqAllList(@Param("startRow") int startRow, @Param("endRow") int endRow);
+	public int getEqAllCount();
 	
 }

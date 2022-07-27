@@ -34,20 +34,20 @@
 						<td>${mem.id}</td>
 						<td>${mem.nickname}</td>
 						<td>${mem.adrs}</td>
-						<c:if test = "${mem.gender == 0 }">
+						<c:if test = "${mem.gender == 0}">
 							<td>남자</td>
 						</c:if>
-						<c:if test = "${mem.gender == 1 }">
+						<c:if test = "${mem.gender == 1}">
 							<td>여자</td>
 						</c:if>
 						<td>${mem.mail1}@${mem.mail2}</td>
-						<c:if test = "${mem.question == 1 }">
+						<c:if test = "${mem.question == 1}">
 							<td>보물 1호</td>
 						</c:if>
-						<c:if test = "${mem.question == 2 }">
+						<c:if test = "${mem.question == 2}">
 							<td>부모님 성함</td>
 						</c:if>
-						<c:if test = "${mem.question == 3 }">
+						<c:if test = "${mem.question == 3}">
 							<td>친한친구 이름</td>
 						</c:if>
 						<td>${mem.ans}</td>
