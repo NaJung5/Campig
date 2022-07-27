@@ -18,5 +18,11 @@ public class InfoDTO {
 	private String question;				// 비밀번호 찾기 질문 대답
 	private String ans;						// 비밀번호 찾기 질문 답
 	private String car;						// 차량 보유 여부
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date reg;
+	private int status;
+	private int gender;
+	private Date logintime;
+	
 
 }
