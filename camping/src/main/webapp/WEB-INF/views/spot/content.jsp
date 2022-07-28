@@ -34,12 +34,14 @@
 								</c:if>
 							</td>
 							<td>
-								<c:if test="${result == 0}">
-									<input type="button" value="즐겨찾기" onclick="window.location='/spot/fav?num=${spot.num}&id=${memId}'" />
-								</c:if>
-								<c:if test="${result == 1}">
-									<input type="button" value="즐겨찾기해제" onclick="window.location='/spot/fav?num=${spot.num}&id=${memId}'" />
-								</c:if>
+								<c:if test="${memId != null}">
+									<c:if test="${result == 0}">
+										<input type="button" value="즐겨찾기" onclick="window.location='/spot/fav?num=${spot.num}&id=${memId}'" />
+									</c:if>
+									<c:if test="${result == 1}">
+										<input type="button" value="즐겨찾기해제" onclick="window.location='/spot/fav?num=${spot.num}&id=${memId}'" />
+									</c:if>
+								</c:if>	
 								<button><a href="${spot.page}" >홈페이지가기</a></button>
 							</td>
 						</tr>	

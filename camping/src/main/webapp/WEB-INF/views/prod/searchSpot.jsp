@@ -36,13 +36,13 @@
 			</c:forEach>
 			<c:if test="${count > 0}">
 				<c:if test="${startPage>10}">
-					<a href="/spot/key?pageNum=${startPage-10}&searchKey=${searchKey}" >[이전]</a>
+					<a href="/prod/searchSpot?pageNum=${startPage-10}&spot=${spot}" >[이전]</a>
 				</c:if>
 				<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-					<a href="/spot/key?pageNum=${i}&searchKey=${searchKey}" >[${i}]</a>
+					<a href="/prod/searchSpot?pageNum=${i}&spot=${spot}" >[${i}]</a>
 				</c:forEach>
 				<c:if test="${endPage < pageCount}">
-					<a href="/spot/key?pageNum=${startPage+10}&searchKey=${searchKey}" >[다음]</a>
+					<a href="/prod/searchSpot?pageNum=${startPage+10}&spot=${spot}" >[다음]</a>
 				</c:if>
 			</c:if>
 		</c:if>

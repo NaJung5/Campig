@@ -49,7 +49,7 @@
 						</tr>
 						<c:forEach var = "camplist" items = "${campList}">
 							<tr>
-								<td align="center"><a href="${camplist.page}"><img src="${camplist.image}" height="300" width="400"/></a></td>
+								<td align="center"><a href="/spot/campingspot?num=${camplist.num }"><img src="${camplist.image}" height="300" width="400"/></a></td>
 								<td align="center">${camplist.name } </td>
 								<td align="center">${camplist.addr } </td>
 								<td align="center">${camplist.score } </td>
