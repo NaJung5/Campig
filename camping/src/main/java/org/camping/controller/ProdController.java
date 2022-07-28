@@ -147,7 +147,7 @@ public class ProdController {
 				endPage = pageCount;
 			}
 		}
-		model.addAttribute("searchKey", spot);
+		model.addAttribute("spot", spot);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);

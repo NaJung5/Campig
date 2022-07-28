@@ -164,6 +164,14 @@ public class MemberServiceImpl implements MemberService {
 	public void reviewCamp(int num) {
 		mapper.reviewCamp(num);
 	}
+	@Override
+	public void updateSpotScore(int num) {
+		mapper.updateSpotScore(num);
+	}
+	@Override
+	public void updateEquipScore(int num) {
+		mapper.updateEquipScore(num);
+	}
 	
 	@Override
 	public int deleteCheck(ChecklistDTO dto) {

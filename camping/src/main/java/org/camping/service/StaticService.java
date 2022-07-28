@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.camping.model.SpotDTO;
 import org.camping.model.StaticDTO;
 
 
@@ -102,4 +103,6 @@ public interface StaticService {
 	// 회원 가입 통계
 	public int getTodaySignIn();
 	public int getYesterdaySignIn();
+	// 점수 높은 캠핑장
+	public List<SpotDTO> getTopScoreSpot();
 }

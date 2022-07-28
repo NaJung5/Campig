@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.camping.mapper.StaticMapper;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
+import org.camping.model.SpotDTO;
 import org.camping.model.StaticDTO;
 import org.camping.service.AdMemService;
 import org.camping.service.MemberService;
@@ -180,6 +181,9 @@ public class Admincontroller {
 		}
 		List<StaticDTO> SpRegStatic = sservice.getStaticValue(staticnum);
 		model.addAttribute("SpRegStatic", SpRegStatic);
+		
+		//캠핑장 점수 순위
+		model.addAttribute("spotTopScore", sservice.getTopScoreSpot());
 		
 		return "/adMain/main";
 	}

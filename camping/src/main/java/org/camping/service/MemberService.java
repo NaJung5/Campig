@@ -55,13 +55,15 @@ public interface MemberService {
 	public EquipDTO clDesk(String id, int status);
 	public EquipDTO clGas(String id, int status);
 	
+	// 리뷰 등록
 	public void review(ReviewDTO dto);
-	
+	// 리뷰수 증가
 	public void reviewEquip(int num);
 	public void reviewCamp(int num);
 	
-
-	
+	//리뷰 평점 변경
+	public void updateSpotScore(int num);
+	public void updateEquipScore(int num);
 	
 	//체크리스트 삭제
 	public int deleteCheck(ChecklistDTO dto);

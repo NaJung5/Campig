@@ -1038,8 +1038,10 @@ public class SpotController {
 		for (SpotCategoryDTO item : filList) {
 			filMap.put(item.getCate(), item.getExp()+" ");
 		}
-		int result = service.checkFav(memId, num);
-		model.addAttribute("result", result);	
+		if(memId != null) {
+			int result = service.checkFav(memId, num);
+			model.addAttribute("result", result);
+		}
 		model.addAttribute("spot", service.getContent(num));
 		model.addAttribute("fil",filMap);
 		return "spot/content";

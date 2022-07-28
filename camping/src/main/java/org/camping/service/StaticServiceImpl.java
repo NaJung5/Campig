@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.camping.mapper.StaticMapper;
 import org.camping.model.EquipDTO;
+import org.camping.model.SpotDTO;
 import org.camping.model.StaticDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -475,5 +476,9 @@ public class StaticServiceImpl implements StaticService {
 	@Override
 	public int getYesterdaySignIn() {
 		return mapper.getYesterdaySignIn();
+	}
+	@Override
+	public List<SpotDTO> getTopScoreSpot(){
+		return mapper.getTopScoreSpot();
 	}
 }

@@ -405,5 +405,8 @@
 	<select id="getYesterdaySignIn" resultType="Integer">
 		select count(*) from account where to_char(reg, 'yyyy-MM-dd') = to_char(sysdate-1, 'yyyy-MM-dd')
 	</select>
-	
+	<select id="getTopScoreSpot" resultType="org.camping.model.SpotDTO">
+		select * from (select spot.*, rownum r from (select * from spot where status=0 order by score desc) spot)
+		<![CDATA[where r<=5]]>
+	</select>
 </mapper>

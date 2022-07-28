@@ -165,9 +165,7 @@
 	                  </ul>
 	                  <div>
 	                    <div class="btn-wrapper">
-	                      <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
 	                      <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
-	                      <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
 	                    </div>
 	                  </div>
 	                </div>
@@ -775,7 +773,14 @@
 			                  autoSkip: true,
 			                  maxTicksLimit: 12,
 			                  fontSize: 10,
-			                  color:"#6B778C"
+			                  color:"#6B778C",
+			                  callback: function(label, index, labels) {
+			      		      	if(label.length > 10){
+			      		      		var xlabel = label.substring(0,7);
+			      		      		return xlabel+'...';
+			      		      	}
+			                	return label;
+			      		      }
 			                }
 			            }],
 			          },
@@ -866,7 +871,14 @@
 		                  autoSkip: true,
 		                  maxTicksLimit: 12,
 		                  fontSize: 10,
-		                  color:"#6B778C"
+		                  color:"#6B778C",
+		                  callback: function(label, index, labels) {
+			      		      	if(label.length > 10){
+			      		      		var xlabel = label.substring(0,7);
+			      		      		return xlabel+'...';
+			      		      	}
+			                	return label;
+			      		      }
 		                }
 		            }],
 		          },
@@ -956,7 +968,14 @@
 		                  autoSkip: true,
 		                  maxTicksLimit: 12,
 		                  fontSize: 10,
-		                  color:"#6B778C"
+		                  color:"#6B778C",
+		                  callback: function(label, index, labels) {
+			      		      	if(label.length > 10){
+			      		      		var xlabel = label.substring(0,7);
+			      		      		return xlabel+'...';
+			      		      	}
+			                	return label;
+			      		      }
 		                }
 		            }],
 		          },
@@ -1047,7 +1066,14 @@
 		                  autoSkip: true,
 		                  maxTicksLimit: 12,
 		                  fontSize: 10,
-		                  color:"#6B778C"
+		                  color:"#6B778C",
+		                  callback: function(label, index, labels) {
+			      		      	if(label.length > 10){
+			      		      		var xlabel = label.substring(0,7);
+			      		      		return xlabel+'...';
+			      		      	}
+			                	return label;
+			      		      }
 		                }
 		            }],
 		          },
@@ -1577,7 +1603,14 @@
 			                  autoSkip: true,
 			                  maxTicksLimit: 12,
 			                  fontSize: 10,
-			                  color:"#6B778C"
+			                  color:"#6B778C",
+			                  callback: function(label, index, labels) {
+				      		      	if(label.length > 8){
+				      		      		var xlabel = label.substring(0,7);
+				      		      		return xlabel+'...';
+				      		      	}
+				                	return label;
+				      		      }
 			                }
 			            }],
 			          },
@@ -1616,15 +1649,15 @@
 				var pageChart = document.getElementById("spotTopScore");
 				var pageChartData = {
 			    labels: [
-				    	<c:forEach var="EqFilStatic" items="${EqFilStatic}">
-				    		"${EqFilStatic.staticName}",
+				    	<c:forEach var="spotTopScore" items="${spotTopScore}">
+				    		"${spotTopScore.name}",
 				    	</c:forEach>
 			    		],
 			   	datasets: [{
 			    	label: 'total',
 			    	data: [
-			    		<c:forEach var="EqFilStatic" items="${EqFilStatic}">
-			    			${EqFilStatic.staticValue},
+			    		<c:forEach var="spotTopScore" items="${spotTopScore}">
+			    			${spotTopScore.score},
 			    		</c:forEach>
 						],
 					backgroundColor: "#52CDFF",
@@ -1667,7 +1700,14 @@
 			                  autoSkip: true,
 			                  maxTicksLimit: 12,
 			                  fontSize: 10,
-			                  color:"#6B778C"
+			                  color:"#6B778C",
+			                  callback: function(label, index, labels) {
+				      		      	if(label.length > 8){
+				      		      		var xlabel = label.substring(0,7);
+				      		      		return xlabel+'...';
+				      		      	}
+				                	return label;
+				      		      }
 			                }
 			            }],
 			          },
@@ -2060,10 +2100,6 @@
 				});
 			    document.getElementById('spotRegion-chart-legend').innerHTML = page.generateLegend();
 			}
-		    
-		    
-		    
-		    
 		  });
 		})(jQuery);
 	 </script>

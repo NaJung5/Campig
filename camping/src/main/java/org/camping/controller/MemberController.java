@@ -1,22 +1,17 @@
 package org.camping.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.camping.model.BoardDTO;
 import org.camping.model.ChecklistDTO;
-import org.camping.model.EqcategoryDTO;
 import org.camping.model.EquipDTO;
 import org.camping.model.FavoriteDTO;
 import org.camping.model.InfoDTO;
 import org.camping.model.MemberDTO;
 import org.camping.model.ReviewDTO;
-import org.camping.model.SpotCategoryDTO;
 import org.camping.model.SpotDTO;
 import org.camping.service.MemberService;
 import org.camping.service.ProdService;
@@ -24,13 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/member/*")
-@Slf4j
 public class MemberController {
 
 	@Autowired
@@ -300,7 +293,7 @@ public class MemberController {
 		model.addAttribute("info", info);
 		return "member/checklist3";
 	}
-
+	// ∏Æ∫‰«“ æ∆¿Ã≈€ ∏Ò∑œ
 	@RequestMapping("review")
 	public String review(Model model, String id, int status) {
 		int category = 0;
@@ -318,6 +311,7 @@ public class MemberController {
 		model.addAttribute("st", service.chlist(id,status));
 		return "member/review";
 	}
+	// ∏Æ∫‰ ∆˚
 	@RequestMapping("review2")
 	public String reviewEquip(Model model, String id, int status, int category) {
 		model.addAttribute("site", service.clSite(id, status));
@@ -335,13 +329,18 @@ public class MemberController {
 		model.addAttribute("category", category);
 		return "member/review2";
 	}
+	//∏Æ∫‰ µÓ∑œ
 	@RequestMapping("reviewPro")
-	public String reviewPro(ReviewDTO dto,String id, int num, int status, Model model) {
-
+	public String reviewPro(ReviewDTO dto,String id, int num, int status, Model model, int category) {
 		model.addAttribute("st", service.chlist(id,status));
+		service.review(dto);
 		service.reviewEquip(num);
 		service.reviewCamp(num);
-		
+		if(category == 0) {
+			service.updateEquipScore(num);
+		}else {
+			service.updateSpotScore(num);
+		}
 		return "member/reviewPro";
 	}
 	// ¡Ò∞‹√£±‚ & ¡ææ∆ø‰ «ÿµ– ∞‘Ω√±€¿ª ∫“∑Øø».
@@ -476,7 +475,7 @@ public class MemberController {
 		model.addAttribute("endPage",endPage);
 		return "member/favoEquip";
 	}
-	//¡Ò∞‹√£±‚ ªË¡¶\
+	//¡Ò∞‹√£±‚ ªË¡¶
 	@RequestMapping("deleteFavo")
 	public String deleteFavo(Model model,  HttpSession session, String id, int num, int status) {
 		int result = service.deleteFavoCh(id, num, status);

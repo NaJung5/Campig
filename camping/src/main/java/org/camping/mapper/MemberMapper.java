@@ -85,6 +85,10 @@ public interface MemberMapper {
 	public void reviewEquip(int num);
 	public void reviewCamp(int num); 
 	
+	//리뷰 평점 변경
+	public void updateSpotScore(int num);
+	public void updateEquipScore(int num);
+	
 	public int deleteCheck(ChecklistDTO dto);
 	//체크리스트 등록,수정
 	public void chModify(ChecklistDTO dto);

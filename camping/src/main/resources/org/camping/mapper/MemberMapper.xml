@@ -230,4 +230,10 @@
 		delete from favorite where id=#{id} and status=#{status} and num=#{num}
 	</delete>
 
+	<update id="updateSpotScore">
+		update spot set score=(select round(avg(score),1) from review where num =#{num} and category=1) where num=#{num}
+	</update>
+	<update id="updateEquipScore">
+		update equipments set score=(select round(avg(score),1) from review where num =#{num} and category=0) where num=#{num}
+	</update>
 </mapper> 
