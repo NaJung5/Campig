@@ -76,7 +76,8 @@ public class MemberController {
 		return "member/survey";
 	}
 	@RequestMapping("surveyPro")
-	public String surveyPro(MemberDTO dto,String id, Model model) {
+	public String surveyPro(MemberDTO dto, Model model, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
 		service.survey(dto);
 		return "member/surveyPro";
 	}
@@ -225,8 +226,9 @@ public class MemberController {
 
 	}
 	@RequestMapping("deleteCh")
-	public String deleteCh(ChecklistDTO dto, Model model, String id, int status) {
-		model.addAttribute("st", service.chlist(id,status));
+	public String deleteCh(ChecklistDTO dto, Model model, int status, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
+		model.addAttribute("st", service.chlist(memId,status));
 		service.deleteCheck(dto);
 		return "member/deleteCh";
 	}
@@ -252,7 +254,7 @@ public class MemberController {
 		return "member/checklist";
 	}
 	@RequestMapping("checklist2")
-	public String checklist2(String id,int status, Model model, HttpSession session) {		
+	public String checklist2(int status, Model model, HttpSession session) {		
 		String memId = (String)session.getAttribute("memId");
 		List<InfoDTO> info = service.info(memId);
 		model.addAttribute("info", info);
@@ -269,11 +271,11 @@ public class MemberController {
 			model.addAttribute("gas", service.clGas(memId, status));
 			model.addAttribute("desk", service.clDesk(memId, status));
 		}
-		model.addAttribute("st", service.chlist(id,status));
+		model.addAttribute("st", service.chlist(memId,status));
 		return "member/checklist2";
 	}
 	@RequestMapping("checklist3")
-	public String checklist3(String id,int status,  Model model, HttpSession session) {		
+	public String checklist3(int status,  Model model, HttpSession session) {		
 		String memId = (String)session.getAttribute("memId");
 	    List<InfoDTO> info = service.info(memId);
 		if(service.chlist2(memId, status) == 1) {
@@ -289,50 +291,53 @@ public class MemberController {
 			model.addAttribute("gas", service.clGas(memId, status));
 			model.addAttribute("desk", service.clDesk(memId, status));
 		}
-		model.addAttribute("st", service.chlist(id,status));
+		model.addAttribute("st", service.chlist(memId,status));
 		model.addAttribute("info", info);
 		return "member/checklist3";
 	}
 	// ∏Æ∫‰«“ æ∆¿Ã≈€ ∏Ò∑œ
 	@RequestMapping("review")
-	public String review(Model model, String id, int status) {
+	public String review(Model model, int status, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
 		int category = 0;
-		model.addAttribute("site", service.clSite(id, status));
-		model.addAttribute("tent", service.clTent(id, status));
-		model.addAttribute("taf", service.clTaf(id, status));
-		model.addAttribute("waterjug", service.clWaterjug(id, status));
-		model.addAttribute("stove", service.clStove(id, status));
-		model.addAttribute("light", service.clLight(id, status));
-		model.addAttribute("mat", service.clMat(id, status));
-		model.addAttribute("sb", service.clSb(id, status));
-		model.addAttribute("chair", service.clChair(id, status));
-		model.addAttribute("gas", service.clGas(id, status));
-		model.addAttribute("desk", service.clDesk(id, status));
-		model.addAttribute("st", service.chlist(id,status));
+		model.addAttribute("site", service.clSite(memId, status));
+		model.addAttribute("tent", service.clTent(memId, status));
+		model.addAttribute("taf", service.clTaf(memId, status));
+		model.addAttribute("waterjug", service.clWaterjug(memId, status));
+		model.addAttribute("stove", service.clStove(memId, status));
+		model.addAttribute("light", service.clLight(memId, status));
+		model.addAttribute("mat", service.clMat(memId, status));
+		model.addAttribute("sb", service.clSb(memId, status));
+		model.addAttribute("chair", service.clChair(memId, status));
+		model.addAttribute("gas", service.clGas(memId, status));
+		model.addAttribute("desk", service.clDesk(memId, status));
+		model.addAttribute("st", service.chlist(memId,status));
 		return "member/review";
 	}
 	// ∏Æ∫‰ ∆˚
 	@RequestMapping("review2")
-	public String reviewEquip(Model model, String id, int status, int category) {
-		model.addAttribute("site", service.clSite(id, status));
-		model.addAttribute("tent", service.clTent(id, status));
-		model.addAttribute("taf", service.clTaf(id, status));
-		model.addAttribute("waterjug", service.clWaterjug(id, status));
-		model.addAttribute("stove", service.clStove(id, status));
-		model.addAttribute("light", service.clLight(id, status));
-		model.addAttribute("mat", service.clMat(id, status));
-		model.addAttribute("sb", service.clSb(id, status));
-		model.addAttribute("chair", service.clChair(id, status));
-		model.addAttribute("gas", service.clGas(id, status));
-		model.addAttribute("desk", service.clDesk(id, status));
-		model.addAttribute("st", service.chlist(id,status));
+	public String reviewEquip(Model model, HttpSession session, int status, int category) {
+		String memId = (String)session.getAttribute("memId");
+		model.addAttribute("site", service.clSite(memId, status));
+		model.addAttribute("tent", service.clTent(memId, status));
+		model.addAttribute("taf", service.clTaf(memId, status));
+		model.addAttribute("waterjug", service.clWaterjug(memId, status));
+		model.addAttribute("stove", service.clStove(memId, status));
+		model.addAttribute("light", service.clLight(memId, status));
+		model.addAttribute("mat", service.clMat(memId, status));
+		model.addAttribute("sb", service.clSb(memId, status));
+		model.addAttribute("chair", service.clChair(memId, status));
+		model.addAttribute("gas", service.clGas(memId, status));
+		model.addAttribute("desk", service.clDesk(memId, status));
+		model.addAttribute("st", service.chlist(memId,status));
 		model.addAttribute("category", category);
 		return "member/review2";
 	}
 	//∏Æ∫‰ µÓ∑œ
 	@RequestMapping("reviewPro")
-	public String reviewPro(ReviewDTO dto,String id, int num, int status, Model model, int category) {
-		model.addAttribute("st", service.chlist(id,status));
+	public String reviewPro(ReviewDTO dto,HttpSession session, int num, int status, Model model, int category) {
+		String memId = (String)session.getAttribute("memId");
+		model.addAttribute("st", service.chlist(memId,status));
 		service.review(dto);
 		service.reviewEquip(num);
 		service.reviewCamp(num);
@@ -477,10 +482,11 @@ public class MemberController {
 	}
 	//¡Ò∞‹√£±‚ ªË¡¶
 	@RequestMapping("deleteFavo")
-	public String deleteFavo(Model model,  HttpSession session, String id, int num, int status) {
-		int result = service.deleteFavoCh(id, num, status);
+	public String deleteFavo(Model model,  HttpSession session, int num, int status) {
+		String memId = (String)session.getAttribute("memId");
+		int result = service.deleteFavoCh(memId, num, status);
 			if(result == 1) {
-				service.deleteFavo(id, num, status);
+				service.deleteFavo(memId, num, status);
 			}
 		model.addAttribute("result", result);
 		

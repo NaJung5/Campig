@@ -24,13 +24,13 @@
 		<table>
 			<tr height="50">
 				<td  align="center" width="180" >
-					<a href="/member/checklist?id=${memId }">1번째</a>
+					<a href="/member/checklist">1번째</a>
 				</td>
 				<td  align="center" width="180"> 
-					<a href="/member/checklist2?id=${memId }&status=2">2번째</a>
+					<a href="/member/checklist2?status=2">2번째</a>
 				</td>
 				<td align="center" width="180" >
-					<a href="/member/checklist3?id=${memId }&status=3">3번째</a>
+					<a href="/member/checklist3?status=3">3번째</a>
 				</td>
 			</tr>
 		</table>
@@ -144,9 +144,9 @@
 				<tr>
 					<td></td>	
 					<td align = "center">
-						<button onclick="window.open('/prod/check?id=${memId}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">추가</button>
-						<button onclick="window.open('/member/chModify?id=${memId}&status=3', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">수정</button>
-						<button onclick="window.location='review?id=${memId}&status=3'">삭제</button>
+						<button onclick="window.location='/prod/check'">추가</button>
+						<button onclick="window.open('/member/chModify?status=${st.status}', 'window_name', 'width=700, height=500, location=no, status=no, scrollbars=yes');">수정</button>
+						<button onclick="window.location='review?status=${st.status}'">삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -154,7 +154,7 @@
 		<c:if test = "${st.status  != 3 }">
 			<script>
 				alert("추가 설문조사 후 확인 가능합니다.");
-				window.location="/member/checklist?id=${memId}";
+				window.location="/member/checklist";
 			</script>
 		</c:if>
 	</body>

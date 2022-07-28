@@ -11,13 +11,11 @@
 <script>
 	function set(){
 		opener.document.account.nickname.value="${nickname}";
-
 		self.close();
 	}
 	function check(){
 		confirmNick = "/member/confirmNick?nickname="+checkForm.nickname.value;
-		window.location(confirmNick, "confirm","width=300, height=200 ")
-
+		window.location(confirmNick, "confirm","width=300, height=200 ");
 	}
 </script>
 <body>

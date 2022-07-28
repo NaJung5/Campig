@@ -10,10 +10,8 @@
 </head>
 
 <script>
-
 	alert("삭제되었습니다.");
 	window.location="/member/myPage?id=${memId}";
-	
 </script>
 	
 

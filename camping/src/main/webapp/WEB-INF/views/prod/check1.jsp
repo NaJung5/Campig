@@ -12,6 +12,9 @@
 				window.open(search, "search", "width=400, height=300");
 			}
 		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../resources/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../resources/css/noscript.css" /></noscript>
 	</head>
 	<body>
 		<c:if test="${result==3}">
@@ -81,5 +84,10 @@
 				<input type="submit" value="검색"/>
 			</form>
 		</c:if>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/browser.min.js"></script>
+		<script src="../resources/js/breakpoints.min.js"></script>
+		<script src="../resources/js/util.js"></script>
+		<script src="../resources/js/main.js"></script>
 	</body>
 </html>

@@ -3,6 +3,8 @@ package org.camping.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.camping.model.ChecklistDTO;
 import org.camping.model.SpotDTO;
 import org.camping.service.ProdService;
@@ -19,12 +21,13 @@ public class ProdController {
 	private ProdService service;
 	// 설문 안했을경우 체크리스트 필터
 	@RequestMapping("check")
-	public String Check(String id, Model model) {
+	public String Check(HttpSession session ,Model model) {
+		String memId = (String)session.getAttribute("memId");
 		int result = 0;
-		result = service.checkId(id);
-		String season = service.getAns3(id);
-		String person = service.getAns4(id);
-		String equip = service.getAns5(id);
+		result = service.checkId(memId);
+		String season = service.getAns3(memId);
+		String person = service.getAns4(memId);
+		String equip = service.getAns5(memId);
 		
 		model.addAttribute("season", season);
 		model.addAttribute("person", person);

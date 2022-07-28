@@ -32,6 +32,9 @@
 				}
 			}
 		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../resources/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../resources/css/noscript.css" /></noscript>
 	</head>
 	<body>
 		<form action="chModifyPro2" method="post" onsubmit="return changeValue();">
@@ -126,5 +129,10 @@
 			<input type="hidden" name="status" value="${status}" />
 			<input type="submit" value="확인"/>
 		</form>
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/browser.min.js"></script>
+		<script src="../resources/js/breakpoints.min.js"></script>
+		<script src="../resources/js/util.js"></script>
+		<script src="../resources/js/main.js"></script>
 	</body>
 </html>

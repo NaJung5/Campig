@@ -9,13 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>
-1:${memId }
-2:${status }
-3:${camplist.num}
-4:${dto }
-5:${FavoriteDTO }
-</h1>
+
 <c:if test = "${result == 1 }">
 	<script>
 		alert("삭제되었습니다.");

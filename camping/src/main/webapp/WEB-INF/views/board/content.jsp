@@ -7,6 +7,12 @@
 	<head>
 		<meta charset="UTF-8">
 			<title>게시판</title>
+			<script>
+				function commentUpdate(comment , index){
+					document.getElementById("comment"+index).innerHTML="<textarea name='content'>"+comment+"</textarea><input type='submit' value='수정완료' />";
+					document.getElementById("up"+index).style="display:none";
+				}
+			</script>
 	</head>
 
 	<body>
@@ -123,8 +129,7 @@
 				      <td align="center"  width="150" >작성일시</td>   
 				      <td align="center"  width="150" >삭제</td>
 				    </tr>
-					
-					<c:forEach var="commentboard" items="${boardList}">
+					<c:forEach var="commentboard" items="${boardList}" varStatus="i">
 						<tr height="30">
 							<td align="center">
 								${commentboard.comnum}
@@ -132,13 +137,21 @@
 				          		${commentboard.writer}
 				          	</td>
 				          	<td width="100" align="center" >
-				          		${commentboard.content}
+				          		<form  action = "../commentboard/updatePro" >
+				          			<input type="hidden" name="comnum" value="${commentboard.comnum}" />
+				          			<input type="hidden" name="writer" value="${commentboard.writer}" />
+				          			<input type="hidden" name="boardnum" value="${board.boardnum }" />
+				          			<div id="comment${i.index}">
+				          				${commentboard.content}
+				          			</div>
+				          		</form>
 				          	</td>	    		
 				    		<td align="center" width="150">
 				    			<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${commentboard.reg}" />
 				    		</td>
 				    		<c:if test="${commentboard.writer == nick}">
 				    			<td align="center" width="50">
+				    				<button id="up${i.index}" onclick="commentUpdate('${commentboard.content}' , '${i.index}')">수정</button>
 				    				<button onclick="window.location='/commentboard/deleteForm?comnum=${commentboard.comnum}&writer=${commentboard.writer}'">삭제</button>
 				    			</td>
 				  			</c:if>

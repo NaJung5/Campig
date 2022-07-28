@@ -5,6 +5,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../resources/css/main.css" />
+		<noscript><link rel="stylesheet" href="../../resources/css/noscript.css" /></noscript>
 	</head>
 	<body>
 		<table border="1">
@@ -109,5 +112,10 @@
 		</table>
 		<input type="button" value="마이페이지" onclick="window.location='/member/myPage?id=${memId}'" />
 		<input type="button" value="홈으로" onclick="window.location='/home?${memId}'" />
+		<script src="../resources/js/jquery.min.js"></script>
+		<script src="../resources/js/browser.min.js"></script>
+		<script src="../resources/js/breakpoints.min.js"></script>
+		<script src="../resources/js/util.js"></script>
+		<script src="../resources/js/main.js"></script>
 	</body>
 </html>

@@ -13,14 +13,14 @@
 <c:when test="${result != 1 }">
 	<script >
       alert("설문조사에 참여해주세요.");      
-      window.location = "/home?id=${memId}";
-      window.open("/member/survey?id=${memId}","survey","toolbar=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=900, left=0, top=0" );               
+      window.location = "/home";
+      window.open("/member/survey","survey","toolbar=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=900, left=0, top=0" );               
    </script>
 </c:when>
 <c:when test="${result == 1 }">
 
 	<script>
-		window.location="/home?id=${memId}";
+		window.location="/home";
 	</script>
 
 </c:when>

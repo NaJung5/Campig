@@ -24,7 +24,7 @@
 
 <h1  align = "center">설문조사</h1>
 <form action = "surveyPro" >
-<input type="hidden" name="id" value="${memId}">
+
 	<table>
 		<tr>
 			<td>선호 하는 캠핑장 스타일 : </td>
