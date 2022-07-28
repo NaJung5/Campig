@@ -1,11 +1,13 @@
 package org.camping.controller;
 
 import org.camping.service.BoardService;
+import org.camping.service.CommentBoardService;
 import org.camping.service.StaticService;
 import java.io.File;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.camping.model.BoardDTO;
+import org.camping.model.CommentBoardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,12 @@ public class BoardController {
 	
 	@Autowired
 	private StaticService staticService;
+	
+	@Autowired
+	private CommentBoardService service2;
+	
+	@Autowired
+	private CommentBoardService service3;
 
 	
 	// 글 쓰기 폼
@@ -43,54 +51,54 @@ public class BoardController {
 	public String writePro(BoardDTO dto, MultipartFile mf, MultipartHttpServletRequest request,HttpServletRequest Httprequest,HttpSession session)  throws Exception , UnsupportedEncodingException  {
 			
 		//통계
-				String memId = (String)session.getAttribute("memId");
-				//통계데이터 수집 및 전달 
-				HashMap<String, Object> statics = new HashMap<String, Object>();
-				//로그인된 아이디,비로그인시 guest
-				if(session.getAttribute("memId") != null) {
-					statics.put("id",(String)session.getAttribute("memId"));
-					if(staticService.getStarttime(statics) == 1){
-						staticService.setEndtime(statics);
-					}
-				}else {
-					statics.put("id","guest");	
+			String memId = (String)session.getAttribute("memId");
+			//통계데이터 수집 및 전달 
+			HashMap<String, Object> statics = new HashMap<String, Object>();
+			//로그인된 아이디,비로그인시 guest
+			if(session.getAttribute("memId") != null) {
+				statics.put("id",(String)session.getAttribute("memId"));
+				if(staticService.getStarttime(statics) == 1){
+					staticService.setEndtime(statics);
 				}
-						statics.put("endtime","");
-				//현재 접속된 페이지
-				String page = request.getRequestURI() + "?" + request.getQueryString();
-				String decodedPage  = URLDecoder.decode(page, "UTF-8");         
-				statics.put("page",decodedPage);
-				//전 페이지
-				String inflow = (String)request.getHeader("Referer");
-				if(inflow != null) {
-				String decodedInflow  = URLDecoder.decode(inflow, "UTF-8");        
-				statics.put("inflow",decodedInflow);
-				}else {
-					statics.put("inflow","");	
-				}		
-				//접속디바이스
-				String device = null;
-				String agent = request.getHeader("USER-AGENT");
-				if(agent.contains("iPhone")){
-				device = "iPhone";
-				}
-				else if(agent.contains("Android")) {
-					device = "Android";
-				}else {
-					device = "Windows";
-				}
-				statics.put("device",device);
+			}else{
+				statics.put("id","guest");	
+			}
+				statics.put("endtime","");
+			//현재 접속된 페이지
+			String page = request.getRequestURI() + "?" + request.getQueryString();
+			String decodedPage  = URLDecoder.decode(page, "UTF-8");         
+			statics.put("page",decodedPage);
+			//전 페이지
+			String inflow = (String)request.getHeader("Referer");
+			if(inflow != null) {
+			String decodedInflow  = URLDecoder.decode(inflow, "UTF-8");        
+			statics.put("inflow",decodedInflow);
+			}else{
+				statics.put("inflow","");	
+			}		
+			//접속디바이스
+			String device = null;
+			String agent = request.getHeader("USER-AGENT");
+			if(agent.contains("iPhone")){
+			device = "iPhone";
+			}
+			else if(agent.contains("Android")) {
+				device = "Android";
+			}else {
+				device = "Windows";
+			}
+			statics.put("device",device);
 				
-				//검색어
-				String searchMap = "";
-				statics.put("keyword","");
-				
-				//필터체크시 
-				String fil = "";
-				statics.put("filter",fil);
-				//통계정보전달 
-				staticService.pageStatic(statics);
-	
+			//검색어
+			String searchMap = "";
+			statics.put("keyword","");
+			
+			//필터체크시 
+			String fil = "";
+			statics.put("filter",fil);
+			//통계정보전달 
+			staticService.pageStatic(statics);
+			
 		// 파일 업로드
 		mf = request.getFile("img");	// 업로드 파라미터
 		// 사진이 있을경우
@@ -115,15 +123,35 @@ public class BoardController {
 	// 글 내용
 	@RequestMapping("content")
 	public String content(int boardnum , String pageNum , Model model, int category, HttpSession session) {
-		
 		String memId = (String)session.getAttribute("memId");
 		if(memId != null) {			
 			model.addAttribute("nick", service.findNickname(memId));
 		}
-		
-		model.addAttribute("category", category);
-		model.addAttribute("board", service.getBoard(boardnum));
-		model.addAttribute("pageNum", pageNum);
+		if(pageNum == null) pageNum ="1";
+		int pageSize = 10;
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		count = service3.getCommentBoardCount();
+		List<CommentBoardDTO> boardList = null;
+		if(count > 0) {
+			boardList = service3.getCommentBoards(startRow, endRow, boardnum);
+		}
+		number = count - (currentPage-1) * pageSize;
+		 
+			model.addAttribute("pageNum", pageNum);
+			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("startRow", startRow);
+			model.addAttribute("endRow", endRow);
+			model.addAttribute("count", count);
+			model.addAttribute("boardList", boardList);
+			model.addAttribute("number", number);
+			model.addAttribute("category", category);
+			model.addAttribute("board", service.getBoard(boardnum));
+			model.addAttribute("pageNum", pageNum);
 		
 		return "/board/content";
 	}
@@ -157,8 +185,8 @@ public class BoardController {
 			mf.transferTo(upload);
 
 			dto.setImage(fileName);
-		}else {
-			// 없을 경우
+		}else{
+		// 없을 경우
 			dto.setImage("");
 		}
 		model.addAttribute("result",service.updateBoard(dto));
@@ -181,9 +209,13 @@ public class BoardController {
 	
 	// 글 삭제 프로
 	@RequestMapping("deletePro")
-	public String deletePro(String pageNum , Model model, BoardDTO dto) {
-			
+	public String deletePro(String pageNum , Model model, BoardDTO dto, int boardnum) {
+		System.out.println(boardnum);
+		
 		int result = service.deleteStatus(dto); 		
+		if(result != 0 ) {
+			service2.allCommentDelete(boardnum);
+		}
 		
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("result",result);
@@ -368,8 +400,7 @@ public class BoardController {
 
 		if(memId != null) {
 			model.addAttribute("nick", service.findNickname(memId));
-		}
-		else {
+		}else{
 			model.addAttribute("nick", service.findNickname(id));
 		}
 			model.addAttribute("pageNum", pageNum);
@@ -412,6 +443,5 @@ public class BoardController {
 			model.addAttribute("number", number);
 		 	
 		return "/board/notice"; 
-	}
-	
+	}	
 }

@@ -24,8 +24,8 @@ public class CommentBoardServiceImpl implements CommentBoardService {
 	}
 	
 	@Override
-	public List<CommentBoardDTO> getCommentBoards(int startRow, int endRow) {
-		return mapper.getCommentBoards(startRow, endRow);
+	public List<CommentBoardDTO> getCommentBoards(int startRow, int endRow, int boardnum) {
+		return mapper.getCommentBoards(startRow, endRow, boardnum);
 	}
 	
 	@Override
@@ -53,12 +53,17 @@ public class CommentBoardServiceImpl implements CommentBoardService {
 	}
 	
 	@Override
-	public void deleteCommentBoard(CommentBoardDTO dto) {
-		mapper.deleteCommentBoard(dto);
+	public void deleteCommentBoard(int comnum, String writer) {
+		mapper.deleteCommentBoard(comnum, writer);
 	}
 	
 	@Override
 	public int delete(CommentBoardDTO dto) {
 		return mapper.delete(dto);
+	}
+	
+	@Override
+	public int allCommentDelete(int boardnum) {
+		return mapper.allCommentDelete(boardnum);
 	}
 }

@@ -111,8 +111,7 @@
 			        <div class="col-lg-12 grid-margin stretch-card">
 			            <div class="card">
 			                <div class="card-body">
-			                	<h4 class="card-title">Inverse table</h4>
-			                	<p class="card-description">Add class <code>.table-dark</code></p>
+			                	<h4 class="card-title">캠핑장 리스트</h4>
 			                	<div class="table-responsive pt-3">
 									<table class="table table-dark" >
 										<tr>
@@ -135,7 +134,7 @@
 													<td>${list.phone}</td>
 													<td>${list.addr}</td>
 													<td>${list.reg}</td>
-													<td><input type="button" value="수정" onclick="window.location='/adSpot/modify?num=${list.num}'" /></td>
+													<td><button type="button" class="btn btn-inverse-success btn-fw" onclick="window.location='/adSpot/modify?num=${list.num}'">수정</button></td>
 													<td>
 														<form action="/adSpot/delete" method="post" >
 															<select name="status" >
@@ -144,7 +143,7 @@
 															</select>
 															<input type="hidden" name="num" value="${list.num}" />
 															<input type="hidden" name="pageNum" value="${pageNum}" />
-															<input type="submit" value="적용" />
+															<button type="submit" class="btn btn-inverse-success btn-fw">적용</button>
 														</form>
 													</td>
 												</tr>	
@@ -164,11 +163,11 @@
 										</c:if>
 									</c:if>
 									<!-- 캠핑장 등록 이동 -->
-									<input type="button" value="캠핑장등록" onclick="window.location='/adSpot/insert'" />
+									<button type="button" class="btn btn-inverse-info btn-fw" onclick="window.location='/adSpot/insert'">캠핑장등록</button>
 									<!-- 미디어 등록 이동 -->
-									<input type="button" value="미디어등록" onclick="window.location='/adSpot/insertMedia'" />
+									<button type="button" class="btn btn-inverse-info btn-fw" onclick="window.location='/adSpot/insertMedia'">미디어등록</button>
 									<!-- 미디어 등록 이동 -->
-									<input type="button" value="미디어관리" onclick="window.open('/adSpot/mediaList', '/adSpot/mediaList', 'width=400, height=300')" />
+									<button type="button" class="btn btn-inverse-info btn-fw" onclick="window.open('/adSpot/mediaList', '/adSpot/mediaList', 'width=400, height=300')">미디어관리</button>
 			                	</div>
                 			</div>
               			</div>

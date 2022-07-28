@@ -17,6 +17,7 @@
 		</script>
 	
 	</head>
+	
 		<center><b>글삭제</b></center>
 			<form method="post" name="deleteForm" action="/board/deletePro?pageNum=${pageNum}&boardnum=${boardnum}" onsubmit="return deletecheck()" >
 			   	<table border="1" align="center" cellspacing="0" cellpadding="0" width="360"> 

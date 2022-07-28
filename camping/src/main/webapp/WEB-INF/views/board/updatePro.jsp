@@ -11,6 +11,7 @@
 
 	<body>
 		<center><b>글수정</b></center>
+		
 		<c:redirect url="/board/notice?category=7"></c:redirect>
 	</body>
 </html>

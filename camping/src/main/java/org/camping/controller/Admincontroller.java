@@ -2,6 +2,7 @@ package org.camping.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -137,6 +138,48 @@ public class Admincontroller {
 		List<StaticDTO> EqFilStatic = sservice.getStaticValue(staticnum);
 		model.addAttribute("EqFilStatic", EqFilStatic);
 		
+		// 캠핑장별 조회수
+		model.addAttribute("SpReadStatic", sservice.getSpReadStatic());
+		
+		// 캠핑장 선호 계절
+		staticnum = 8;
+	    filNameList = sservice.getFilName(staticnum);
+		for(int i=0; i <=3; i++) {
+			String fil = filNameList.get(i).getFil();
+			sservice.setFilStatic(fil);
+		}
+		List<StaticDTO> SpSeasonStatic = sservice.getStaticValue(staticnum);
+		model.addAttribute("SpSeasonStatic", SpSeasonStatic);
+		
+		// 캠핑장 선호 시설
+		staticnum = 7;
+	    filNameList = sservice.getFilName(staticnum);
+		for(int i=0; i <=10; i++) {
+			String fil = filNameList.get(i).getFil();
+			sservice.setFilStatic(fil);
+		}
+		List<StaticDTO> SpFacStatic = sservice.getStaticValue(staticnum);
+		model.addAttribute("SpFacStatic", SpFacStatic);
+		
+		// 캠핑장 선호 환경
+		staticnum = 5;
+	    filNameList = sservice.getFilName(staticnum);
+		for(int i=0; i <=7; i++) {
+			String fil = filNameList.get(i).getFil();
+			sservice.setFilStatic(fil);
+		}
+		List<StaticDTO> SpEnvStatic = sservice.getStaticValue(staticnum);
+		model.addAttribute("SpEnvStatic", SpEnvStatic);
+		
+		// 캠핑장 선호 지역
+		staticnum = 6;
+	    filNameList = sservice.getFilName(staticnum);
+		for(int i=0; i <=14; i++) {
+			String fil = filNameList.get(i).getFil();
+			sservice.setFilStatic(fil);
+		}
+		List<StaticDTO> SpRegStatic = sservice.getStaticValue(staticnum);
+		model.addAttribute("SpRegStatic", SpRegStatic);
 		
 		return "/adMain/main";
 	}
@@ -146,7 +189,7 @@ public class Admincontroller {
 	@RequestMapping("list")
 	public String list(String pageNum, Model model) {
 		if(pageNum == null) pageNum = "1";
-		int pageSize = 10;
+		int pageSize = 30;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize+1 ;
 		int endRow = (currentPage) * pageSize ;

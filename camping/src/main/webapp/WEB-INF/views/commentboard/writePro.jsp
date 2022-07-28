@@ -4,12 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-<head>
-<meta charset="UTF-8">
-<title>글쓰기 Pro</title>
-</head>
-
-<body>
-	<c:redirect url="/commentboard/list"></c:redirect>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>글쓰기 Pro</title>
+	</head>
+	
+	<body>
+		<script>
+			alert("작성되었습니다.");
+			location.href = document.referrer;
+		</script>
+	</body>
 </html>

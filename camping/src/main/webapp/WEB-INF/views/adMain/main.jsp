@@ -17,7 +17,6 @@
 	  <link rel="stylesheet" href="/resources/vendors/css/vendor.bundle.base.css">
 	  <!-- endinject -->
 	  <!-- Plugin css for this page -->
-	  <link rel="stylesheet" href="/resources/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
 	  <link rel="stylesheet" href="/resources/js/select.dataTables.min.css">
 	  <!-- End plugin css for this page -->
 	  <!-- inject:css -->
@@ -33,7 +32,7 @@
 			</script>
 		</c:if>
 		
-		
+		<div class="container-scroller"> 
 	    <!-- partial:partials/_navbar.html -->
 	    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
 	      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -59,8 +58,64 @@
 	            <h3 class="welcome-sub-text">관리자 페이지입니다</h3>
 	          </li>
 	        </ul>
-	
-	         
+	        <ul class="navbar-nav ms-auto">
+	          <li class="nav-item dropdown"> 
+	            <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+	              <i class="icon-bell"></i>
+	              <span class="count"></span>
+	            </a>
+	            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
+	              <a class="dropdown-item py-3">
+	                <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
+	                <span class="badge badge-pill badge-primary float-right">View all</span>
+	              </a>
+	              <div class="dropdown-divider"></div>
+	              <a class="dropdown-item preview-item">
+	                <div class="preview-thumbnail">
+	                  <img src="/resources/images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+	                </div>
+	                <div class="preview-item-content flex-grow py-2">
+	                  <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
+	                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+	                </div>
+	              </a>
+	              <a class="dropdown-item preview-item">
+	                <div class="preview-thumbnail">
+	                  <img src="/resources/images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+	                </div>
+	                <div class="preview-item-content flex-grow py-2">
+	                  <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
+	                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+	                </div>
+	              </a>
+	              <a class="dropdown-item preview-item">
+	                <div class="preview-thumbnail">
+	                  <img src="/resources/images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
+	                </div>
+	                <div class="preview-item-content flex-grow py-2">
+	                  <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
+	                  <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
+	                </div>
+	              </a>
+	            </div>
+	          </li>
+	          <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+	            <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+	              <img class="img-xs rounded-circle" src="/resources/images/faces/face8.jpg" alt="Profile image"> </a>
+	            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+	              <div class="dropdown-header text-center">
+	                <img class="img-md rounded-circle" src="/resources/images/faces/face8.jpg" alt="Profile image">
+	                <p class="mb-1 mt-3 font-weight-semibold">${adId}</p>
+	                <p class="fw-light text-muted mb-0">${adId}@gmail.com</p>
+	              </div>
+	              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile <span class="badge badge-pill badge-danger">1</span></a>
+	              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i> Messages</a>
+	              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
+	              <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a>
+	              <a class="dropdown-item" href="/member/adLogout"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+	            </div>
+	          </li>
+	        </ul>
 	        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
 	          <span class="mdi mdi-menu"></span>
 	        </button>
@@ -90,7 +145,6 @@
 	                <li class="nav-item"> <a class="nav-link" href="/adMem/list">회원관리</a></li>
 	                <li class="nav-item"> <a class="nav-link" href="/adSpot/list">캠핑장비</a></li>
 	                <li class="nav-item"> <a class="nav-link" href="/adSpot/list">캠핑장</a></li>
-	                <li class="nav-item"> <a class="nav-link" href="">게시글</a></li>
 	              </ul>
 	            </div>
 	          </li>
@@ -107,15 +161,6 @@
 	                    <!-- 캠핑장 데이터 검색 데이터 캠핑장비 데이터 회원 데이터 따로 뷰 만들기 href에 넣고 테스트 혹은 이 부분만 변하게 남겨두고 딴거는 그대로 -->
 	                    <li class="nav-item">
 	                      <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-	                    </li>
-	                    <li class="nav-item">
-	                      <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab" aria-selected="false">회원 통계</a>
-	                    </li>
-	                    <li class="nav-item">
-	                      <a class="nav-link" id="equipment-tab" data-bs-toggle="tab" href="#equipment" role="tab" aria-selected="false">장비통계</a>
-	                    </li>
-	                    <li class="nav-item">
-	                      <a class="nav-link"  id="spot-tab" data-bs-toggle="tab" href="#spot" role="tab" aria-selected="false">캠핑장통계</a>
 	                    </li>
 	                  </ul>
 	                  <div>
@@ -293,9 +338,7 @@
 	                        </div>
 	                      </div>
 	                    </div>
-	                  </div>
-	                  <div class="tab-pane fade" id="account">
-	                  	<div class="row">
+	                    <div class="row">
 	                  	  <div class="col-lg-4 d-flex flex-column">
 	                        <div class="row flex-grow">
 	                          <div class="col-12 grid-margin stretch-card">
@@ -335,9 +378,7 @@
 	                        </div>
 	                      </div>
 	                    </div> 
-	                  </div>
-					  <div class="tab-pane fade" id="equipment">
-					  	<div class="row">
+	                    <div class="row">
 	                      <div class="col-lg-4 d-flex flex-column">
 	                        <div class="row flex-grow">
 	                          <div class="col-12 grid-margin stretch-card">
@@ -345,16 +386,19 @@
 	                              <div class="card-body">
 	                                <div class="d-sm-flex justify-content-between align-items-start">
 	                                  <div>
-	                                    <h4 class="card-title card-title-dash">인기 장비순위</h4>
-	                                   <p class="card-subtitle card-subtitle-dash">즐겨찾기에 가장 많이 들어가있는 품목</p>
+	                                    <h4 class="card-title card-title-dash">캠핑장비 카테고리</h4>
+	                                   <p class="card-subtitle card-subtitle-dash">가장 많이 검색한 순서</p>
 	                                  </div>
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">요약</h2><h4 class="me-2">부제목</h4><h4 class="text-success">부제목</h4></div>
-	                                  <div class="me-3"><div id="equipFavorite-legend"></div></div>
+	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+	                                    <h2 class="me-2 fw-bold">요약</h2>
+	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
+	                                  </div>
+	                                  <div class="me-3"><div id="equipCategory-Chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
-	                                  <canvas id="equipFavorite"></canvas>
+	                                  <canvas id="equipCategory" ></canvas>
 	                                </div>
 	                              </div>
 	                            </div>
@@ -368,8 +412,8 @@
 	                              <div class="card-body">
 	                                <div class="d-sm-flex justify-content-between align-items-start">
 	                                  <div>
-	                                    <h4 class="card-title card-title-dash">인기 캠핑장 순위</h4>
-	                                   <p class="card-subtitle card-subtitle-dash">즐겨찾기에 가장 많이 들어가있는 기반</p>
+	                                    <h4 class="card-title card-title-dash">캠핑장비 필터</h4>
+	                                   <p class="card-subtitle card-subtitle-dash">가장 많이 검색한 순서</p>
 	                                  </div>
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
@@ -377,36 +421,10 @@
 	                                    <h2 class="me-2 fw-bold">요약</h2>
 	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
 	                                  </div>
-	                                  <div class="me-3"><div id="spotFavorite-legend"></div></div>
+	                                  <div class="me-3"><div id="equipFilter-Chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
-	                                  <canvas id="spotFavorite"></canvas>
-	                                </div>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div class="col-lg-4 d-flex flex-column">
-	                        <div class="row flex-grow">
-	                          <div class="col-12 grid-margin stretch-card">
-	                            <div class="card card-rounded">
-	                              <div class="card-body">
-	                                <div class="d-sm-flex justify-content-between align-items-start">
-	                                  <div>
-	                                    <h4 class="card-title card-title-dash">인기 게시글 순위</h4>
-	                                   <p class="card-subtitle card-subtitle-dash">조회수기반</p>
-	                                  </div>
-	                                </div>
-	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-	                                    <h2 class="me-2 fw-bold">요약</h2>
-	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
-	                                  </div>
-	                                  <div class="me-3"><div id="postTopView-legend"></div></div>
-	                                </div>
-	                                <div class="chartjs-bar-wrapper mt-3">
-	                                  <canvas id="postTopView"></canvas>
+	                                  <canvas id="equipFilter"></canvas>
 	                                </div>
 	                              </div>
 	                            </div>
@@ -414,9 +432,7 @@
 	                        </div>
 	                      </div>
 	                    </div>
-					  </div>
-					  <div class="tab-pane fade" id="spot">
-					  	<div class="row">
+	                    <div class="row">
 	                      <div class="col-lg-4 d-flex flex-column">
 	                        <div class="row flex-grow">
 	                          <div class="col-12 grid-margin stretch-card">
@@ -424,13 +440,16 @@
 	                              <div class="card-body">
 	                                <div class="d-sm-flex justify-content-between align-items-start">
 	                                  <div>
-	                                    <h4 class="card-title card-title-dash">캠핑장 순위</h4>
-	                                   <p class="card-subtitle card-subtitle-dash">캠핑장 조회수 기반</p>
+	                                    <h4 class="card-title card-title-dash">캠핑장 조회수</h4>
+	                                   <p class="card-subtitle card-subtitle-dash">가장 많이 본 순서</p>
 	                                  </div>
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">요약</h2><h4 class="me-2">부제목</h4><h4 class="text-success">부제목</h4></div>
-	                                  <div class="me-3"><div id="spotTopView-chart-legend"></div></div>
+	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+	                                    <h2 class="me-2 fw-bold">요약</h2>
+	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
+	                                  </div>
+	                                  <div class="me-3"><div id="spotTopView-Chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
 	                                  <canvas id="spotTopView"></canvas>
@@ -447,13 +466,16 @@
 	                              <div class="card-body">
 	                                <div class="d-sm-flex justify-content-between align-items-start">
 	                                  <div>
-	                                    <h4 class="card-title card-title-dash">캠핑장 순위</h4>
-	                                   <p class="card-subtitle card-subtitle-dash">캠핑장 평점 기반</p>
+	                                    <h4 class="card-title card-title-dash">캠핑장 평점 순</h4>
+	                                   <p class="card-subtitle card-subtitle-dash">가장 높은 평점</p>
 	                                  </div>
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">요약</h2><h4 class="me-2">부제목</h4><h4 class="text-success">부제목</h4></div>
-	                                  <div class="me-3"><div id="spotTopScore-chart-legend"></div></div>
+	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between">
+	                                    <h2 class="me-2 fw-bold">요약</h2>
+	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
+	                                  </div>
+	                                  <div class="me-3"><div id="spotTopScore-Chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
 	                                  <canvas id="spotTopScore"></canvas>
@@ -497,7 +519,7 @@
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
 	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">요약</h2><h4 class="me-2">부제목</h4><h4 class="text-success">부제목</h4></div>
-	                                  <div class="me-3"><div id="spotFacility-chart-legend"></div></div>
+	                                  <div class="me-3"><div id="spotFacility-Chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
 	                                  <canvas id="spotFacility"></canvas>
@@ -519,10 +541,7 @@
 	                                  </div>
 	                                </div>
 	                                <div class="d-sm-flex align-items-center mt-1 justify-content-between">
-	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between">
-	                                    <h2 class="me-2 fw-bold">요약</h2>
-	                                    <h4 class="me-2">부제목</h4><h4 class="text-success">부제목2</h4>
-	                                  </div>
+	                                  <div class="d-sm-flex align-items-center mt-4 justify-content-between"><h2 class="me-2 fw-bold">요약</h2><h4 class="me-2">부제목</h4><h4 class="text-success">부제목</h4></div>
 	                                  <div class="me-3"><div id="spotEnvir-chart-legend"></div></div>
 	                                </div>
 	                                <div class="chartjs-bar-wrapper mt-3">
@@ -533,6 +552,7 @@
 	                          </div>
 	                        </div>
 	                      </div>
+	                     
 	                      <div class="col-lg-4 d-flex flex-column">
 	                        <div class="row flex-grow">
 	                          <div class="col-12 grid-margin stretch-card">
@@ -579,7 +599,7 @@
 	      <!-- main-panel ends -->
 	    </div>
 	    <!-- page-body-wrapper ends -->
-	  
+	  </div>
 	  <!-- container-scroller -->
 	
 	  <!-- plugins:js -->
@@ -674,7 +694,6 @@
 		            var text = [];
 		            text.push('<div class="chartjs-legend"><ul>');
 		            for (var i = 0; i < chart.data.datasets.length; i++) {
-		              console.log(chart.data.datasets[i]); // see what's inside the obj.
 		              text.push('<li>');
 		              text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
 		              text.push(chart.data.datasets[i].label);
@@ -856,7 +875,6 @@
 		            var text = [];
 		            text.push('<div class="chartjs-legend"><ul>');
 		            for (var i = 0; i < chart.data.datasets.length; i++) {
-		              console.log(chart.data.datasets[i]); // see what's inside the obj.
 		              text.push('<li class="text-muted text-small">');
 		              text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
 		              text.push(chart.data.datasets[i].label);
@@ -947,7 +965,6 @@
 		            var text = [];
 		            text.push('<div class="chartjs-legend"><ul>');
 		            for (var i = 0; i < chart.data.datasets.length; i++) {
-		              console.log(chart.data.datasets[i]); // see what's inside the obj.
 		              text.push('<li class="text-muted text-small">');
 		              text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
 		              text.push(chart.data.datasets[i].label);
@@ -1156,7 +1173,7 @@
 		    
 		    if ($("#genderRatio").length) {
 		    	var doughnutChartCanvas = $("#genderRatio").get(0).getContext("2d");
-			      var doughnutPieData = {
+			    var doughnutPieData = {
 			        datasets: [{
 			          data: [${memCount}, ${womemCount}],
 			          backgroundColor: [
@@ -1232,35 +1249,36 @@
 			      });
 			      document.getElementById('genderRatio-chart-legend').innerHTML = doughnutChart.generateLegend();
 		    }
+		    
 		    if ($("#equipCategory").length) {
-			      var postTopViewChart = document.getElementById("equipCategory").getContext('2d');
-			      var postTopViewData = {
-			          labels: [
-			        	  <c:forEach var="boardTopView" items="${BoardStatic}">
-			        	  	"${boardTopView.staticName}",
-			        	  </c:forEach>
-			        	  	],
-			          datasets: [{
-			              label: 'total',
-			              data: [
-			            	  <c:forEach var="boardTopView" items="${BoardStatic}">
-			            	  	${boardTopView.staticValue},
-			            	  </c:forEach>
-			            	  ],
-			              backgroundColor: "#52CDFF",
-			              borderColor: [
-			                  '#52CDFF',
-			              ],
-			              borderWidth: 0,
-			              fill: true, // 3: no fill
-			              
-			          }]
+				var pageChart = document.getElementById("equipCategory");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="catStatic" items="${catStatic}" varStatus="statusNm">
+					    	"${catName[statusNm.index]}", 
+					    </c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="catStatic" items="${catStatic}" varStatus="statusNm">
+			    			${catStatic.staticValue}, 
+					    </c:forEach>
+						],
+					backgroundColor: "#52CDFF",
+					borderColor: [
+			        			'#52CDFF',
+								],
+					borderWidth: 0,
+					
+			        fill: true, // 3: no fill
+			 			}]
 			      };
 			  
-			      var postTopViewOptions = {
+			  	var pageChartOptions = {
 			        responsive: true,
 			        maintainAspectRatio: false,
-			          scales: {
+					scales: {
 			              yAxes: [{
 			                  gridLines: {
 			                      display: true,
@@ -1292,38 +1310,758 @@
 			                }
 			            }],
 			          },
-			          legend:false,
-			          legendCallback: function (chart) {
-			            var text = [];
-			            text.push('<div class="chartjs-legend"><ul>');
-			            for (var i = 0; i < chart.data.datasets.length; i++) {
-			              console.log(chart.data.datasets[i]); // see what's inside the obj.
-			              text.push('<li class="text-muted text-small">');
-			              text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
-			              text.push(chart.data.datasets[i].label);
-				              text.push('</li>');
-			            }
-			            text.push('</ul></div>');
-			            return text.join("");
-		          	  },
-				          
-			          elements: {
-			              line: {
-			                  tension: 0.4,
-			              }
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('equipCategory-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#equipFilter").length) {
+				var pageChart = document.getElementById("equipFilter");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="EqFilStatic" items="${EqFilStatic}">
+				    		"${EqFilStatic.staticName}",
+				    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="EqFilStatic" items="${EqFilStatic}">
+			    			${EqFilStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#1F3BB3",
+					borderColor: [
+			        			'#1F3BB3',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
 			          },
-			          tooltips: {
-			              backgroundColor: 'rgba(31, 59, 179, 1)',
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('equipFilter-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#equipCategory").length) {
+				var pageChart = document.getElementById("equipCategory");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="catStatic" items="${catStatic}" varStatus="statusNm">
+					    	"${catName[statusNm.index]}", 
+					    </c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="catStatic" items="${catStatic}" varStatus="statusNm">
+			    			${catStatic.staticValue}, 
+					    </c:forEach>
+						],
+					backgroundColor: "#52CDFF",
+					borderColor: [
+			        			'#52CDFF',
+								],
+					borderWidth: 0,
+					
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('equipCategory-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#spotTopView").length) {
+				var pageChart = document.getElementById("spotTopView");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="SpReadStatic" items="${SpReadStatic}">
+				    		"${SpReadStatic.staticName}",
+				    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="SpReadStatic" items="${SpReadStatic}">
+			    			 ${SpReadStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#1F3BB3",
+					borderColor: [
+			        			'#1F3BB3',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('spotTopView-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#spotTopScore").length) {
+				var pageChart = document.getElementById("spotTopScore");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="EqFilStatic" items="${EqFilStatic}">
+				    		"${EqFilStatic.staticName}",
+				    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="EqFilStatic" items="${EqFilStatic}">
+			    			${EqFilStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#52CDFF",
+					borderColor: [
+			        			'#52CDFF',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('spotTopScore-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#spotFacility").length) {
+				var pageChart = document.getElementById("spotFacility");
+				var pageChartData = {
+			    labels: [
+				    	<c:forEach var="SpFacStatic" items="${SpFacStatic}">
+				    		'${SpFacStatic.exp}',
+				    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="SpFacStatic" items="${SpFacStatic}">
+			    			${SpFacStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#52CDFF",
+					borderColor: [
+			        			'#52CDFF',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('spotFacility-Chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    if ($("#spotEnvir").length) {
+				var pageChart = document.getElementById("spotEnvir");
+				var pageChartData = {
+			    labels: [
+			    	<c:forEach var="SpEnvStatic" items="${SpEnvStatic}">
+			    		'${SpEnvStatic.exp}',
+			    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="SpEnvStatic" items="${SpEnvStatic}">
+			    			${SpEnvStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#1F3BB3",
+					borderColor: [
+			        			'#1F3BB3',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('spotEnvir-chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    
+		    if ($("#seasonRatio").length) {
+		    	var doughnutChartCanvas = $("#seasonRatio").get(0).getContext("2d");
+			    var doughnutPieData = {
+			        datasets: [{
+			          data: [
+			        	  <c:forEach var="SpSeasonStatic" items="${SpSeasonStatic}">
+			        	  	${SpSeasonStatic.staticValue},
+			        	  </c:forEach>
+			        	  ],
+			          backgroundColor: [
+			        	"#1F3BB3",
+				        "#FDD0C7",
+				        "#52CDFF",
+				        "#81DADA"
+			          ],
+			          borderColor: [
+			        	"#1F3BB3",
+				        "#FDD0C7",
+				        "#52CDFF",
+				        "#81DADA"
+			          ],
+			        }],
+			  
+			        // These labels appear in the legend and in the tooltips when hovering different arcs
+			        labels: [
+			        	<c:forEach var="SpSeasonStatic" items="${SpSeasonStatic}">
+			        		'${SpSeasonStatic.exp}',
+			        	</c:forEach>
+			        ]
+			      };
+			      var doughnutPieOptions = {
+			        cutoutPercentage: 50,
+			        animationEasing: "easeOutBounce",
+			        animateRotate: true,
+			        animateScale: false,
+			        responsive: true,
+			        maintainAspectRatio: true,
+			        showScale: true,
+			        legend: false,
+			        legendCallback: function (chart) {
+			          var text = [];
+			          text.push('<div class="chartjs-legend"><ul class="justify-content-center">');
+			          for (var i = 0; i < chart.data.datasets[0].data.length; i++) {
+			            text.push('<li><span style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '">');
+			            text.push('</span>');
+			            if (chart.data.labels[i]) {
+			              text.push(chart.data.labels[i]);
+			            }
+			            text.push('</li>');
 			          }
-			      }
-			      var postTopView = new Chart(postTopViewChart, {
-			          type: 'bar',
-			          data: postTopViewData,
-			          options: postTopViewOptions
+			          text.push('</div></ul>');
+			          return text.join("");
+			        },
+			        
+			        layout: {
+			          padding: {
+			            left: 0,
+			            right: 0,
+			            top: 0,
+			            bottom: 0
+			          }
+			        },
+			        tooltips: {
+			          callbacks: {
+			            title: function(tooltipItem, data) {
+			              return data['labels'][tooltipItem[0]['index']];
+			            },
+			            label: function(tooltipItem, data) {
+			              return data['datasets'][0]['data'][tooltipItem['index']];
+			            }
+			          },
+			            
+			          backgroundColor: '#fff',
+			          titleFontSize: 14,
+			          titleFontColor: '#0B0F32',
+			          bodyFontColor: '#737F8B',
+			          bodyFontSize: 11,
+			          displayColors: false
+			        }
+			      };
+			      var doughnutChart = new Chart(doughnutChartCanvas, {
+			        type: 'doughnut',
+			        data: doughnutPieData,
+			        options: doughnutPieOptions
 			      });
-			      document.getElementById('equipCategory-legend').innerHTML = postTopView.generateLegend();
-			    }
-
+			      document.getElementById('seasonRatio-chart-legend').innerHTML = doughnutChart.generateLegend();
+		    }
+	
+		    if ($("#spotRegion").length) {
+				var pageChart = document.getElementById("spotRegion");
+				var pageChartData = {
+			    labels: [
+			    	<c:forEach var="SpRegStatic" items="${SpRegStatic}">
+			    		'${SpRegStatic.exp}',
+			    	</c:forEach>
+			    		],
+			   	datasets: [{
+			    	label: 'total',
+			    	data: [
+			    		<c:forEach var="SpRegStatic" items="${SpRegStatic}">
+			    			${SpRegStatic.staticValue},
+			    		</c:forEach>
+						],
+					backgroundColor: "#52CDFF",
+					borderColor: [
+			        			'#52CDFF',
+								],
+					borderWidth: 0,
+			        fill: true, // 3: no fill
+			 			}]
+			      };
+			  
+			  	var pageChartOptions = {
+			        responsive: true,
+			        maintainAspectRatio: false,
+					scales: {
+			              yAxes: [{
+			                  gridLines: {
+			                      display: true,
+			                      drawBorder: false,
+			                      color:"#F0F0F0",
+			                      zeroLineColor: '#F0F0F0',
+			                  },
+			                  ticks: {
+			                    beginAtZero: true,
+			                    autoSkip: true,
+			                    maxTicksLimit: 5,
+			                    fontSize: 10,
+			                    color:"#6B778C"
+			                  }
+			              }],
+			              xAxes: [{
+			                stacked: true,
+			                barPercentage: 0.35,
+			                gridLines: {
+			                    display: false,
+			                    drawBorder: false,
+			                },
+			                ticks: {
+			                  beginAtZero: false,
+			                  autoSkip: true,
+			                  maxTicksLimit: 12,
+			                  fontSize: 10,
+			                  color:"#6B778C"
+			                }
+			            }],
+			          },
+			        legend:false,
+			        legendCallback: function (chart) {
+			       		var text = [];
+			        	text.push('<div class="chartjs-legend"><ul>');
+			        	for (var i = 0; i < chart.data.datasets.length; i++) {
+			        		console.log(chart.data.datasets[i]); // see what's inside the obj.
+							text.push('<li class="text-muted text-small">');
+							text.push('<span style="background-color:' + chart.data.datasets[i].borderColor + '">' + '</span>');
+							text.push(chart.data.datasets[i].label);
+							text.push('</li>');
+						}
+			        text.push('</ul></div>');
+			        return text.join("");
+			  		},
+					elements: {
+			        	line: {
+			        		tension: 0.4,
+						}
+					},
+			        tooltips: {
+			        	backgroundColor: 'rgba(31, 59, 179, 1)',
+					}
+				}
+				var page = new Chart(pageChart, {
+			    	type: 'bar',
+					data: pageChartData,
+					options: pageChartOptions
+				});
+			    document.getElementById('spotRegion-chart-legend').innerHTML = page.generateLegend();
+			}
+		    
+		    
 		    
 		    
 		  });

@@ -4,11 +4,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.camping.model.BoardDTO;
 import org.camping.model.CommentBoardDTO;
+
 public interface CommentBoardMapper {
 	
 	public int getCommentBoardCount();
 	
-	public List<CommentBoardDTO> getCommentBoards(@Param("startRow") int startRow, @Param("endRow") int endRow);
+	public List<CommentBoardDTO> getCommentBoards(@Param("startRow") int startRow, @Param("endRow") int endRow, @Param("boardnum")int boardnum);
 	
 	public int maxNum();
 	
@@ -22,7 +23,9 @@ public interface CommentBoardMapper {
 	
 	public int updateCommentBoard(CommentBoardDTO dto);
 
-	public void deleteCommentBoard(CommentBoardDTO dto);
+	public void deleteCommentBoard(@Param("comnum")int comnum, @Param("writer")String writer);
 	
 	public int delete(CommentBoardDTO dto);
+	
+	public int allCommentDelete(int boardnum);
 }

@@ -68,12 +68,6 @@
 				</td>
 			</tr>			
 			<tr>
-				<td>생년월일</td>
-				<td>
-					<input type = "date" name = "birth" required />
-				</td>
-			</tr>
-			<tr>
 				<td>비밀번호 질문</td>
 				<td>
 					<select id = "question" name = "question">
@@ -92,8 +86,10 @@
 			<tr>
 				<td>차량유무</td>
 				<td>
-					<input type = "radio" name = "car" value = "0"/>보유
-					<input type = "radio" name = "car" value = "1"/>미보유
+					<input type = "radio" name = "car" value = "0" id = "차보유"/>
+					<label for = "차보유">보유</label>
+					<input type = "radio" name = "car" value = "1" id = "차없음"/>
+					<label for = "차없음">미보유</label>
 				</td>
 			</tr>
 			<tr>

@@ -111,8 +111,7 @@
 			        <div class="col-lg-12 grid-margin stretch-card">
 			            <div class="card">
 			                <div class="card-body">
-			                	<h4 class="card-title">Inverse table</h4>
-			                	<p class="card-description">Add class <code>.table-dark</code></p>
+			                	<h4 class="card-title">회원 관리</h4>
 			                	<div class="table-responsive pt-3">
 			                    	<table class="table table-dark" >
 										<tr>
@@ -174,7 +173,7 @@
 															</select>
 															<input type="hidden" name="id" value="${mem.id}" />
 															<input type="hidden" name="status" value="${mem.status}" />
-															<input type="submit" value="적용" />
+															<button type="submit" class="btn btn-inverse-success btn-fw">적용</button>
 														</form>
 													</c:if>	
 													</td>

@@ -12,13 +12,15 @@ public interface CommentBoardService {
 	
 	public int getCommentBoardCount();
 	
-	public List<CommentBoardDTO> getCommentBoards(int startRow, int endRow);
+	public List<CommentBoardDTO> getCommentBoards(int startRow, int endRow, int boardnum);
 	
 	public void insertCommentBoard(CommentBoardDTO dto);
 	
 	public int updateCommentBoard(CommentBoardDTO dto);
 
-	public void deleteCommentBoard(CommentBoardDTO dto);
+	public void deleteCommentBoard(int comnum, String writer);
 	
 	public int delete(CommentBoardDTO dto);
+	
+	public int allCommentDelete(int boardnum);
 }

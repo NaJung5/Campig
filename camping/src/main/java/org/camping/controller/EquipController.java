@@ -38,48 +38,39 @@ public class EquipController {
 		
 		String memId = (String)session.getAttribute("memId");
 		
-		
 		//통계데이터 수집 및 전달 
 		HashMap<String, Object> statics = new HashMap<String, Object>();
 		
 		//로그인된 아이디,비로그인시 guest
 		if(session.getAttribute("memId") != null) {
 			statics.put("id",(String)session.getAttribute("memId"));
-			
 			if(staticService.getStarttime(statics) == 1){
 				staticService.setEndtime(statics);
 			}
-			
 		}else {
 			statics.put("id","guest");	
 		}
-		
-
 		statics.put("endtime","");
 		
 		//현재 접속된 페이지
 		String page = request.getRequestURI() + "?" + request.getQueryString();
 		String decodedPage  = URLDecoder.decode(page, "UTF-8");        
-        System.out.println(decodedPage ); 
 		statics.put("page",decodedPage);
 		
 		//전 페이지
 		String inflow = (String)request.getHeader("Referer");
 		if(inflow != null) {
-		String decodedInflow  = URLDecoder.decode(inflow, "UTF-8");        
-        System.out.println(decodedInflow );
-		statics.put("inflow",decodedInflow);
+			String decodedInflow  = URLDecoder.decode(inflow, "UTF-8");        
+			statics.put("inflow",decodedInflow);
 		}else {
 			statics.put("inflow","");	
 		}
-		
-		
 		
 		//접속디바이스
 		String device = null;
 		String agent = request.getHeader("USER-AGENT");
 		if(agent.contains("iPhone")){
-		device = "iPhone";
+			device = "iPhone";
 		}
 		else if(agent.contains("Android")) {
 			device = "Android";
@@ -90,390 +81,535 @@ public class EquipController {
 		
 		//검색어
 		if(request.getParameter("title") != null) {
-		statics.put("keyword",request.getParameter("title"));
+			statics.put("keyword",request.getParameter("title"));
 		}else if (request.getParameter("title") == null) {
 			statics.put("keyword","");
 		}
 		
 		//필터체크시 
-		
 		String fil = "Eq";
 		String par = request.getQueryString();
 		if(par != null) {
-		String decodedPar  = URLDecoder.decode(par, "UTF-8");
-		System.out.println(decodedPar);
-		//필터체크 코드화
-		if(decodedPar.contains("cat=1")) {
-			if(decodedPar.contains("bran=아이두젠")){
-				fil += ",AA1";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",AA2";
-			}if(decodedPar.contains("bran=네이처하이크")){
-				fil += ",AA3";
-			}if(decodedPar.contains("bran=비에프엘")){
-				fil += ",AA4";
-			}if(decodedPar.contains("fil1=캐빈텐트")){
-				fil += ",AB1";
-			}if(decodedPar.contains("fil1=돔텐트")){
-				fil += ",AB2";
-			}if(decodedPar.contains("fil1=그늘막텐트")){
-				fil += ",AB3";
-			}if(decodedPar.contains("fil1=터널형텐트")){
-				fil += ",AB4";
-			}if(decodedPar.contains("fil7=1")){
-				fil += ",AC1";
-			}if(decodedPar.contains("fil7=3")){
-				fil += ",AC2";
-			}if(decodedPar.contains("fil7=6")){
-				fil += ",AC3";
-			}if(decodedPar.contains("fil8=1000")){
-				fil += ",AD1";
-			}if(decodedPar.contains("fil8=1001")){
-				fil += ",AD2";
-			}if(decodedPar.contains("fil8=2001")){
-				fil += ",AD3";
-			}if(decodedPar.contains("fil8=3001")){
-				fil += ",AD4";
+			String decodedPar  = URLDecoder.decode(par, "UTF-8");
+			//필터체크 코드화
+			if(decodedPar.contains("cat=1")) {
+				if(decodedPar.contains("bran=아이두젠")){
+					fil += ",AA1";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",AA2";
+				}
+				if(decodedPar.contains("bran=네이처하이크")){
+					fil += ",AA3";
+				}
+				if(decodedPar.contains("bran=비에프엘")){
+					fil += ",AA4";
+				}
+				if(decodedPar.contains("fil1=캐빈텐트")){
+					fil += ",AB1";
+				}
+				if(decodedPar.contains("fil1=돔텐트")){
+					fil += ",AB2";
+				}
+				if(decodedPar.contains("fil1=그늘막텐트")){
+					fil += ",AB3";
+				}
+				if(decodedPar.contains("fil1=터널형텐트")){
+					fil += ",AB4";
+				}
+				if(decodedPar.contains("fil7=1")){
+					fil += ",AC1";
+				}
+				if(decodedPar.contains("fil7=3")){
+					fil += ",AC2";
+				}
+				if(decodedPar.contains("fil7=6")){
+					fil += ",AC3";
+				}
+				if(decodedPar.contains("fil8=1000")){
+					fil += ",AD1";
+				}
+				if(decodedPar.contains("fil8=1001")){
+					fil += ",AD2";
+				}
+				if(decodedPar.contains("fil8=2001")){
+					fil += ",AD3";
+				}
+				if(decodedPar.contains("fil8=3001")){
+					fil += ",AD4";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=2")) {
-			if(decodedPar.contains("bran=비에프엘")){
-				fil += ",BA1";
-			}if(decodedPar.contains("bran=아이두젠")){
-				fil += ",BA2";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",BA3";
-			}if(decodedPar.contains("bran=콜맨")){
-				fil += ",BA4";
-			}if(decodedPar.contains("fil1=스킨")){
-				fil += ",BB1";
-			}if(decodedPar.contains("fil1=스킨+폴")){
-				fil += ",BB2";
-			}if(decodedPar.contains("fil1=파라솔")){
-				fil += ",BB3";
-			}if(decodedPar.contains("fil1=스크린")){
-				fil += ",BB4";
-			}if(decodedPar.contains("fil1=사이드월")){
-				fil += ",BB5";
-			}if(decodedPar.contains("fil8=1000")){
-				fil += ",BC1";
-			}if(decodedPar.contains("fil8=1001")){
-				fil += ",BC2";
-			}if(decodedPar.contains("fil8=2001")){
-				fil += ",BC3";
-			}if(decodedPar.contains("fil8=3001")){
-				fil += ",BC4";
-			}if(decodedPar.contains("fil2=폴리에스테르")){
-				fil += ",BD1";
-			}if(decodedPar.contains("fil2=나일론")){
-				fil += ",BD2";
-			}if(decodedPar.contains("fil2=블랙코팅")){
-				fil += ",BD3";
-			}if(decodedPar.contains("fil2=면")){	
-				fil += ",BD4";
+			if(decodedPar.contains("cat=2")) {
+				if(decodedPar.contains("bran=비에프엘")){
+					fil += ",BA1";
+				}
+				if(decodedPar.contains("bran=아이두젠")){
+					fil += ",BA2";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",BA3";
+				}
+				if(decodedPar.contains("bran=콜맨")){
+					fil += ",BA4";
+				}
+				if(decodedPar.contains("fil1=스킨")){
+					fil += ",BB1";
+				}
+				if(decodedPar.contains("fil1=스킨+폴")){
+					fil += ",BB2";
+				}
+				if(decodedPar.contains("fil1=파라솔")){
+					fil += ",BB3";
+				}
+				if(decodedPar.contains("fil1=스크린")){
+					fil += ",BB4";
+				}
+				if(decodedPar.contains("fil1=사이드월")){
+					fil += ",BB5";
+				}
+				if(decodedPar.contains("fil8=1000")){
+					fil += ",BC1";
+				}
+				if(decodedPar.contains("fil8=1001")){
+					fil += ",BC2";
+				}
+				if(decodedPar.contains("fil8=2001")){
+					fil += ",BC3";
+				}
+				if(decodedPar.contains("fil8=3001")){
+					fil += ",BC4";
+				}
+				if(decodedPar.contains("fil2=폴리에스테르")){
+					fil += ",BD1";
+				}
+				if(decodedPar.contains("fil2=나일론")){
+					fil += ",BD2";
+				}
+				if(decodedPar.contains("fil2=블랙코팅")){
+					fil += ",BD3";
+				}
+				if(decodedPar.contains("fil2=면")){	
+					fil += ",BD4";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=3")) {
-			if(decodedPar.contains("bran=인텍스")){
-				fil += ",CA1";
-			}if(decodedPar.contains("bran=네이처하이크")){
-				fil += ",CA2";
-			}if(decodedPar.contains("bran=씨투써미트")){
-				fil += ",CA3";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",CA4";
-			}if(decodedPar.contains("bran=파크론")){
-				fil += ",CA5";	
-			}if(decodedPar.contains("fil1=에어매트")){
-				fil += ",CB1";
-			}if(decodedPar.contains("fil1=엠보싱매트")){
-				fil += ",CB2";
-			}if(decodedPar.contains("fil1=피크닉매트")){
-				fil += ",CB3";
-			}if(decodedPar.contains("fil1=에어소파")){
-				fil += ",CB4";
-			}if(decodedPar.contains("fil1=에어펌프")){
-				fil += ",CB5";
-			}if(decodedPar.contains("fil1=돗자리")){
-				fil += ",CB6";
-			}if(decodedPar.contains("fil7=1")){
-				fil += ",CC1";
-			}if(decodedPar.contains("fil7=3")){
-				fil += ",CC2";
-			}if(decodedPar.contains("fil7=6")){
-				fil += ",CC3";
-			}if(decodedPar.contains("fil2=아웃도어용")){
-				fil += ",CD1";
-			}if(decodedPar.contains("fil2=텐트내부용")){
-				fil += ",CD2";
-			}if(decodedPar.contains("fil2=내부+아웃도어용")){
-				fil += ",CD3";
-			}if(decodedPar.contains("fil3=접이식")){
-				fil += ",CE1";
-			}if(decodedPar.contains("fil3=말이식")){
-				fil += ",CE2";
+			if(decodedPar.contains("cat=3")) {
+				if(decodedPar.contains("bran=인텍스")){
+					fil += ",CA1";
+				}
+				if(decodedPar.contains("bran=네이처하이크")){
+					fil += ",CA2";
+				}
+				if(decodedPar.contains("bran=씨투써미트")){
+					fil += ",CA3";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",CA4";
+				}
+				if(decodedPar.contains("bran=파크론")){
+					fil += ",CA5";	
+				}
+				if(decodedPar.contains("fil1=에어매트")){
+					fil += ",CB1";
+				}
+				if(decodedPar.contains("fil1=엠보싱매트")){
+					fil += ",CB2";
+				}
+				if(decodedPar.contains("fil1=피크닉매트")){
+					fil += ",CB3";
+				}
+				if(decodedPar.contains("fil1=에어소파")){
+					fil += ",CB4";
+				}
+				if(decodedPar.contains("fil1=에어펌프")){
+					fil += ",CB5";
+				}
+				if(decodedPar.contains("fil1=돗자리")){
+					fil += ",CB6";
+				}
+				if(decodedPar.contains("fil7=1")){
+					fil += ",CC1";
+				}
+				if(decodedPar.contains("fil7=3")){
+					fil += ",CC2";
+				}
+				if(decodedPar.contains("fil7=6")){
+					fil += ",CC3";
+				}
+				if(decodedPar.contains("fil2=아웃도어용")){
+					fil += ",CD1";
+				}
+				if(decodedPar.contains("fil2=텐트내부용")){
+					fil += ",CD2";
+				}
+				if(decodedPar.contains("fil2=내부+아웃도어용")){
+					fil += ",CD3";
+				}
+				if(decodedPar.contains("fil3=접이식")){
+					fil += ",CE1";
+				}
+				if(decodedPar.contains("fil3=말이식")){
+					fil += ",CE2";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=4")) {
-			if(decodedPar.contains("bran=반고")){
-				fil += ",DA1";
-			}if(decodedPar.contains("bran=씨투써미트")){
-				fil += ",DA2";
-			}if(decodedPar.contains("bran=네이처하이크")){
-				fil += ",DA3";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",DA4";
-			}if(decodedPar.contains("bran=메사")){
-				fil += ",DA5";	
-			}if(decodedPar.contains("fil1=침낭")){
-				fil += ",DB1";
-			}if(decodedPar.contains("fil1=배개")){
-				fil += ",DB2";
-			}if(decodedPar.contains("fil1=라이너")){
-				fil += ",DB3";
-			}if(decodedPar.contains("fil1=담요")){
-				fil += ",DB4";
-			}if(decodedPar.contains("fil2=사각")){
-				fil += ",DC1";
-			}if(decodedPar.contains("fil2=머미(미이라형)")){
-				fil += ",DC2";
-			}if(decodedPar.contains("fil2=사각(후드형)")){
-				fil += ",DC3";
-			}if(decodedPar.contains("fil2=입는형")){
-				fil += ",DC4";
-			}if(decodedPar.contains("fil3=여름용")){
-				fil += ",DD1";
-			}if(decodedPar.contains("fil3=사계절용")){
-				fil += ",DD2";
-			}if(decodedPar.contains("fil3=봄,가을용")){
-				fil += ",DD3";
-			}if(decodedPar.contains("fil3=겨울용")){
-				fil += ",DD4";
-			}if(decodedPar.contains("fil4=폴리에스테르")){
-				fil += ",DE1";
-			}if(decodedPar.contains("fil4=홀로파이버")){
-				fil += ",DE2";
-			}if(decodedPar.contains("fil4=거위털")){
-				fil += ",DE3";
-			}if(decodedPar.contains("fil4=오리털")){
-				fil += ",DE4";
-			}if(decodedPar.contains("fil4=마이크로화이바")){
-				fil += ",DE5";
-			}if(decodedPar.contains("fil11=-50")){
-				fil += ",DF1";
-			}if(decodedPar.contains("fil11=-30")){
-				fil += ",DF2";
-			}if(decodedPar.contains("fil11=-10")){
-				fil += ",DF3";
-			}if(decodedPar.contains("fil11=0")){
-				fil += ",DF4";
+			if(decodedPar.contains("cat=4")) {
+				if(decodedPar.contains("bran=반고")){
+					fil += ",DA1";
+				}
+				if(decodedPar.contains("bran=씨투써미트")){
+					fil += ",DA2";
+				}
+				if(decodedPar.contains("bran=네이처하이크")){
+					fil += ",DA3";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",DA4";
+				}
+				if(decodedPar.contains("bran=메사")){
+					fil += ",DA5";	
+				}
+				if(decodedPar.contains("fil1=침낭")){
+					fil += ",DB1";
+				}
+				if(decodedPar.contains("fil1=배개")){
+					fil += ",DB2";
+				}
+				if(decodedPar.contains("fil1=라이너")){
+					fil += ",DB3";
+				}
+				if(decodedPar.contains("fil1=담요")){
+					fil += ",DB4";
+				}
+				if(decodedPar.contains("fil2=사각")){
+					fil += ",DC1";
+				}
+				if(decodedPar.contains("fil2=머미(미이라형)")){
+					fil += ",DC2";
+				}
+				if(decodedPar.contains("fil2=사각(후드형)")){
+					fil += ",DC3";
+				}
+				if(decodedPar.contains("fil2=입는형")){
+					fil += ",DC4";
+				}
+				if(decodedPar.contains("fil3=여름용")){
+					fil += ",DD1";
+				}
+				if(decodedPar.contains("fil3=사계절용")){
+					fil += ",DD2";
+				}
+				if(decodedPar.contains("fil3=봄,가을용")){
+					fil += ",DD3";
+				}
+				if(decodedPar.contains("fil3=겨울용")){
+					fil += ",DD4";
+				}
+				if(decodedPar.contains("fil4=폴리에스테르")){
+					fil += ",DE1";
+				}
+				if(decodedPar.contains("fil4=홀로파이버")){
+					fil += ",DE2";
+				}
+				if(decodedPar.contains("fil4=거위털")){
+					fil += ",DE3";
+				}
+				if(decodedPar.contains("fil4=오리털")){
+					fil += ",DE4";
+				}
+				if(decodedPar.contains("fil4=마이크로화이바")){
+					fil += ",DE5";
+				}
+				if(decodedPar.contains("fil11=-50")){
+					fil += ",DF1";
+				}
+				if(decodedPar.contains("fil11=-30")){
+					fil += ",DF2";
+				}
+				if(decodedPar.contains("fil11=-10")){
+					fil += ",DF3";
+				}
+				if(decodedPar.contains("fil11=0")){
+					fil += ",DF4";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=5")) {
-			if(decodedPar.contains("bran=카즈미")){
-				fil += ",EA1";
-			}if(decodedPar.contains("bran=콜맨")){
-				fil += ",EA2";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",EA3";
-			}if(decodedPar.contains("bran=네이처하이크")){
-				fil += ",EA4";
-			}if(decodedPar.contains("fil1=의자")){
-				fil += ",EB1";
-			}if(decodedPar.contains("fil1=침대")){
-				fil += ",EB2";
-			}if(decodedPar.contains("fil1=테이블")){
-				fil += ",EB3";
-			}if(decodedPar.contains("fil1=가구")){
-				fil += ",EB4";
-			}if(decodedPar.contains("fil2=알루미늄")){
-				fil += ",EC1";
-			}if(decodedPar.contains("fil2=스틸")){
-				fil += ",EC2";
-			}if(decodedPar.contains("fil2=두랄루민")){
-				fil += ",EC3";
-			}if(decodedPar.contains("fil2=나무")){
-				fil += ",EC4";
-			}if(decodedPar.contains("fil12=100")){
-				fil += ",ED1";
-			}if(decodedPar.contains("fil12=120")){
-				fil += ",ED2";
-			}if(decodedPar.contains("fil12=121")){
-				fil += ",ED3";
+			if(decodedPar.contains("cat=5")) {
+				if(decodedPar.contains("bran=카즈미")){
+					fil += ",EA1";
+				}
+				if(decodedPar.contains("bran=콜맨")){
+					fil += ",EA2";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",EA3";
+				}
+				if(decodedPar.contains("bran=네이처하이크")){
+					fil += ",EA4";
+				}
+				if(decodedPar.contains("fil1=의자")){
+					fil += ",EB1";
+				}
+				if(decodedPar.contains("fil1=침대")){
+					fil += ",EB2";
+				}
+				if(decodedPar.contains("fil1=테이블")){
+					fil += ",EB3";
+				}
+				if(decodedPar.contains("fil1=가구")){
+					fil += ",EB4";
+				}
+				if(decodedPar.contains("fil2=알루미늄")){
+					fil += ",EC1";
+				}
+				if(decodedPar.contains("fil2=스틸")){
+					fil += ",EC2";
+				}
+				if(decodedPar.contains("fil2=두랄루민")){
+					fil += ",EC3";
+				}
+				if(decodedPar.contains("fil2=나무")){
+					fil += ",EC4";
+				}
+				if(decodedPar.contains("fil12=100")){
+					fil += ",ED1";
+				}
+				if(decodedPar.contains("fil12=120")){
+					fil += ",ED2";
+				}
+				if(decodedPar.contains("fil12=121")){
+					fil += ",ED3";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=6")) {
-			if(decodedPar.contains("bran=콜맨")){
-				fil += ",FA1";
-			}if(decodedPar.contains("bran=스탠리")){
-				fil += ",FA2";
-			}if(decodedPar.contains("bran=코스모스")){
-				fil += ",FA3";
-			}if(decodedPar.contains("bran=다이와")){
-				fil += ",FA4";
-			}if(decodedPar.contains("fil1=물통")){
-				fil += ",FB1";
-			}if(decodedPar.contains("fil1=아이스박스")){
-				fil += ",FB2";
-			}if(decodedPar.contains("fil1=웨건")){
-				fil += ",FB3";
-			}if(decodedPar.contains("fil1=쿨러백")){
-				fil += ",FB4";
-			}if(decodedPar.contains("fil9=10")){
-				fil += ",FC1";
-			}if(decodedPar.contains("fil9=40")){
-				fil += ",FC2";
-			}if(decodedPar.contains("fil9=41")){
-				fil += ",FC3";
-			}if(decodedPar.contains("fil2=스테인리스")){
-				fil += ",FD1";
-			}if(decodedPar.contains("fil2=스틸")){
-				fil += ",FD2";
-			}if(decodedPar.contains("fil2=알루미늄")){
-				fil += ",FD3";
-			}if(decodedPar.contains("fil2=플라스틱")){
-				fil += ",FD4";
+			if(decodedPar.contains("cat=6")) {
+				if(decodedPar.contains("bran=콜맨")){
+					fil += ",FA1";
+				}
+				if(decodedPar.contains("bran=스탠리")){
+					fil += ",FA2";
+				}
+				if(decodedPar.contains("bran=코스모스")){
+					fil += ",FA3";
+				}
+				if(decodedPar.contains("bran=다이와")){
+					fil += ",FA4";
+				}
+				if(decodedPar.contains("fil1=물통")){
+					fil += ",FB1";
+				}
+				if(decodedPar.contains("fil1=아이스박스")){
+					fil += ",FB2";
+				}
+				if(decodedPar.contains("fil1=웨건")){
+					fil += ",FB3";
+				}
+				if(decodedPar.contains("fil1=쿨러백")){
+					fil += ",FB4";
+				}
+				if(decodedPar.contains("fil9=10")){
+					fil += ",FC1";
+				}
+				if(decodedPar.contains("fil9=40")){
+					fil += ",FC2";
+				}
+				if(decodedPar.contains("fil9=41")){
+					fil += ",FC3";
+				}
+				if(decodedPar.contains("fil2=스테인리스")){
+					fil += ",FD1";
+				}
+				if(decodedPar.contains("fil2=스틸")){
+					fil += ",FD2";
+				}
+				if(decodedPar.contains("fil2=알루미늄")){
+					fil += ",FD3";
+				}
+				if(decodedPar.contains("fil2=플라스틱")){
+					fil += ",FD4";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=7")) {
-			if(decodedPar.contains("bran=스노우피크")){
-				fil += ",GA1";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",GA2";
-			}if(decodedPar.contains("bran=캠핑문")){
-				fil += ",GA3";
-			}if(decodedPar.contains("bran=노마드")){
-				fil += ",GA4";
-			}if(decodedPar.contains("fil1=코펠")){
-				fil += ",GB1";
-			}if(decodedPar.contains("fil1=컵")){
-				fil += ",GB2";
-			}if(decodedPar.contains("fil1=팬")){
-				fil += ",GB3";
-			}if(decodedPar.contains("fil1=취사용품")){
-				fil += ",GB4";
-			}if(decodedPar.contains("fil1=식기")){
-				fil += ",GB5";
-			}if(decodedPar.contains("fil7=1")){
-				fil += ",GC1";
-			}if(decodedPar.contains("fil7=3")){
-				fil += ",GC2";
-			}if(decodedPar.contains("fil7=6")){
-				fil += ",GC3";
-			}if(decodedPar.contains("fil2=스테인리스")){
-				fil += ",GD1";
-			}if(decodedPar.contains("fil2=스틸")){
-				fil += ",GD2";
-			}if(decodedPar.contains("fil2=알루미늄")){
-				fil += ",GD3";
-			}if(decodedPar.contains("fil2=플라스틱")){
-				fil += ",GD4";
-			}if(decodedPar.contains("fil3=유")){
-				fil += ",GE1";
-			}if(decodedPar.contains("fil3=무")){
-				fil += ",GE2";
+			if(decodedPar.contains("cat=7")) {
+				if(decodedPar.contains("bran=스노우피크")){
+					fil += ",GA1";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",GA2";
+				}
+				if(decodedPar.contains("bran=캠핑문")){
+					fil += ",GA3";
+				}
+				if(decodedPar.contains("bran=노마드")){
+					fil += ",GA4";
+				}
+				if(decodedPar.contains("fil1=코펠")){
+					fil += ",GB1";
+				}
+				if(decodedPar.contains("fil1=컵")){
+					fil += ",GB2";
+				}
+				if(decodedPar.contains("fil1=팬")){
+					fil += ",GB3";
+				}
+				if(decodedPar.contains("fil1=취사용품")){
+					fil += ",GB4";
+				}
+				if(decodedPar.contains("fil1=식기")){
+					fil += ",GB5";
+				}
+				if(decodedPar.contains("fil7=1")){
+					fil += ",GC1";
+				}
+				if(decodedPar.contains("fil7=3")){
+					fil += ",GC2";
+				}
+				if(decodedPar.contains("fil7=6")){
+					fil += ",GC3";
+				}
+				if(decodedPar.contains("fil2=스테인리스")){
+					fil += ",GD1";
+				}
+				if(decodedPar.contains("fil2=스틸")){
+					fil += ",GD2";
+				}
+				if(decodedPar.contains("fil2=알루미늄")){
+					fil += ",GD3";
+				}
+				if(decodedPar.contains("fil2=플라스틱")){
+					fil += ",GD4";
+				}
+				if(decodedPar.contains("fil3=유")){
+					fil += ",GE1";
+				}
+				if(decodedPar.contains("fil3=무")){
+					fil += ",GE2";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=8")) {
-			if(decodedPar.contains("bran=코베아")){
-				fil += ",HA1";
-			}if(decodedPar.contains("bran=지라프")){
-				fil += ",HA2";
-			}if(decodedPar.contains("bran=꾸버스")){
-				fil += ",HA3";
-			}if(decodedPar.contains("bran=노마드")){
-				fil += ",HA4";
-			}if(decodedPar.contains("fil1=화로")){
-				fil += ",HB1";
-			}if(decodedPar.contains("fil1=토치")){
-				fil += ",HB2";
-			}if(decodedPar.contains("fil1=가스레인지")){
-				fil += ",HB3";
-			}if(decodedPar.contains("fil1=가스그릴")){
-				fil += ",HB4";
-			}if(decodedPar.contains("fil1=버너")){
-				fil += ",HB5";
-			}if(decodedPar.contains("fil2=1")){
-				fil += ",HC1";
-			}if(decodedPar.contains("fil2=2")){
-				fil += ",HC2";
-			}if(decodedPar.contains("fil3=장작")){
-				fil += ",HD1";
-			}if(decodedPar.contains("fil3=가스")){
-				fil += ",HD2";
-			}if(decodedPar.contains("fil3=숯")){
-				fil += ",HD3";
-			}if(decodedPar.contains("fil4=유")){
-				fil += ",HE1";
-			}if(decodedPar.contains("fil4=무")){
-				fil += ",HE2";
+			if(decodedPar.contains("cat=8")) {
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",HA1";
+				}
+				if(decodedPar.contains("bran=지라프")){
+					fil += ",HA2";
+				}
+				if(decodedPar.contains("bran=꾸버스")){
+					fil += ",HA3";
+				}
+				if(decodedPar.contains("bran=노마드")){
+					fil += ",HA4";
+				}
+				if(decodedPar.contains("fil1=화로")){
+					fil += ",HB1";
+				}
+				if(decodedPar.contains("fil1=토치")){
+					fil += ",HB2";
+				}
+				if(decodedPar.contains("fil1=가스레인지")){
+					fil += ",HB3";
+				}
+				if(decodedPar.contains("fil1=가스그릴")){
+					fil += ",HB4";
+				}
+				if(decodedPar.contains("fil1=버너")){
+					fil += ",HB5";
+				}
+				if(decodedPar.contains("fil2=1")){
+					fil += ",HC1";
+				}
+				if(decodedPar.contains("fil2=2")){
+					fil += ",HC2";
+				}
+				if(decodedPar.contains("fil3=장작")){
+					fil += ",HD1";
+				}
+				if(decodedPar.contains("fil3=가스")){
+					fil += ",HD2";
+				}
+				if(decodedPar.contains("fil3=숯")){
+					fil += ",HD3";
+				}
+				if(decodedPar.contains("fil4=유")){
+					fil += ",HE1";
+				}
+				if(decodedPar.contains("fil4=무")){
+					fil += ",HE2";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=9")) {
-			if(decodedPar.contains("bran=꾸버스")){
-				fil += ",IA1";
-			}if(decodedPar.contains("bran=코베아")){
-				fil += ",IA2";
-			}if(decodedPar.contains("bran=숯깨비")){
-				fil += ",IA3";
-			}if(decodedPar.contains("bran=맥선")){
-				fil += ",IA4";
-			}if(decodedPar.contains("fil1=가스")){
-				fil += ",IB1";
-			}if(decodedPar.contains("fil1=이소가스")){
-				fil += ",IB2";
-			}if(decodedPar.contains("fil1=장작")){
-				fil += ",IB3";
-			}if(decodedPar.contains("fil1=숯")){
-				fil += ",IB4";
-			}if(decodedPar.contains("fil1=등유")){
-				fil += ",IB5";
+			if(decodedPar.contains("cat=9")) {
+				if(decodedPar.contains("bran=꾸버스")){
+					fil += ",IA1";
+				}
+				if(decodedPar.contains("bran=코베아")){
+					fil += ",IA2";
+				}
+				if(decodedPar.contains("bran=숯깨비")){
+					fil += ",IA3";
+				}
+				if(decodedPar.contains("bran=맥선")){
+					fil += ",IA4";
+				}
+				if(decodedPar.contains("fil1=가스")){
+					fil += ",IB1";
+				}
+				if(decodedPar.contains("fil1=이소가스")){
+					fil += ",IB2";
+				}
+				if(decodedPar.contains("fil1=장작")){
+					fil += ",IB3";
+				}
+				if(decodedPar.contains("fil1=숯")){
+					fil += ",IB4";
+				}
+				if(decodedPar.contains("fil1=등유")){
+					fil += ",IB5";
+				}
 			}
-		}
-		if(decodedPar.contains("cat=10")) {
-			if(decodedPar.contains("bran=프리즘")){
-				fil += ",JA1";
-			}if(decodedPar.contains("bran=우신벨로프")){
-				fil += ",JA2";
-			}if(decodedPar.contains("bran=동화상사")){
-				fil += ",JA3";
-			}if(decodedPar.contains("bran=데스트")){
-				fil += ",JA4";
-			}if(decodedPar.contains("fil1=손전등")){
-				fil += ",JB1";
-			}if(decodedPar.contains("fil1=헤드랜턴")){
-				fil += ",JB2";
-			}if(decodedPar.contains("fil1=실내등")){
-				fil += ",JB3";
-			}if(decodedPar.contains("fil1=작업등")){
-				fil += ",JB4";
-			}if(decodedPar.contains("fil2=충전식")){
-				fil += ",JC1";
-			}if(decodedPar.contains("fil2=건전지")){
-				fil += ",JC2";
-			}if(decodedPar.contains("fil10=1000")){
-				fil += ",JD1";
-			}if(decodedPar.contains("fil10=2000")){
-				fil += ",JD2";
-			}if(decodedPar.contains("fil10=2001")){
-				fil += ",JD3";
-			}if(decodedPar.contains("fil3=전기")){
-				fil += ",JE1";
-			}if(decodedPar.contains("fil3=가스")){
-				fil += ",JE2";
+			if(decodedPar.contains("cat=10")) {
+				if(decodedPar.contains("bran=프리즘")){
+					fil += ",JA1";
+				}
+				if(decodedPar.contains("bran=우신벨로프")){
+					fil += ",JA2";
+				}
+				if(decodedPar.contains("bran=동화상사")){
+					fil += ",JA3";
+				}
+				if(decodedPar.contains("bran=데스트")){
+					fil += ",JA4";
+				}
+				if(decodedPar.contains("fil1=손전등")){
+					fil += ",JB1";
+				}
+				if(decodedPar.contains("fil1=헤드랜턴")){
+					fil += ",JB2";
+				}
+				if(decodedPar.contains("fil1=실내등")){
+					fil += ",JB3";
+				}
+				if(decodedPar.contains("fil1=작업등")){
+					fil += ",JB4";
+				}
+				if(decodedPar.contains("fil2=충전식")){
+					fil += ",JC1";
+				}
+				if(decodedPar.contains("fil2=건전지")){
+					fil += ",JC2";
+				}
+				if(decodedPar.contains("fil10=1000")){
+					fil += ",JD1";
+				}
+				if(decodedPar.contains("fil10=2000")){
+					fil += ",JD2";
+				}
+				if(decodedPar.contains("fil10=2001")){
+					fil += ",JD3";
+				}
+				if(decodedPar.contains("fil3=전기")){
+					fil += ",JE1";
+				}
+				if(decodedPar.contains("fil3=가스")){
+					fil += ",JE2";
+				}
 			}
-		}
-		System.out.println(fil);
 		}
 		statics.put("filter",fil);
-		
-		
 		staticService.pageStatic(statics);
-		
-	
-		
-		
-
 		
 		//리스트 메인주소 처리 및 페이징처리를 위한 선언 
 		if (pageNum == null)
@@ -605,34 +741,28 @@ public class EquipController {
 				brandp = "&bran=" + brands[0] + "&bran=" + brands[1];
 			}
 			if (brands.length == 3) {
-				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%"
-						+ brands[2] + "%'";
+				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%" + brands[2] + "%'";
 				map.put("brand", brand);
 				brandp = "&bran=" + brands[0] + "&bran=" + brands[1] + "&bran=" + brands[2];
 			}
 			if (brands.length == 4) {
-				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%"
-						+ brands[2] + "%' OR BRAND LIKE '%" + brands[3] + "%'";
+				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%" + brands[2] + "%' OR BRAND LIKE '%" + brands[3] + "%'";
 				map.put("brand", brand);
 				brandp = "&bran=" + brands[0] + "&bran=" + brands[1] + "&bran=" + brands[2] + "&bran=" + brands[3];
 			}
 			if (brands.length == 5) {
-				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%"
-						+ brands[2] + "%' OR BRAND LIKE '%" + brands[3] + "%' OR BRAND LIKE '%" + brands[4] + "%'";
+				brand = "BRAND LIKE '%" + brands[0] + "%' OR BRAND LIKE '%" + brands[1] + "%' OR BRAND LIKE '%" + brands[2] + "%' OR BRAND LIKE '%" + brands[3] + "%' OR BRAND LIKE '%" + brands[4] + "%'";
 				map.put("brand", brand);
-				brandp = "&bran=" + brands[0] + "&bran=" + brands[1] + "&bran=" + brands[2] + "&bran=" + brands[3]
-						+ "&bran=" + brands[4];
+				brandp = "&bran=" + brands[0] + "&bran=" + brands[1] + "&bran=" + brands[2] + "&bran=" + brands[3]	+ "&bran=" + brands[4];
 			}
 		}
 
 		// 1번 필터
-
 		if (fil1s == null || fil1s[0] == "") {
 			fil1 = "fil1 LIKE '%%' OR fil1 IS null";
 			map.put("fil1", fil1);
 			fil1p = "&fil1=";
 		}
-
 		if (fil1s != null && fil1s[0] != "") {
 			if (fil1s.length == 1) {
 				fil1 = "fil1 LIKE '%" + fil1s[0] + "%'";
@@ -679,7 +809,6 @@ public class EquipController {
 		}
 
 		// 2번필터
-
 		if (fil2s == null || fil2s[0] == "") {
 			fil2 = "fil2 LIKE '%%' OR fil2 IS NULL";
 			map.put("fil2", fil2);
@@ -731,7 +860,6 @@ public class EquipController {
 		}
 
 		// 3번필터
-
 		if (fil3s == null || fil3s[0] == "") {
 			fil3 = "fil3 LIKE '%%' OR fil3 IS null";
 			map.put("fil3", fil3);
@@ -783,7 +911,6 @@ public class EquipController {
 		}
 
 		// 4번필터
-
 		if (fil4s == null || fil4s[0] == "") {
 			fil4 = "fil4 LIKE '%%' OR fil4 IS null";
 			map.put("fil4", fil4);
@@ -835,7 +962,6 @@ public class EquipController {
 		}
 
 		// 5번필터
-
 		if (fil5s == null || fil5s[0] == "") {
 			fil5 = "fil5 LIKE '%%' OR fil5 IS null";
 			map.put("fil5", fil5);
@@ -1409,7 +1535,6 @@ public class EquipController {
 		}
 
 		// 11번필터
-
 		if (fil11s == null || fil11s[0] == "") {
 			fil11 = "fil11 LIKE '%%' OR fil11 IS null ";
 			map.put("fil11", fil11);
@@ -1564,7 +1689,6 @@ public class EquipController {
 			}
 		}
 		// 12번필터
-
 		if (fil12s == null || fil12s[0] == "") {
 			fil12 = "fil12 LIKE '%%' OR fil12 IS null  ";
 			map.put("fil12", fil12);
@@ -1656,57 +1780,34 @@ public class EquipController {
 			titlep = "&title=";
 		}
 		if (titles != null && titles != "") {
-			
-				title = "title LIKE '%" + titles + "%'";
-				map.put("title", title);
-				titlep = "&title=" + titles;
-			
+			title = "title LIKE '%" + titles + "%'";
+			map.put("title", title);
+			titlep = "&title=" + titles;
 		}
 		
 		//필터별 체크된 값을 합쳐서 파라미터로 사용 
-		String filpara = brandp + fil1p + fil2p + fil3p + fil4p + fil5p + fil6p + fil7p + fil8p + fil9p + fil10p
-				+ fil11p + fil12p + titlep;
+		String filpara = brandp + fil1p + fil2p + fil3p + fil4p + fil5p + fil6p + fil7p + fil8p + fil9p + fil10p + fil11p + fil12p + titlep;
 		
 		//리스트에 표시될 상품 수 /상품 내용 호출 
 		count = service.getEquipCount(map);
 		List<EquipDTO> EquipList = service.getEquipList(map);
-		
-		
 		
 		//즐겨찾기 실행 후 본 페이지로 복귀를 위한 uri/파라미터선언
 		String uri = request.getRequestURI();
 		String uri2 = request.getQueryString();
 		String uri3 = uri + "?" + uri2;
 		
-		
 		//상품별 즐겨찾기 여부 값 전달(로그인시)
 		if(session.getAttribute("memId") != null) {
-		int listCount = service.getEquipListCount(map);
-		
-		System.out.println(listCount);
-		
-		map.put("id",memId);
-		List<Integer> FavList = new ArrayList<>();
-		for(int i=0; i < listCount; i++ ) {
-		map.put("num2",EquipList.get(i).getNum());
-
-		FavList.add(service.equipFavoriteCnt(map));
-		
-		}
-		
-		if(!EquipList.isEmpty()){
-			System.out.println(EquipList.get(0).getNum());
-		}
-		
-		System.out.println(FavList);
-		 
-		    
+			int listCount = service.getEquipListCount(map);
+			map.put("id",memId);
+			List<Integer> FavList = new ArrayList<>();
+			for(int i=0; i < listCount; i++ ) {
+			map.put("num2",EquipList.get(i).getNum());
+			FavList.add(service.equipFavoriteCnt(map));
+			}
 		model.addAttribute("ifFavorite", FavList);
-		
 		}
-		
-
-		
 		model.addAttribute("EquipList", EquipList);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageSize", pageSize);
@@ -1721,47 +1822,28 @@ public class EquipController {
 		model.addAttribute("uri3",uri3);
 		return "equip/equipList";
 	}
-
-	
 	
 	@RequestMapping("main")
 	public String main(HttpSession session) {
-		
 		String memId = (String)session.getAttribute("memId");
-		
-		
 		return "equip/equipMain";
-	
-		
-		
 	}
 	
 	@RequestMapping("insert")
 	public String insert() {
 		
-		
-		
 		return "equip/equipInsert";
-	
-		
-		
 	}
 	
 	@RequestMapping("insertPro")
 	public String insertPro(EquipDTO dto) {
 		
 		service.equipInsert(dto);
-		
 		return "equip/equipInsertPro";
-	
-		
-		
 	}
 	
 	@RequestMapping("favorite")
 	public String favorite(HttpSession session,String id,int status,int num,Model model,EquipDTO dto,HttpServletRequest request) {
-		
-		
 		String memId = (String)session.getAttribute("memId");
 		HashMap<String, Object> equipFavorite = new HashMap<String, Object>();
 		equipFavorite.put("num", num);
@@ -1781,12 +1863,8 @@ public class EquipController {
 		
 		//전달받은 파라미터 안에있는 uri를 활용해서 이전 페이지로 복귀
 		String uri = request.getQueryString();
-		System.out.println(uri);
 		int index = uri.indexOf("uri");
-		System.out.println(index);
 		String uri1 = uri.substring(index+4);
-		System.out.println(uri1);
-		
 		
 		model.addAttribute("uri", uri1);
 		model.addAttribute("favoriteInsert", favoriteInsert);
@@ -1794,29 +1872,20 @@ public class EquipController {
 		model.addAttribute("favoriteDelete", favoriteDelete);
 
 		return "equip/equipFavorite";
-	
-		
 		
 	}
 	@RequestMapping("adEquipList")
 	public String adEquipList(HttpServletRequest request, String pageNum, HttpSession session,Model model) {
-		
 		//리스트 메인주소 처리 및 페이징처리를 위한 선언 
-				if (pageNum == null)
-					pageNum = "1";
-				int pageSize = 30;
-				int currentPage = Integer.parseInt(pageNum);
-				int startRow = (currentPage - 1) * pageSize + 1;
-				int endRow = currentPage * pageSize;
-				int count = 0;
+		if (pageNum == null) pageNum = "1";
+		int pageSize = 30;
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
 				
-				count = service.getEqAllCount();
+		count = service.getEqAllCount();
 		List<EquipDTO> EquipAllList = service.getEqAllList(startRow,endRow);
-		
-		System.out.println(EquipAllList.get(0));
-		System.out.println(EquipAllList.get(1));
-		System.out.println(EquipAllList.get(2));
-		System.out.println(EquipAllList.size());
 		
 		model.addAttribute("EquipAllList", EquipAllList);
 		model.addAttribute("count", count);
@@ -1826,23 +1895,6 @@ public class EquipController {
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);
 		return "equip/adEquipList";	
-
-		
 	}
-	
-	
-	
-	@RequestMapping("test")
-	public String test() {
-		return "equip/test";	
-	
-	
-	
-		
-		
-	}
-
 	
 }
-
-

@@ -18,7 +18,7 @@
 		<![CDATA[
 			select * from 
 				(select commentboard.* , rownum r from 
-					(select  *  from commentboard order by com_ref desc , com_step) commentboard) 
+					(select  *  from commentboard where boardnum=#{boardnum} order by comnum desc ) commentboard) 
 						where r >= #{startRow} and r <= #{endRow}
 		]]>
 	</select>
@@ -30,7 +30,6 @@
 		#{boardnum},
 		#{content},
 		#{writer},
-		#{password},
 		sysdate,
 		#{com_ref},
 		#{com_step})
@@ -70,13 +69,22 @@
 	
 	
 	<delete id="deleteCommentBoard">
-		delete from commentboard where comnum=#{comnum} and password=#{password}
+		delete from commentboard where comnum=#{comnum} and writer=#{writer}
 	</delete>
 	
 	
 	<select id="delete" resultType="int">
-		select count(*) from commentboard where comnum=#{comnum} and password=#{password}
+		select count(*) from commentboard where comnum=#{comnum} and writer=#{writer}
 	</select>
 	
+	
+	<select id = "comment" resultType = "org.camping.model.CommentBoardDTO">
+		select * from board inner join commentboard on board.boradnum = commentboard.boradnum
+  			where writer=#{writer} 
+	</select>
+
+	<delete id="allCommentDelete">
+		delete from commentboard where boardnum = #{boardnum}
+	</delete>
 
 </mapper>

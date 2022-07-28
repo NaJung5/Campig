@@ -19,7 +19,6 @@
 		</script>
 	</head>
 	<body>
-	<%@include file="../headNavBar.jsp"%>
 		<c:if test="${count==0}">
 			<form action="/prod/searchSpot" onsubmit="retrun check()">
 				<input type="text" name="spot" />

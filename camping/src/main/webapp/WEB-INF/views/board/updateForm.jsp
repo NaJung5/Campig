@@ -7,13 +7,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>게시판</title>
+		
 		<script language="JavaScript" src="/resources/js/script.js" charset="UTF-8" ></script>
+	
 	</head>
 
 	<body>
-		<center><b>글수정</b></center>
-		<form method="post" name="writeform" action="/board/updatePro?pageNum=${pageNum}" onsubmit="return writeSave()" enctype="multipart/form-data" >
+	<%@include file="../headNavBar.jsp"%>
 		
+		<center><b>글수정</b></center>
+		
+		<form method="post" name="writeform" action="/board/updatePro?pageNum=${pageNum}" onsubmit="return writeSave()" enctype="multipart/form-data" >
 			<table width="500" border="1" cellspacing="0" cellpadding="0" align="center">
 			 	<tr>
 					<td width="100" align="center">카테고리</td>
@@ -48,12 +52,13 @@
 			         		<c:if test="${category == 7}">
 			         			공지사항
 			         		</c:if>
-					</td>
+			        </td>
 				</tr>
 			 	<tr>
 					<td width="100" align="center">제목</td>
 					<td>
-						<input type="text" name="title" value="${board.title}"></td>
+						<input type="text" name="title" value="${board.title}">
+					</td>
 			  	</tr>
 			 	<tr>
 					<td width="100" align="center">작성자</td>
@@ -66,19 +71,14 @@
 			 	<tr>
 			 		<td width="100" align="center">내용</td>
 			 		<td>
-			 			<textarea name="content" rows="50" cols="50">${board.content}</textarea>
+			 			<textarea name="content" rows="15" cols="15" >${board.content}</textarea>
 			 		</td>
 			 	</tr>
 			 	<tr>
 					<td width="100" align="center">첨부파일</td>
 					<td>
-						<input type="file" name="img"></td>
-			  	</tr>
-			  	<tr>
-		    		<td width="100" align="center" >비밀번호</td>
-		    		<td>
-		    			<input type="password" name="password" placeholder="건의사항 선택 시 입력" value="${board.password}"> 
-			 		</td>
+						<input type="file" name="img">
+					</td>
 			  	</tr>
 			  	<tr>      
 			   		<td colspan=2 align="center"> 

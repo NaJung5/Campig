@@ -7,7 +7,6 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	<%@include file="../headNavBar.jsp"%>
 		<table border="1">
 			<tr>
 				<td	rowspan="4">세면용품</td>

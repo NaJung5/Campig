@@ -34,7 +34,6 @@
 		</script>
 	</head>
 	<body>
-		<%@include file="../headNavBar.jsp"%>
 		<form action="/prod/checkdetail" method="post" onsubmit="return changeValue();">
 			<c:if test="${!tentCheck}">
 				<c:forEach var="tent" items="${tent}" >

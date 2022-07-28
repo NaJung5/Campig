@@ -50,12 +50,6 @@ public class BoardServiceIpml implements BoardService {
 	}
 	
 	@Override
-	public int insertSGBoard(BoardDTO dto) {
-		int result=mapper.insertSGBoard(dto);
-		return result;
-	}
-	
-	@Override
 	public int updateBoard(BoardDTO dto) {
 		return mapper.updateBoard(dto);
 	}
@@ -63,26 +57,6 @@ public class BoardServiceIpml implements BoardService {
 	@Override
 	public int deleteStatus(BoardDTO dto) {
 		return mapper.deleteStatus(dto);
-	}
-	
-	@Override
-	public void deleteBoard(BoardDTO dto) {
-		mapper.deleteBoard(dto);
-	}
-	
-	@Override
-	public int delete(BoardDTO dto) {
-		return mapper.delete(dto);
-	}
-	
-	@Override
-	public void sgDeleteBoard(BoardDTO dto) {
-		mapper.sgDeleteBoard(dto);
-	}
-	
-	@Override
-	public int sgDelete(BoardDTO dto) {
-		return mapper.sgDelete(dto);
 	}
 
 }

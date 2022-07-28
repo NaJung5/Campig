@@ -37,11 +37,6 @@
 			</td>	
 		</tr>
 	</table>
-	
-	<div style="WIDTH: 100%; margin: auto; text-align: center; display: inline-block; padding-top: 50px;">	
-		<jsp:include page="naverLoginForm.jsp" />
-	</div>	
-	
 </form>
 <script src="../resources/js/jquery.min.js"></script>
 <script src="../resources/js/browser.min.js"></script>

@@ -176,7 +176,7 @@
 															</select>
 															<input type="hidden" name="id" value="${mem.id}" />
 															<input type="hidden" name="status" value="${mem.status}" />
-															<input type="submit" value="적용" />
+															<button type="submit" class="btn btn-inverse-success btn-fw">적용</button>
 														</form>
 													</c:if>	
 													</td>

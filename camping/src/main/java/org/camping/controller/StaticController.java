@@ -30,7 +30,6 @@ public class StaticController {
 			int catnum = 0;
 			catnum += i;
 			service.setCategoryStatic(catnum);
-			System.out.println(i);
 		}
 		List<StaticDTO> categoryStaticList = service.getStaticValue(staticnum);
 		
@@ -156,13 +155,9 @@ public class StaticController {
 		int womencnt= service.getGenderWomen();//여성가입자수
 		double mend = mencnt * 1.0;
 		double womend = womencnt * 1.0;
-		System.out.println(mend);
-		System.out.println(womend);
 		double men = Math.round((mend / all) * 100); //남성가입비율
 		double women = Math.round((womend / all) * 100) ; //여성가입비율
 		
-		System.out.println(men);
-		System.out.println(women);
 		model.addAttribute("all",all);
 		model.addAttribute("mencnt",mencnt);
 		model.addAttribute("womencnt",womencnt);

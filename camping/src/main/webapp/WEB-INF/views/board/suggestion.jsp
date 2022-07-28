@@ -5,9 +5,11 @@
     
 <html>
 	<body>
-		<%@include file="../headNavBar.jsp"%>
-		<%@include file="boardCategory.jsp"%>
+	<%@include file="../headNavBar.jsp"%>
+	<%@include file="boardCategory.jsp"%>
+		
 		<center><b>건의사항 (전체 글:${count})</b></center>
+		
 		<input type = "hidden" name = "id" value= "${memId}" />
 			<c:if test="${count == 0}">
 				<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">
@@ -74,8 +76,7 @@
 				          	<td align="center" width="150">
 				    			<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${board.reg}" />
 				    		</td>
-				    		
-				  		</tr>
+				    	</tr>
 			  		</c:forEach>
 				</table>
 			</c:if>

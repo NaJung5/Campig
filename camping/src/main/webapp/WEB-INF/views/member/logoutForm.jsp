@@ -11,7 +11,5 @@
 <body>
 <c:remove var="memId" scope="session" />
 <c:redirect url="/home" />
-
-
 </body>
 </html>

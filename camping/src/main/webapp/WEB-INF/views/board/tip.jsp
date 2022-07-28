@@ -7,7 +7,8 @@
 	<body>
 		<%@include file="../headNavBar.jsp"%>
 		<%@include file="boardCategory.jsp"%>
-		<center><b>팁 (전체 글:${count})</b></center>
+			
+			<center><b>팁 (전체 글:${count})</b></center>
 		
 			<c:if test="${count == 0}">
 				<table width="700" border="1" cellpadding="0" cellspacing="0" align="center">

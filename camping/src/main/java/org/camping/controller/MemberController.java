@@ -54,8 +54,6 @@ public class MemberController {
 			result = 0;
 		}
 		model.addAttribute("result",result);
-		
-
 		return "member/signUpPro";
 	}
 	//ID 중복체크
@@ -82,14 +80,11 @@ public class MemberController {
 	}
 	@RequestMapping("survey")
 	public String survey(MemberDTO dto, Model model) {		
-		
 		return "member/survey";
 	}
 	@RequestMapping("surveyPro")
 	public String surveyPro(MemberDTO dto,String id, Model model) {
 		service.survey(dto);
-
-		
 		return "member/surveyPro";
 	}
 	// 로그인 화면
@@ -100,7 +95,6 @@ public class MemberController {
 	// status 부분에서 회원의 탈퇴여부를 판단
 	@RequestMapping("loginPro")
 	public String loginPro(Model model, MemberDTO dto, String id) {
-		
 		model.addAttribute("result", service.userCheck(dto));
 		model.addAttribute("status", service.deleteUser(dto));
 		model.addAttribute("ad", service.adCheck(dto));
@@ -108,18 +102,6 @@ public class MemberController {
 		service.loginTime(dto);
 		return "member/loginPro";
 	}
-	
-	@RequestMapping("naverLoginForm")
-	public String naverLogin() {
-
-		return "member/naverLoginForm";
-	}
-	@RequestMapping("callback")
-	public String callback() {
-
-		return "member/callback";
-	}
-	
 	//로그아웃
 	@RequestMapping("logoutForm")
 	public String logoutForm() {
@@ -147,17 +129,17 @@ public class MemberController {
 	}
 	//마이페이지 ( 수정/탈퇴/체크리스트/작성글/즐겨찾기/후기작성 등) 
 	@RequestMapping("myPage")
-	public String myPageForm(MemberDTO dto,ChecklistDTO dto2,Model model, HttpSession session, String id) {
+	public String myPageForm(MemberDTO dto,ChecklistDTO dto2,Model model, HttpSession session) {
 		int status = 1;
 		String memId = (String)session.getAttribute("memId");
-		List<InfoDTO> list = service.info(id);
-		model.addAttribute("result", service.surveyCheck(dto));
+		List<InfoDTO> list = service.info(memId);
 		model.addAttribute("list", list);
-		model.addAttribute("st", service.chlist(id,status));
-		
+		model.addAttribute("result", service.surveyCheck(dto));
+		model.addAttribute("st", service.chlist(memId,status));
 		return "member/myPage";
 	}
-	
+
+
 	//정보수정
 	@RequestMapping("myInfo")
 	public String myInfo() {	
@@ -257,62 +239,65 @@ public class MemberController {
 	}
 	//체크리스트 
 	@RequestMapping("checklist")
-	public String checklist(String id, Model model, HttpSession session) {		
+	public String checklist(Model model, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
+		List<InfoDTO> info = service.info(memId);
 		int status = 1;
-			model.addAttribute("site", service.clSite(id, status));
-			model.addAttribute("tent", service.clTent(id, status));
-			model.addAttribute("taf", service.clTaf(id, status));
-			model.addAttribute("waterjug", service.clWaterjug(id, status));
-			model.addAttribute("stove", service.clStove(id, status));
-			model.addAttribute("light", service.clLight(id, status));
-			model.addAttribute("mat", service.clMat(id, status));
-			model.addAttribute("sb", service.clSb(id, status));
-			model.addAttribute("chair", service.clChair(id, status));
-			model.addAttribute("gas", service.clGas(id, status));
-			model.addAttribute("desk", service.clDesk(id, status));
-			model.addAttribute("st", service.chlist(id,status));
+			model.addAttribute("info", info);
+			model.addAttribute("site", service.clSite(memId, status));
+			model.addAttribute("tent", service.clTent(memId, status));
+			model.addAttribute("taf", service.clTaf(memId, status));
+			model.addAttribute("waterjug", service.clWaterjug(memId, status));
+			model.addAttribute("stove", service.clStove(memId, status));
+			model.addAttribute("light", service.clLight(memId, status));
+			model.addAttribute("mat", service.clMat(memId, status));
+			model.addAttribute("sb", service.clSb(memId, status));
+			model.addAttribute("chair", service.clChair(memId, status));
+			model.addAttribute("gas", service.clGas(memId, status));
+			model.addAttribute("desk", service.clDesk(memId, status));
+			model.addAttribute("st", service.chlist(memId,status));
 		return "member/checklist";
 	}
-
-
 	@RequestMapping("checklist2")
 	public String checklist2(String id,int status, Model model, HttpSession session) {		
 		String memId = (String)session.getAttribute("memId");
-		if(service.chlist2(id, status) == 1) {
-			model.addAttribute("site", service.clSite(id, status));
-			model.addAttribute("tent", service.clTent(id, status));
-			model.addAttribute("taf", service.clTaf(id, status));
-			model.addAttribute("waterjug", service.clWaterjug(id, status));
-			model.addAttribute("stove", service.clStove(id, status));
-			model.addAttribute("light", service.clLight(id, status));
-			model.addAttribute("mat", service.clMat(id, status));
-			model.addAttribute("sb", service.clSb(id, status));
-			model.addAttribute("chair", service.clChair(id, status));
-			model.addAttribute("gas", service.clGas(id, status));
-			model.addAttribute("desk", service.clDesk(id, status));
+		List<InfoDTO> info = service.info(memId);
+		model.addAttribute("info", info);
+		if(service.chlist2(memId, status) == 1) {
+			model.addAttribute("site", service.clSite(memId, status));
+			model.addAttribute("tent", service.clTent(memId, status));
+			model.addAttribute("taf", service.clTaf(memId, status));
+			model.addAttribute("waterjug", service.clWaterjug(memId, status));
+			model.addAttribute("stove", service.clStove(memId, status));
+			model.addAttribute("light", service.clLight(memId, status));
+			model.addAttribute("mat", service.clMat(memId, status));
+			model.addAttribute("sb", service.clSb(memId, status));
+			model.addAttribute("chair", service.clChair(memId, status));
+			model.addAttribute("gas", service.clGas(memId, status));
+			model.addAttribute("desk", service.clDesk(memId, status));
 		}
 		model.addAttribute("st", service.chlist(id,status));
 		return "member/checklist2";
 	}
-	
 	@RequestMapping("checklist3")
 	public String checklist3(String id,int status,  Model model, HttpSession session) {		
 		String memId = (String)session.getAttribute("memId");
-		if(service.chlist2(id, status) == 1) {
-			model.addAttribute("site", service.clSite(id, status));
-			model.addAttribute("tent", service.clTent(id, status));
-			model.addAttribute("taf", service.clTaf(id, status));
-			model.addAttribute("waterjug", service.clWaterjug(id, status));
-			model.addAttribute("stove", service.clStove(id, status));
-			model.addAttribute("light", service.clLight(id, status));
-			model.addAttribute("mat", service.clMat(id, status));
-			model.addAttribute("sb", service.clSb(id, status));
-			model.addAttribute("chair", service.clChair(id, status));
-			model.addAttribute("gas", service.clGas(id, status));
-			model.addAttribute("desk", service.clDesk(id, status));
+	    List<InfoDTO> info = service.info(memId);
+		if(service.chlist2(memId, status) == 1) {
+			model.addAttribute("site", service.clSite(memId, status));
+			model.addAttribute("tent", service.clTent(memId, status));
+			model.addAttribute("taf", service.clTaf(memId, status));
+			model.addAttribute("waterjug", service.clWaterjug(memId, status));
+			model.addAttribute("stove", service.clStove(memId, status));
+			model.addAttribute("light", service.clLight(memId, status));
+			model.addAttribute("mat", service.clMat(memId, status));
+			model.addAttribute("sb", service.clSb(memId, status));
+			model.addAttribute("chair", service.clChair(memId, status));
+			model.addAttribute("gas", service.clGas(memId, status));
+			model.addAttribute("desk", service.clDesk(memId, status));
 		}
 		model.addAttribute("st", service.chlist(id,status));
-		
+		model.addAttribute("info", info);
 		return "member/checklist3";
 	}
 
@@ -331,14 +316,10 @@ public class MemberController {
 		model.addAttribute("gas", service.clGas(id, status));
 		model.addAttribute("desk", service.clDesk(id, status));
 		model.addAttribute("st", service.chlist(id,status));
-		
-		
-		
 		return "member/review";
 	}
 	@RequestMapping("review2")
 	public String reviewEquip(Model model, String id, int status, int category) {
-		
 		model.addAttribute("site", service.clSite(id, status));
 		model.addAttribute("tent", service.clTent(id, status));
 		model.addAttribute("taf", service.clTaf(id, status));
@@ -352,10 +333,8 @@ public class MemberController {
 		model.addAttribute("desk", service.clDesk(id, status));
 		model.addAttribute("st", service.chlist(id,status));
 		model.addAttribute("category", category);
-		
 		return "member/review2";
 	}
-
 	@RequestMapping("reviewPro")
 	public String reviewPro(ReviewDTO dto,String id, int num, int status, Model model) {
 
@@ -367,26 +346,25 @@ public class MemberController {
 	}
 	// 즐겨찾기 & 종아요 해둔 게시글을 불러옴.
 	@RequestMapping("favorite")
-	public String favorite(String id, Model model, HttpSession session, String pageNum) {
+	public String favorite(Model model, HttpSession session, String pageNum) {
 		String memId = (String)session.getAttribute("memId");
-
 		if(pageNum == null) pageNum = "1";
 		int pageSize = 6;
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize+1 ;
 		int endRow = (currentPage) * pageSize ;
 		int count = 0;
-	    count = service.favoCount(id);
-	    
+	    count = service.favoCount(memId);
 	    List<EquipDTO> equipList = null;
 	    List<SpotDTO> campList = null;
+	    List<InfoDTO> info = service.info(memId);
 		int pageCount = 0;
 		int pageBlock = 10;
 		int startPage = 0;
 		int endPage = 0;
 	    if(count > 0) {
-	    	equipList = service.favoEquip(id, startRow, endRow);
-	    	campList = service.favoCamp(id, startRow, endRow);
+	    	equipList = service.favoEquip(memId, startRow, endRow);
+	    	campList = service.favoCamp(memId, startRow, endRow);
 			pageCount = count / pageSize + (count%pageSize ==0 ? 0 : 1);
 			startPage = (int)((currentPage / pageBlock)*pageBlock +1);
 			endPage = startPage + pageBlock - 1;
@@ -394,30 +372,27 @@ public class MemberController {
 				endPage = pageCount;
 			}
 	    }
-	    
-	    model.addAttribute("result", service.favoCount(id));
-	    model.addAttribute("campResult", service.favoCampCh(id));
-	    model.addAttribute("equipResult", service.favoEquipCh(id));
+	    model.addAttribute("info", info);
+	    model.addAttribute("result", service.favoCount(memId));
+	    model.addAttribute("campResult", service.favoCampCh(memId));
+	    model.addAttribute("equipResult", service.favoEquipCh(memId));
 	    model.addAttribute("equipList", equipList);
 	    model.addAttribute("campList", campList);
-	    
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);
 		model.addAttribute("count", count);
-		
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("pageBlock", pageBlock);
 		model.addAttribute("startPage",startPage);
 		model.addAttribute("endPage",endPage);
 		return "member/favorite";
 	}
-
 	//즐겨찾기 캠핑장
 	@RequestMapping("favoCamp")
-	public String favoCamp(FavoriteDTO dto, String id, Model model, HttpSession session, String pageNum) {
+	public String favoCamp(FavoriteDTO dto, Model model, HttpSession session, String pageNum) {
 		String memId = (String)session.getAttribute("memId");
 		
 		if(pageNum == null) pageNum = "1";
@@ -427,15 +402,15 @@ public class MemberController {
 	    int endRow = currentPage * pageSize;
 	    int count = 0;
 	    int number=0;
-	    count = service.favoCount(id);
-
+	    count = service.favoCount(memId);
+	    List<InfoDTO> info = service.info(memId);
 	    List<SpotDTO> campList = null;
 		int pageCount = 0;
 		int pageBlock = 10;
 		int startPage = 0;
 		int endPage = 0;
 	    if(count > 0) {
-	    	campList = service.favoCamp(id, startRow, endRow);
+	    	campList = service.favoCamp(memId, startRow, endRow);
 			pageCount = count / pageSize + (count%pageSize ==0 ? 0 : 1);
 			startPage = (int)((currentPage / pageBlock)*pageBlock +1);
 			endPage = startPage + pageBlock - 1;
@@ -443,11 +418,10 @@ public class MemberController {
 				endPage = pageCount;
 			}
 	    }
-		
-	    model.addAttribute("result", service.favoCount(id));
+	    model.addAttribute("result", service.favoCount(memId));
 	    model.addAttribute("campList", campList);
-	    model.addAttribute("campResult", service.favoCampCh(id));
-	    
+	    model.addAttribute("campResult", service.favoCampCh(memId));
+	    model.addAttribute("info", info);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("currentPage", currentPage);
@@ -462,24 +436,23 @@ public class MemberController {
 	}
 	//즐겨찾기 장비
 	@RequestMapping("favoEquip")
-	public String favoEquip(FavoriteDTO dto, String id, Model model, HttpSession session, String pageNum) {
+	public String favoEquip(FavoriteDTO dto,  Model model, HttpSession session, String pageNum) {
 		String memId = (String)session.getAttribute("memId");
-		
 		if(pageNum == null) pageNum = "1";
 		int pageSize = 5;
 		int currentPage = Integer.parseInt(pageNum);
 	    int startRow = (currentPage - 1) * pageSize + 1;
 	    int endRow = currentPage * pageSize;
 	    int count = 0;
-	    count = service.favoCount(id);
-	    
+	    count = service.favoCount(memId);
+	    List<InfoDTO> info = service.info(memId);
 	    List<EquipDTO> equipList = null;
 		int pageCount = 0;
 		int pageBlock = 10;
 		int startPage = 0;
 		int endPage = 0;
 	    if(count > 0) {
-	    	equipList = service.favoEquip(id, startRow, endRow);
+	    	equipList = service.favoEquip(memId, startRow, endRow);
 			pageCount = count / pageSize + (count%pageSize ==0 ? 0 : 1);
 			startPage = (int)((currentPage / pageBlock)*pageBlock +1);
 			endPage = startPage + pageBlock - 1;
@@ -487,11 +460,10 @@ public class MemberController {
 				endPage = pageCount;
 			}
 	    }
-	    
-	    model.addAttribute("result", service.favoCount(id));
-	    model.addAttribute("equipResult", service.favoEquipCh(id));
+	    model.addAttribute("info", info);
+	    model.addAttribute("result", service.favoCount(memId));
+	    model.addAttribute("equipResult", service.favoEquipCh(memId));
 		model.addAttribute("equipList", equipList);
-
 	    model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("currentPage", currentPage);
@@ -518,7 +490,7 @@ public class MemberController {
 	
 	// 내 작성글 보기
 	@RequestMapping("myBoard")
-	public String list(String pageNum , Model model, HttpSession session, BoardDTO dto) {	
+	public String list(String pageNum , Model model, HttpSession session, BoardDTO dto, String nickname) {	
 		String memId = (String)session.getAttribute("memId");
 		if(pageNum == null) pageNum = "1";
 		int pageSize = 10;
@@ -527,13 +499,14 @@ public class MemberController {
 	    int endRow = currentPage * pageSize;
 	    int count = 0;
 	    int number=0;
-	    count = service.myBoard(memId);
+	    count = service.myBoard(nickname);
 	    List<BoardDTO> list = null;
+	    List<InfoDTO> info = service.info(memId);
 	    if(count > 0) {
-	    	list = service.getList(memId, startRow, endRow);
+	    	list = service.getList(nickname, startRow, endRow);
 	    }
 	    number=count-(currentPage-1)*pageSize;
-		
+	    model.addAttribute("info", info);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("currentPage", currentPage);
@@ -542,7 +515,6 @@ public class MemberController {
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 		model.addAttribute("number", number);
-	
 		return "member/myBoard";
 	}
 	
