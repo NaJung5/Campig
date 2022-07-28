@@ -81,12 +81,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 내 작성글
 	@Override
-	public int myBoard(String id) {
-		return mapper.myBoard(id);
+	public int myBoard(String nickname) {
+		return mapper.myBoard(nickname);
 	}
 	@Override
-	public List<BoardDTO> getList(String id, int startRow, int endRow){
-		return mapper.getList(id, startRow, endRow);
+	public List<BoardDTO> getList(String nickname, int startRow, int endRow){
+		return mapper.getList(nickname, startRow, endRow);
 	}
 	
 	

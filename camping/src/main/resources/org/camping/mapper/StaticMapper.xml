@@ -53,13 +53,17 @@
 	</update>	
 	
 	<select id="getStaticValue" resultType="org.camping.model.StaticDTO" parameterType="int">
-		<![CDATA[
-		    SELECT * FROM 
+	    SELECT * FROM 
     		(SELECT ROWNUM r , a.* FROM 
-    		(select staticname,staticvalue from staticdata 
+	    		(select staticname,staticvalue from staticdata 
     		where staticnum = ${staticnum} order by staticvalue desc) a)
-    		WHERE ROWNUM < 6
-		]]>
+    		<if test="staticnum>4">
+    		 stat, spotcategory cat
+    		</if>
+    	<![CDATA[WHERE ROWNUM < 6]]>
+    	<if test="staticnum>4">
+    		and stat.staticName = cat.cate
+    	</if>
 	</select>
 	
 	<select id="getCatName" resultType="String" parameterType="String">

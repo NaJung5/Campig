@@ -34,8 +34,8 @@ public interface MemberService {
 	public List<InfoDTO> info(String id);
 	public void userInfo(MemberDTO dto);
 	//내 작성글
-	public int myBoard(String id);
-	public List<BoardDTO> getList(String id, int startRow, int endRow);
+	public int myBoard(String nickname);
+	public List<BoardDTO> getList(String nickname, int startRow, int endRow);
 
 	//체크리스트 수정
 	public void chModify(ChecklistDTO dto);

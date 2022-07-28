@@ -90,12 +90,13 @@ public class SpotController {
 		model.addAttribute("nonLog", service.getPopularList());
 		
 		// 설문 했을때 캠핑장 추천
-		String answer = service.checkAns(memId);
-		String[] ans = answer.split(",");
-		model.addAttribute("count",service.getCountCheck(ans));
-		model.addAttribute("answer",answer);
-		model.addAttribute("log", service.getSearchCheck(ans, 1, 8));
-		
+		if(memId != null) {
+			String answer = service.checkAns(memId);
+			String[] ans = answer.split(",");
+			model.addAttribute("count",service.getCountCheck(ans));
+			model.addAttribute("answer",answer);
+			model.addAttribute("log", service.getSearchCheck(ans, 1, 8));
+		}
 		return "spot/main";
 	}
 	// 지도 검색

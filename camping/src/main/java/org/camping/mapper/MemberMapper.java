@@ -44,9 +44,9 @@ public interface MemberMapper {
 	public void userInfo(MemberDTO dto);
 	
 	//내 작성글 확인
-	public int myBoard(@Param("id")String id);
+	public int myBoard(@Param("nickname") String nickname);
 	//내 작성글 보기
-	public List<BoardDTO> getList(@Param("id")String id, @Param("startRow")int startRow, @Param("endRow")int endRow);
+	public List<BoardDTO> getList(@Param("nickname")String nickname, @Param("startRow")int startRow, @Param("endRow")int endRow);
 
 	// 즐겨찾기 전채 갯수
 	public int favoCount(String id);

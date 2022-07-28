@@ -13,7 +13,7 @@
 		<div id="wrapper">
 			<section class="tiles">
 				<!-- 설문 안했을 때  -->
-				<c:if test="${answer == null}">
+				<c:if test="${answer == null || adId != null}">
 					<c:forEach var="list" items="${nonLog}">
 						<c:if test="${list.image == null }" >
 							<article class="style8">

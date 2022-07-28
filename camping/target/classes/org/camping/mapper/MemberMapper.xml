@@ -58,14 +58,14 @@
 	</select>
 	
 	<select id = "myBoard" resultType = "int">
-		select count(*) from board where writer=#{id} 
+		select count(*) from board  where writer =#{nickname}
 	</select>
 	
 	<select id ="getList" resultType = "org.camping.model.BoardDTO" >
 		<![CDATA[
 		select * from 
 			(select board.* , rownum r from 
-				(select  *  from board where writer=#{id} order by boardNum desc)board) 
+				(select  *  from board where writer=#{nickname} order by boardnum desc)board) 
 					where r >= #{startRow} and r <= #{endRow}
 		]]>	
 	</select>
@@ -101,21 +101,7 @@
 		select count(*) from favorite where status = '0' 
 	</select>
 	
-	<select id="getCountFil" resultType="Integer">
-		select regexp_count(ans5,',') from account where id=#{id}
-	</select>
 	
-	<select id="getFil" resultType="String">
-		select regexp_substr(ans5,'[^,]+',1,#{filNum}) from account where id=#{id}
-	</select>
-	
-	<select id="getContentFil" resultType="org.camping.model.EqcategoryDTO">
-		select * from account where ans5 in (
-		<foreach collection="ans5" item="ans5" separator=",">
-			#{ans5}
-		</foreach>
-		)
-	</select>
 
 	<select id = "chlist" resultType = "org.camping.model.ChecklistDTO">
 		select * from checklist where id=#{id} and status=#{status}

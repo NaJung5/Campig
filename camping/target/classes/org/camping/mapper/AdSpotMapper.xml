@@ -12,7 +12,7 @@
 	</select>
 	<insert id="addSpot" parameterType="org.camping.model.SpotDTO">
 		insert into spot(num, status, name, read, score, phone, addr, lng, lat, image, page, cate, tag, reg)
-				 values(998, 0, #{name}, 0, 0, #{phone}, #{addr}, #{lng}, #{lat}, #{image}, #{page}, #{cate}, #{tag}, sysdate)
+				 values(spot_seq.nextval, 0, #{name}, 0, 0, #{phone}, #{addr}, #{lng}, #{lat}, #{image}, #{page}, #{cate}, #{tag}, sysdate)
 	</insert>
 	<update id="deletSpot">
 		update spot set status = #{status} where num = #{num}

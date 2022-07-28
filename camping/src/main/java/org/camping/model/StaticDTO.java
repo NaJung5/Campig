@@ -7,10 +7,6 @@ public class StaticDTO {
 	
 	public String staticName;
 	public int staticValue;
-	
 	public String fil;
-
-	
-	
-
+	public String exp;
 }
